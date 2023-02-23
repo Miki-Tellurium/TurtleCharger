@@ -1,0 +1,170 @@
+plugins {
+    id 'eclipse'
+    id 'maven-publish'
+    id 'net.minecraftforge.gradle' version '5.1.+'
+    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+}
+
+version = project.turtlecharger_version
+group = 'com.yourname.turtlecharger'
+archivesBaseName = 'turtlecharger'
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
+minecraft {
+
+    //mappings channel: 'official', version: '1.19.2'
+    mappings channel: 'parchment', version: '2022.11.27-1.19.2'
+
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            property 'forge.logging.console.level', 'debug'
+
+            property 'forge.enabledGameTestNamespaces', 'turtlecharger'
+
+            mods {
+                turtlecharger {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            property 'forge.logging.console.level', 'debug'
+
+            property 'forge.enabledGameTestNamespaces', 'turtlecharger'
+
+            mods {
+                turtlecharger {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        gameTestServer {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            property 'forge.logging.console.level', 'debug'
+
+            property 'forge.enabledGameTestNamespaces', 'turtlecharger'
+
+            mods {
+                turtlecharger {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            property 'forge.logging.console.level', 'debug'
+
+            args '--mod', 'turtlecharger', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+
+            mods {
+                turtlecharger {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+repositories {
+    maven {
+        // JEI
+        name = "Progwml6 maven"
+        url = "https://dvs1.progwml6.com/files/maven/"
+    }
+    maven {
+        // JEI mirror (for fallback)
+        name = "ModMaven"
+        url = "https://modmaven.dev"
+    }
+    maven {
+        // The One Probe
+        url = 'https://cursemaven.com'
+    }
+    repositories {
+        // Mekanism
+        maven { url 'https://modmaven.dev/' }
+    }
+    maven {
+        // CC:Tweaked
+        name = "Squiddev maven cct"
+        url = 'https://squiddev.cc/maven/'
+    }
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.19.2-43.2.4'
+
+    compileOnly fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}")
+    runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")  // at runtime, use the full JEI jar
+
+    implementation fg.deobf("curse.maven:the-one-probe-245211:3965693")
+
+    implementation fg.deobf("curse.maven:cofh_core-69162:4385216")
+    implementation fg.deobf("curse.maven:thermal_expansion-69163:4382371")
+    implementation fg.deobf("curse.maven:thermal_foundation-222880:4382373")
+
+    compileOnly "mekanism:Mekanism:${mekanism_version}:api"
+    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}")// core
+    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}:additions")// Mekanism: Additions
+    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}:generators")// Mekanism: Generators
+    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}:tools")// Mekanism: Tools
+
+    implementation fg.deobf("org.squiddev:cc-tweaked-${mc_version}:${cc_version}")
+
+}
+
+jar {
+    manifest {
+        attributes([
+                "Specification-Title"     : "Turtle Charger",
+                "Specification-Vendor"    : "turtlecharger",
+                "Specification-Version"   : "1.0.0-1.19.2",
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : project.jar.archiveVersion,
+                "Implementation-Vendor"   : "Miki Tellurium",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}
+
+jar.finalizedBy('reobfJar')
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+        }
+    }
+    repositories {
+        maven {
+            url "file://${project.projectDir}/mcmodsrepo"
+        }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
