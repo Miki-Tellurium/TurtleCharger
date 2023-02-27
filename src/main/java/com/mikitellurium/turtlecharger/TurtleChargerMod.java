@@ -5,6 +5,7 @@ import com.mikitellurium.turtlecharger.blockentity.ModBlockEntities;
 import com.mikitellurium.turtlecharger.gui.ModMenuTypes;
 import com.mikitellurium.turtlecharger.gui.TurtleChargerGui;
 import com.mikitellurium.turtlecharger.item.ModItems;
+import com.mikitellurium.turtlecharger.networking.ModMessages;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.api.distmarker.Dist;
@@ -28,6 +29,7 @@ public class TurtleChargerMod {
 
         modEventBus.addListener(this::commonSetup);
 
+        ModMessages.register();
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         ModItems.register(modEventBus);
