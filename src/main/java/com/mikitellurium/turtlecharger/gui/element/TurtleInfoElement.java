@@ -34,7 +34,7 @@ public class TurtleInfoElement extends GuiComponent {
         int x = area.getX();
         int y = area.getY();
         drawCenteredString(poseStack, font, "Name", x + 55, y + 1, white);
-        drawString(poseStack, font, "Fuel Level", x + area.getWidth() - 15, y + 1, white);
+        drawString(poseStack, font, "Fuel Level", x + area.getWidth() - 14, y + 1, white);
         int h = y;
         for (Direction direction : Direction.values()) {
             h = h + 12;
