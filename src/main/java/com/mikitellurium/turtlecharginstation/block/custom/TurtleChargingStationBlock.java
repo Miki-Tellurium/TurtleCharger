@@ -26,7 +26,7 @@ public class TurtleChargingStationBlock extends BaseEntityBlock {
     public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
 
     public TurtleChargingStationBlock() {
-        super(Properties.of(Material.METAL).strength(4.0F, 6.0F).sound(SoundType.METAL));
+        super(Properties.of(Material.METAL).strength(3.0F, 6.0F).sound(SoundType.METAL));
         this.registerDefaultState(this.stateDefinition.any().setValue(ENABLED, Boolean.valueOf(true)));
     }
 

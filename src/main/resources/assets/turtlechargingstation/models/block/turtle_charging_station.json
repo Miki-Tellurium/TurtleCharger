@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "minecraft:block/blast_furnace_front"
+    "all": "turtlechargingstation:block/turtle_charging_station"
   }
 }
