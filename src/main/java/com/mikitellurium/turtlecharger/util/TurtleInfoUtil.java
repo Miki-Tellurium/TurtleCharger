@@ -16,7 +16,7 @@ public class TurtleInfoUtil {
         BlockEntity be = charger.getLevel().getBlockEntity(charger.getBlockPos().relative(direction));
         // Adjacent isn't a block entity
         if (be == null) {
-            return "  -";
+            return "-";
         }
         // Adjacent is a turtle
         if (be.getBlockState().getBlock() == Registry.ModBlocks.TURTLE_NORMAL.get() ||
@@ -32,7 +32,7 @@ public class TurtleInfoUtil {
         if (canSendEnergy(charger)) {
             return  "Energy";
         } else {
-            return  "  -";
+            return  "-";
         }
     }
 

@@ -33,16 +33,15 @@ public class TurtleInfoElement extends GuiComponent {
     public void draw(PoseStack poseStack) {
         int x = area.getX();
         int y = area.getY();
-        int letterWidth = 6;
-        drawString(poseStack, font, "Name", x + letterWidth * 7, y + 1, white);
+        drawCenteredString(poseStack, font, "Name", x + 55, y + 1, white);
         drawString(poseStack, font, "Fuel Level", x + area.getWidth() - 15, y + 1, white);
         int h = y;
         for (Direction direction : Direction.values()) {
             h = h + 12;
             drawString(poseStack, font, getDirectionString(direction), alignString(getDirectionString(direction), x), h, white);
-            drawString(poseStack, font, TurtleInfoUtil.getAdjacentTurtleName(charger, direction), x + 35, h,
+            drawCenteredString(poseStack, font, TurtleInfoUtil.getAdjacentTurtleName(charger, direction), x + 55, h,
                     TurtleInfoUtil.getAdjacentTurtleColor(charger, direction));
-            drawString(poseStack, font, getFuelString(TurtleInfoUtil.getAdjacentTurtleFuel(charger, direction)), x + 110, h, white);
+            drawCenteredString(poseStack, font, getFuelString(TurtleInfoUtil.getAdjacentTurtleFuel(charger, direction)), x + 110, h, white);
         }
     }
 
@@ -55,12 +54,12 @@ public class TurtleInfoElement extends GuiComponent {
             case "west":  return " West:";
             case "east":  return " East:";
         }
-        return "  -";
+        return "-";
     }
 
     private String getFuelString(int fuelLevel) {
         if (fuelLevel == -1) {
-            return "  -";
+            return "-";
         }
         return String.valueOf(fuelLevel);
     }
