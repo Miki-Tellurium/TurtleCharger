@@ -3,6 +3,7 @@ package com.mikitellurium.turtlecharger.networking;
 import com.mikitellurium.turtlecharger.TurtleChargerMod;
 import com.mikitellurium.turtlecharger.gui.TurtleChargerGui;
 import com.mikitellurium.turtlecharger.networking.packets.EnergySyncS2CPacket;
+import com.mikitellurium.turtlecharger.networking.packets.TurtleFuelSyncS2CPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
@@ -32,6 +33,11 @@ public class ModMessages {
                 .decoder(EnergySyncS2CPacket::new)
                 .encoder(EnergySyncS2CPacket::toBytes)
                 .consumerMainThread(EnergySyncS2CPacket::handle)
+                .add();
+        net.messageBuilder(TurtleFuelSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(TurtleFuelSyncS2CPacket::new)
+                .encoder(TurtleFuelSyncS2CPacket::toBytes)
+                .consumerMainThread(TurtleFuelSyncS2CPacket::handle)
                 .add();
     }
 

@@ -23,7 +23,7 @@ public class EnergyStorageElement extends GuiComponent {
     private final int width = 16;
     private final int height = textureHeight;
 
-    public EnergyStorageElement(int xPos, int yPos, EnergyStorage energyStorage) {
+    public EnergyStorageElement(EnergyStorage energyStorage, int xPos, int yPos) {
         area = new Rect2i(xPos, yPos, width, height);
         this.energyStorage = energyStorage;
     }

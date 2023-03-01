@@ -6,6 +6,8 @@ import com.mikitellurium.turtlecharger.energy.ModEnergyStorage;
 import com.mikitellurium.turtlecharger.gui.TurtleChargerMenu;
 import com.mikitellurium.turtlecharger.networking.ModMessages;
 import com.mikitellurium.turtlecharger.networking.packets.EnergySyncS2CPacket;
+import com.mikitellurium.turtlecharger.networking.packets.TurtleFuelSyncS2CPacket;
+import com.mikitellurium.turtlecharger.util.DebugUtil;
 import dan200.computercraft.shared.Registry;
 import dan200.computercraft.shared.turtle.blocks.TileTurtle;
 import net.minecraft.core.BlockPos;
@@ -30,8 +32,8 @@ import org.jetbrains.annotations.Nullable;
 public class TurtleChargerBlockEntity extends BlockEntity implements MenuProvider {
 
     private final int capacity = 128000;
-    private final int maxReceive = 1024;
-    private static final int conversionRate = 300; // Based on Thermal Expansion stirling dynamo coal rate
+    private static final int conversionRate = 300; // Based on Thermal Expansion stirling dynamo production rate using coal
+    private final int maxReceive = conversionRate * 6; //  6 sides
     private final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(capacity, maxReceive) {
         @Override
         public void onEnergyChanged() {
@@ -61,11 +63,13 @@ public class TurtleChargerBlockEntity extends BlockEntity implements MenuProvide
                     be.getBlockState().getBlock() == Registry.ModBlocks.TURTLE_ADVANCED.get()) {
                 if (charger.ENERGY_STORAGE.getEnergyStored() >= conversionRate &&
                         charger.getBlockState().getValue(TurtleChargerBlock.ENABLED)) {
-                    refuelTurtle(charger, (TileTurtle) be);
+                    TileTurtle turtle = (TileTurtle) be;
+                    refuelTurtle(charger, turtle);
+                    // Sync with client for gui
+                    ModMessages.sendToClients(new TurtleFuelSyncS2CPacket(turtle.getAccess().getFuelLevel(), turtle.getBlockPos()));
                 }
             }
         }
-
     }
 
     private static void refuelTurtle(TurtleChargerBlockEntity charger ,TileTurtle turtle) {

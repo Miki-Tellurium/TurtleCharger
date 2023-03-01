@@ -2,6 +2,7 @@ package com.mikitellurium.turtlecharger.gui;
 
 import com.mikitellurium.turtlecharger.TurtleChargerMod;
 import com.mikitellurium.turtlecharger.gui.element.EnergyStorageElement;
+import com.mikitellurium.turtlecharger.gui.element.TurtleInfoElement;
 import com.mikitellurium.turtlecharger.util.MouseUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -18,7 +19,8 @@ public class TurtleChargerGui extends AbstractContainerScreen<TurtleChargerMenu>
 
     private static final ResourceLocation GUI_TEXTURE =
             new ResourceLocation(TurtleChargerMod.MOD_ID, "textures/gui/turtle_charger_gui.png");
-    private EnergyStorageElement energyStorageElement;
+    private EnergyStorageElement energyStorage;
+    private TurtleInfoElement turtleInfo;
 
     public TurtleChargerGui(TurtleChargerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
@@ -29,18 +31,22 @@ public class TurtleChargerGui extends AbstractContainerScreen<TurtleChargerMenu>
         super.init();
         int xPos = (width - imageWidth) / 2;
         int yPos = (height - imageHeight) / 2;
-        energyStorageElement = new EnergyStorageElement(xPos + 10, yPos + 15, menu.getBlockEntity().getEnergyStorage());
+        energyStorage = new EnergyStorageElement(menu.getBlockEntity().getEnergyStorage(), xPos + 8, yPos + 16);
+        turtleInfo = new TurtleInfoElement(menu.getBlockEntity(), xPos + 30, yPos + 16);
     }
 
     @Override
     protected void renderBg(PoseStack pPoseStack, float pPartialTick, int pMouseX, int pMouseY) {
         int xPos = (width - imageWidth) / 2;
         int yPos = (height - imageHeight) / 2;
+        int textureWidth = 176;
+        int textureHeight = 110;
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         RenderSystem.setShaderTexture(0, GUI_TEXTURE);
-        blit(pPoseStack, xPos, yPos, 0, 0, 176, 105, 176, 105);
-        energyStorageElement.draw(pPoseStack);
+        blit(pPoseStack, xPos, yPos, 0, 0, textureWidth, textureHeight, textureWidth, textureHeight);
+        energyStorage.draw(pPoseStack);
+        turtleInfo.draw(pPoseStack);
     }
 
     @Override
@@ -60,9 +66,9 @@ public class TurtleChargerGui extends AbstractContainerScreen<TurtleChargerMenu>
     }
 
     private void renderEnergyAreaTooltips(PoseStack pPoseStack, int pMouseX, int pMouseY, int x, int y) {
-        Rect2i area = energyStorageElement.getArea();
+        Rect2i area = energyStorage.getArea();
         if(MouseUtil.isAboveArea(pMouseX, pMouseY, area.getX(), area.getY(), area.getWidth(), area.getHeight())) {
-            renderTooltip(pPoseStack, energyStorageElement.getTooltips(),
+            renderTooltip(pPoseStack, energyStorage.getTooltips(),
                     Optional.empty(), pMouseX - x, pMouseY - y);
         }
     }
