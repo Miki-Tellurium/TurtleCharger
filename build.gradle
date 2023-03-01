@@ -5,9 +5,9 @@ plugins {
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
 }
 
-version = project.turtlecharger_version
-group = 'com.yourname.turtlecharger'
-archivesBaseName = 'turtlecharger'
+version = project.turtlechargingstation_version
+group = 'com.mikitellurium.turtlechargingstation'
+archivesBaseName = 'turtlechargingstation'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
@@ -26,10 +26,10 @@ minecraft {
 
             property 'forge.logging.console.level', 'debug'
 
-            property 'forge.enabledGameTestNamespaces', 'turtlecharger'
+            property 'forge.enabledGameTestNamespaces', 'turtlechargingstation'
 
             mods {
-                turtlecharger {
+                turtlechargingstation {
                     source sourceSets.main
                 }
             }
@@ -42,10 +42,10 @@ minecraft {
 
             property 'forge.logging.console.level', 'debug'
 
-            property 'forge.enabledGameTestNamespaces', 'turtlecharger'
+            property 'forge.enabledGameTestNamespaces', 'turtlechargingstation'
 
             mods {
-                turtlecharger {
+                turtlechargingstation {
                     source sourceSets.main
                 }
             }
@@ -58,10 +58,10 @@ minecraft {
 
             property 'forge.logging.console.level', 'debug'
 
-            property 'forge.enabledGameTestNamespaces', 'turtlecharger'
+            property 'forge.enabledGameTestNamespaces', 'turtlechargingstation'
 
             mods {
-                turtlecharger {
+                turtlechargingstation {
                     source sourceSets.main
                 }
             }
@@ -74,10 +74,10 @@ minecraft {
 
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', 'turtlecharger', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', 'turtlechargingstation', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
-                turtlecharger {
+                turtlechargingstation {
                     source sourceSets.main
                 }
             }
@@ -139,8 +139,8 @@ dependencies {
 jar {
     manifest {
         attributes([
-                "Specification-Title"     : "Turtle Charger",
-                "Specification-Vendor"    : "turtlecharger",
+                "Specification-Title"     : "Turtle Charging Station",
+                "Specification-Vendor"    : "turtlechargingstation",
                 "Specification-Version"   : "1.0.0-1.19.2",
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,

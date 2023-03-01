@@ -5,26 +5,32 @@ license="MIT License"
 #issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/" #optional
 
 [[mods]] #mandatory
-modId="turtlecharger" #mandatory
+modId="turtlechargingstation" #mandatory
 version="1.0.0-1.19.2" #mandatory
-displayName="Turtle Charger" #mandatory
+displayName="Turtle Charging Station" #mandatory
 #updateJSONURL="https://change.me.example.invalid/updates.json" #optional
 #displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
-logoFile="turtlechargerlogo.png" #optional
+logoFile="turtlechargingstationlogo.png" #optional
 #credits="Thanks for this example mod goes to Java" #optional
 authors="Miki Tellurium" #optional
 #displayTest="MATCH_VERSION" # MATCH_VERSION is the default if nothing is specified (#optional)
 description='''Adds a block that can charge CC:Tweaked turtles using Forge Energy'''
 
-[[dependencies.turtlecharger]] #optional
+[[dependencies.turtlechargingstation]] #optional
     modId="forge" #mandatory
     mandatory=true #mandatory
     versionRange="[43,)" #mandatory
     ordering="NONE"
     side="BOTH"
-[[dependencies.turtlecharger]]
+[[dependencies.turtlechargingstation]]
     modId="minecraft"
     mandatory=true
     versionRange="[1.19.2,1.19.3)"
     ordering="NONE"
     side="BOTH"
+[[dependencies.turtlechargingstation]]
+modId="computercraft"
+mandatory=true
+versionRange="[1.101.2,1.102)"
+ordering="NONE"
+side="BOTH"
