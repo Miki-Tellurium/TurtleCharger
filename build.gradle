@@ -100,6 +100,7 @@ repositories {
     }
     maven {
         // The One Probe
+        // Thermal Expansion
         url = 'https://cursemaven.com'
     }
     repositories {
@@ -133,7 +134,6 @@ dependencies {
     runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}:tools")// Mekanism: Tools
 
     implementation fg.deobf("org.squiddev:cc-tweaked-${mc_version}:${cc_version}")
-
 }
 
 jar {
