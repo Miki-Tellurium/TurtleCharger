@@ -14,8 +14,8 @@ public class ModMenuTypes {
     public static final DeferredRegister<MenuType<?>> MENUS =
             DeferredRegister.create(ForgeRegistries.MENU_TYPES, TurtleChargingStationMod.MOD_ID);
 
-    public static final RegistryObject<MenuType<TurtleChargerMenu>> TURTLE_CHARGING_STATION_GUI =
-            registerMenuType(TurtleChargerMenu::new, "turtle_charging_station_gui");
+    public static final RegistryObject<MenuType<TurtleChargingStationMenu>> TURTLE_CHARGING_STATION_GUI =
+            registerMenuType(TurtleChargingStationMenu::new, "turtle_charging_station_gui");
 
 
     private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> registerMenuType(IContainerFactory<T> factory,

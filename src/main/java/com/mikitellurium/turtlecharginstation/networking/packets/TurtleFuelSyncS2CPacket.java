@@ -1,6 +1,6 @@
 package com.mikitellurium.turtlecharginstation.networking.packets;
 
-import com.mikitellurium.turtlecharginstation.gui.TurtleChargerMenu;
+import com.mikitellurium.turtlecharginstation.gui.TurtleChargingStationMenu;
 import dan200.computercraft.shared.turtle.blocks.TileTurtle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -35,7 +35,7 @@ public class TurtleFuelSyncS2CPacket {
                 if(Minecraft.getInstance().level.getBlockEntity(pos) instanceof TileTurtle blockEntity) {
                     blockEntity.getAccess().setFuelLevel(fuelLevel);
 
-                    if(Minecraft.getInstance().player.containerMenu instanceof TurtleChargerMenu menu &&
+                    if(Minecraft.getInstance().player.containerMenu instanceof TurtleChargingStationMenu menu &&
                             menu.getBlockEntity().getBlockPos().equals(pos)) {
                         blockEntity.getAccess().setFuelLevel(fuelLevel);
                     }

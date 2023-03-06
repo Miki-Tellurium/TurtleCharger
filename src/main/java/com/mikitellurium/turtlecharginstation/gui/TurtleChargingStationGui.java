@@ -15,14 +15,14 @@ import net.minecraft.world.entity.player.Inventory;
 
 import java.util.Optional;
 
-public class TurtleChargerGui extends AbstractContainerScreen<TurtleChargerMenu> {
+public class TurtleChargingStationGui extends AbstractContainerScreen<TurtleChargingStationMenu> {
 
     private static final ResourceLocation GUI_TEXTURE =
             new ResourceLocation(TurtleChargingStationMod.MOD_ID, "textures/gui/turtle_charging_station_gui.png");
     private EnergyStorageElement energyStorage;
     private TurtleInfoElement turtleInfo;
 
-    public TurtleChargerGui(TurtleChargerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
+    public TurtleChargingStationGui(TurtleChargingStationMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
     }
 
@@ -31,7 +31,7 @@ public class TurtleChargerGui extends AbstractContainerScreen<TurtleChargerMenu>
         super.init();
         int xPos = (width - imageWidth) / 2;
         int yPos = (height - imageHeight) / 2;
-        energyStorage = new EnergyStorageElement(menu.getBlockEntity().getEnergyStorage(), xPos + 8, yPos + 16);
+        energyStorage = new EnergyStorageElement(menu.getBlockEntity().getEnergyStorage(), xPos + 8, yPos + 15);
         turtleInfo = new TurtleInfoElement(menu.getBlockEntity(), xPos + 30, yPos + 16);
     }
 

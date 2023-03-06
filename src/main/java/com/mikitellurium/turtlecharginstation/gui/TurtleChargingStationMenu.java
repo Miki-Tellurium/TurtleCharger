@@ -1,7 +1,7 @@
 package com.mikitellurium.turtlecharginstation.gui;
 
 import com.mikitellurium.turtlecharginstation.block.ModBlocks;
-import com.mikitellurium.turtlecharginstation.blockentity.custom.TurtleChargingStationBlockEntity;
+import com.mikitellurium.turtlecharginstation.block.blockentity.custom.TurtleChargingStationBlockEntity;
 import com.mikitellurium.turtlecharginstation.energy.ModEnergyStorage;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -15,16 +15,16 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.energy.IEnergyStorage;
 
-public class TurtleChargerMenu extends AbstractContainerMenu {
+public class TurtleChargingStationMenu extends AbstractContainerMenu {
 
     private final TurtleChargingStationBlockEntity blockEntity;
     private final Level level;
 
-    protected TurtleChargerMenu(int id, Inventory inventory, FriendlyByteBuf data) {
+    protected TurtleChargingStationMenu(int id, Inventory inventory, FriendlyByteBuf data) {
         this(id, inventory, inventory.player.level.getBlockEntity(data.readBlockPos()));
     }
 
-    public TurtleChargerMenu(int id, Inventory inventory, BlockEntity entity) {
+    public TurtleChargingStationMenu(int id, Inventory inventory, BlockEntity entity) {
         super(ModMenuTypes.TURTLE_CHARGING_STATION_GUI.get(), id);
         blockEntity = (TurtleChargingStationBlockEntity) entity;
         this.level = inventory.player.level;

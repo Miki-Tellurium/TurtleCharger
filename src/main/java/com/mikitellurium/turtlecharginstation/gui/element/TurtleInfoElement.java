@@ -1,14 +1,16 @@
 package com.mikitellurium.turtlecharginstation.gui.element;
 
-import com.mikitellurium.turtlecharginstation.blockentity.custom.TurtleChargingStationBlockEntity;
-import com.mikitellurium.turtlecharginstation.util.TurtleInfoUtil;
+import com.mikitellurium.turtlecharginstation.block.blockentity.custom.TurtleChargingStationBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
+import dan200.computercraft.shared.Registry;
+import dan200.computercraft.shared.turtle.blocks.TileTurtle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.core.Direction;
 import net.minecraft.util.FastColor;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.Objects;
 
@@ -36,9 +38,9 @@ public class TurtleInfoElement extends GuiComponent {
         for (Direction direction : Direction.values()) {
             h = h + 12;
             drawString(poseStack, font, getDirectionString(direction), alignString(getDirectionString(direction), x), h, white);
-            drawCenteredString(poseStack, font, TurtleInfoUtil.getAdjacentTurtleName(charger, direction), x + 55, h,
-                    TurtleInfoUtil.getAdjacentTurtleColor(charger, direction));
-            drawCenteredString(poseStack, font, getFuelString(TurtleInfoUtil.getAdjacentTurtleFuel(charger, direction)), x + 110, h, white);
+            drawCenteredString(poseStack, font, TurtleData.getAdjacentTurtleName(charger, direction), x + 55, h,
+                    TurtleData.getAdjacentTurtleColor(charger, direction));
+            drawCenteredString(poseStack, font, getFuelString(TurtleData.getAdjacentTurtleFuel(charger, direction)), x + 110, h, white);
         }
     }
 
@@ -72,6 +74,69 @@ public class TurtleInfoElement extends GuiComponent {
 
     public Rect2i getArea() {
         return area;
+    }
+
+
+    public static class TurtleData {
+
+        public static String getAdjacentTurtleName(TurtleChargingStationBlockEntity station, Direction direction) {
+            BlockEntity be = station.getLevel().getBlockEntity(station.getBlockPos().relative(direction));
+            // Adjacent isn't a block entity
+            if (be == null) {
+                return "-";
+            }
+            // Adjacent is a turtle
+            if (be.getBlockState().getBlock() == Registry.ModBlocks.TURTLE_NORMAL.get() ||
+                    be.getBlockState().getBlock() == Registry.ModBlocks.TURTLE_ADVANCED.get()) {
+                TileTurtle turtle = ((TileTurtle) be);
+                if (turtle.hasCustomName()) {
+                    return turtle.getLabel();
+                } else {
+                    return String.valueOf(turtle.getComputerID());
+                }
+            }
+
+            return  "-";
+        }
+
+        private static final int white = FastColor.ARGB32.color(255, 255, 255, 255);
+
+        public static int getAdjacentTurtleColor(TurtleChargingStationBlockEntity station, Direction direction) {
+            BlockEntity be = station.getLevel().getBlockEntity(station.getBlockPos().relative(direction));
+            // Adjacent isn't a block entity
+            if (be == null) {
+                return white;
+            }
+            // Adjacent is a turtle
+            if (be.getBlockState().getBlock() == Registry.ModBlocks.TURTLE_NORMAL.get() ||
+                    be.getBlockState().getBlock() == Registry.ModBlocks.TURTLE_ADVANCED.get()) {
+                TileTurtle turtle = ((TileTurtle) be);
+                if (turtle.getColour() == -1) {
+                    return white;
+                } else {
+                    return turtle.getColour();
+                }
+            }
+
+            return white;
+        }
+
+        public static int getAdjacentTurtleFuel(TurtleChargingStationBlockEntity station, Direction direction) {
+            BlockEntity be = station.getLevel().getBlockEntity(station.getBlockPos().relative(direction));
+            // Adjacent isn't a block entity
+            if (be == null) {
+                return -1;
+            }
+            // Adjacent is a turtle
+            if (be.getBlockState().getBlock() == Registry.ModBlocks.TURTLE_NORMAL.get() ||
+                    be.getBlockState().getBlock() == Registry.ModBlocks.TURTLE_ADVANCED.get()) {
+                TileTurtle turtle = ((TileTurtle) be);
+                return turtle.getAccess().getFuelLevel();
+            }
+
+            return -1;
+        }
+
     }
 
 }

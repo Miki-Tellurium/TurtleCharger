@@ -1,8 +1,10 @@
 package com.mikitellurium.turtlecharginstation.block.custom;
 
-import com.mikitellurium.turtlecharginstation.blockentity.ModBlockEntities;
-import com.mikitellurium.turtlecharginstation.blockentity.custom.TurtleChargingStationBlockEntity;
+import com.mikitellurium.turtlecharginstation.block.blockentity.ModBlockEntities;
+import com.mikitellurium.turtlecharginstation.block.blockentity.custom.TurtleChargingStationBlockEntity;
+import dan200.computercraft.shared.Registry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -24,10 +26,13 @@ import org.jetbrains.annotations.Nullable;
 public class TurtleChargingStationBlock extends BaseEntityBlock {
 
     public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
+    public static final BooleanProperty CHARGING = BooleanProperty.create("charging");
 
     public TurtleChargingStationBlock() {
         super(Properties.of(Material.METAL).strength(3.0F, 6.0F).sound(SoundType.METAL));
-        this.registerDefaultState(this.stateDefinition.any().setValue(ENABLED, Boolean.valueOf(true)));
+        this.registerDefaultState(this.stateDefinition.any()
+                .setValue(ENABLED, Boolean.TRUE)
+                .setValue(CHARGING, Boolean.FALSE));
     }
 
     // Block entity stuff
@@ -42,6 +47,7 @@ public class TurtleChargingStationBlock extends BaseEntityBlock {
         return RenderShape.MODEL;
     }
 
+    // Functionality
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand,
                                  BlockHitResult pHit) {
@@ -72,20 +78,21 @@ public class TurtleChargingStationBlock extends BaseEntityBlock {
     @Override
     public <T extends BlockEntity> BlockEntityTicker getTicker(Level pLevel, BlockState pState,
                                                                BlockEntityType<T> pBlockEntityType) {
-        return createTickerHelper(pBlockEntityType, ModBlockEntities.TURTLE_CHARGER.get(),
+        return createTickerHelper(pBlockEntityType, ModBlockEntities.TURTLE_CHARGING_STATION.get(),
                 TurtleChargingStationBlockEntity::tick);
     }
 
-    private void checkPoweredState(Level pLevel, BlockPos pPos, BlockState pState) {
-        boolean flag = !pLevel.hasNeighborSignal(pPos);
-        if (flag != pState.getValue(ENABLED)) {
-            pLevel.setBlock(pPos, pState.setValue(ENABLED, Boolean.valueOf(flag)), 2);
+    private void checkPoweredState(Level level, BlockPos pos, BlockState state) {
+        boolean flag = !level.hasNeighborSignal(pos);
+        if (flag != state.getValue(ENABLED)) {
+            level.setBlock(pos, state.setValue(ENABLED, Boolean.valueOf(flag)), 2);
         }
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(ENABLED);
+        pBuilder.add(CHARGING);
     }
 
 }

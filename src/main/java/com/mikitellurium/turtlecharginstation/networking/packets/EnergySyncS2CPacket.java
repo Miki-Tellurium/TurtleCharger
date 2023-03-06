@@ -1,7 +1,7 @@
 package com.mikitellurium.turtlecharginstation.networking.packets;
 
-import com.mikitellurium.turtlecharginstation.blockentity.custom.TurtleChargingStationBlockEntity;
-import com.mikitellurium.turtlecharginstation.gui.TurtleChargerMenu;
+import com.mikitellurium.turtlecharginstation.block.blockentity.custom.TurtleChargingStationBlockEntity;
+import com.mikitellurium.turtlecharginstation.gui.TurtleChargingStationMenu;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -35,7 +35,7 @@ public class EnergySyncS2CPacket {
                 if(Minecraft.getInstance().level.getBlockEntity(pos) instanceof TurtleChargingStationBlockEntity blockEntity) {
                     blockEntity.setClientEnergy(energy);
 
-                    if(Minecraft.getInstance().player.containerMenu instanceof TurtleChargerMenu menu &&
+                    if(Minecraft.getInstance().player.containerMenu instanceof TurtleChargingStationMenu menu &&
                             menu.getBlockEntity().getBlockPos().equals(pos)) {
                         blockEntity.setClientEnergy(energy);
                     }

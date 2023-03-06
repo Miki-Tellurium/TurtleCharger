@@ -2,7 +2,6 @@ package com.mikitellurium.turtlecharginstation.block;
 
 import com.mikitellurium.turtlecharginstation.TurtleChargingStationMod;
 import com.mikitellurium.turtlecharginstation.block.custom.TurtleChargingStationBlock;
-import com.mikitellurium.turtlecharginstation.item.ModCreativeTab;
 import com.mikitellurium.turtlecharginstation.item.ModItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -21,7 +20,7 @@ public class ModBlocks {
             DeferredRegister.create(ForgeRegistries.BLOCKS, TurtleChargingStationMod.MOD_ID);
 
     public static final RegistryObject<Block> TURTLE_CHARGING_STATION_BLOCK = registerBlock("turtle_charging_station",
-            TurtleChargingStationBlock::new, ModCreativeTab.TAB_TURTLE_CHARGING_STATION);
+            TurtleChargingStationBlock::new, TurtleChargingStationMod.TAB_TURTLE_CHARGING_STATION);
 
     public static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

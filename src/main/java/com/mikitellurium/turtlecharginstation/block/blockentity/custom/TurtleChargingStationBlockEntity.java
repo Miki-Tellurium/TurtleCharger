@@ -1,12 +1,13 @@
-package com.mikitellurium.turtlecharginstation.blockentity.custom;
+package com.mikitellurium.turtlecharginstation.block.blockentity.custom;
 
+import com.mikitellurium.turtlecharginstation.block.blockentity.ModBlockEntities;
 import com.mikitellurium.turtlecharginstation.block.custom.TurtleChargingStationBlock;
-import com.mikitellurium.turtlecharginstation.blockentity.ModBlockEntities;
 import com.mikitellurium.turtlecharginstation.energy.ModEnergyStorage;
-import com.mikitellurium.turtlecharginstation.gui.TurtleChargerMenu;
+import com.mikitellurium.turtlecharginstation.gui.TurtleChargingStationMenu;
 import com.mikitellurium.turtlecharginstation.networking.ModMessages;
 import com.mikitellurium.turtlecharginstation.networking.packets.EnergySyncS2CPacket;
 import com.mikitellurium.turtlecharginstation.networking.packets.TurtleFuelSyncS2CPacket;
+import com.mikitellurium.turtlecharginstation.util.DebugUtil;
 import dan200.computercraft.shared.Registry;
 import dan200.computercraft.shared.turtle.blocks.TileTurtle;
 import net.minecraft.core.BlockPos;
@@ -43,7 +44,7 @@ public class TurtleChargingStationBlockEntity extends BlockEntity implements Men
     private final LazyOptional<IEnergyStorage> lazyEnergyHandler = LazyOptional.of(() -> ENERGY_STORAGE);
 
     public TurtleChargingStationBlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(ModBlockEntities.TURTLE_CHARGER.get(), pPos, pBlockState);
+        super(ModBlockEntities.TURTLE_CHARGING_STATION.get(), pPos, pBlockState);
     }
 
     // Energy stuff
@@ -63,12 +64,18 @@ public class TurtleChargingStationBlockEntity extends BlockEntity implements Men
                 if (charger.ENERGY_STORAGE.getEnergyStored() >= conversionRate &&
                         charger.getBlockState().getValue(TurtleChargingStationBlock.ENABLED)) {
                     TileTurtle turtle = (TileTurtle) be;
+                    level.setBlock(pos, state.setValue(TurtleChargingStationBlock.CHARGING, true), 2);
                     refuelTurtle(charger, turtle);
                     // Sync with client for gui
                     ModMessages.sendToClients(new TurtleFuelSyncS2CPacket(turtle.getAccess().getFuelLevel(), turtle.getBlockPos()));
+                } else {
+                    level.setBlock(pos, state.setValue(TurtleChargingStationBlock.CHARGING, false), 2);
                 }
+            } else {
+                level.setBlock(pos, state.setValue(TurtleChargingStationBlock.CHARGING, false), 2);
             }
         }
+        DebugUtil.info(state.getValue(TurtleChargingStationBlock.CHARGING));
     }
 
     private static void refuelTurtle(TurtleChargingStationBlockEntity charger , TileTurtle turtle) {
@@ -88,7 +95,7 @@ public class TurtleChargingStationBlockEntity extends BlockEntity implements Men
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        return new TurtleChargerMenu(id, inventory, this);
+        return new TurtleChargingStationMenu(id, inventory, this);
     }
 
     @Override
