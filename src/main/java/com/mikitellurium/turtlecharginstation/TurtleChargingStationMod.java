@@ -46,7 +46,7 @@ public class TurtleChargingStationMod {
     }
 
     private void registration(IEventBus modEventBus) {
-        Configuration.registerClientConfig();
+        Configuration.registerConfig();
         ModMessages.register();
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
