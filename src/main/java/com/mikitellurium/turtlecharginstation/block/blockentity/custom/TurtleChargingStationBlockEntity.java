@@ -72,11 +72,15 @@ public class TurtleChargingStationBlockEntity extends BlockEntity implements Men
                 if (chargingStation.ENERGY_STORAGE.getEnergyStored() >= CONVERSION_RATE.get() &&
                         chargingStation.getBlockState().getValue(TurtleChargingStationBlock.ENABLED)) {
                     TileTurtle turtle = (TileTurtle) be;
-                    level.setBlock(pos, state.setValue(TurtleChargingStationBlock.CHARGING, true), 2);
-                    refuelTurtle(chargingStation, turtle);
-                    chargingStation.extractCount++;
-                    // Sync with client for gui
-                    ModMessages.sendToClients(new TurtleFuelSyncS2CPacket(turtle.getAccess().getFuelLevel(), turtle.getBlockPos()));
+                    if (turtle.getAccess().getFuelLevel() == turtle.getAccess().getFuelLimit()) {
+                        chargingStation.extractCount--;
+                    } else {
+                        level.setBlock(pos, state.setValue(TurtleChargingStationBlock.CHARGING, true), 2);
+                        refuelTurtle(chargingStation, turtle);
+                        chargingStation.extractCount++;
+                        // Sync with client for gui
+                        ModMessages.sendToClients(new TurtleFuelSyncS2CPacket(turtle.getAccess().getFuelLevel(), turtle.getBlockPos()));
+                    }
                 } else {
                     chargingStation.extractCount--;
                 }
