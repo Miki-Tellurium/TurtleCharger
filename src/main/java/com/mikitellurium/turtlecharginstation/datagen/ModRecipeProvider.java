@@ -34,7 +34,11 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     @Override
     protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
 
-        ShapedRecipeBuilder.shaped(ModBlocks.TURTLE_CHARGING_STATION_BLOCK.get())
+        ConditionalRecipe.builder()
+                .addCondition(not(modLoaded("thermal")))
+                .addCondition(not(modLoaded("mekanism")))
+                .addRecipe(
+                ShapedRecipeBuilder.shaped(ModBlocks.TURTLE_CHARGING_STATION_BLOCK.get())
                 .pattern("cgc")
                 .pattern("gRg")
                 .pattern("cIc")
@@ -44,8 +48,8 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('I', Tags.Items.STORAGE_BLOCKS_IRON)
                 .group(TurtleChargingStationMod.MOD_ID)
                 .unlockedBy("turtlecharging", InventoryChangeTrigger.TriggerInstance.hasItems(
-                        Registry.ModItems.TURTLE_NORMAL.get(), Registry.ModItems.TURTLE_ADVANCED.get()))
-                .save(consumer);
+                        Registry.ModItems.TURTLE_NORMAL.get(), Registry.ModItems.TURTLE_ADVANCED.get()))::save
+        ).build(consumer, new ResourceLocation(TurtleChargingStationMod.MOD_ID, "turtle_charging_station"));
 
         ConditionalRecipe.builder()
                 .addCondition(modLoaded("thermal"))
