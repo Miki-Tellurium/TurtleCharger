@@ -21,6 +21,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -31,10 +32,10 @@ import org.jetbrains.annotations.Nullable;
 
 public class TurtleChargingStationBlockEntity extends BlockEntity implements MenuProvider {
 
-    private final int capacity = 128000;
-    private static final int conversionRate = 300; // Based on Thermal Expansion stirling dynamo production rate using coal
-    private final int maxReceive = conversionRate * 6; //  6 sides
-    private final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(capacity, maxReceive) {
+    public static ForgeConfigSpec.IntValue CAPACITY;
+    public static ForgeConfigSpec.IntValue CONVERSION_RATE; // Based on Thermal Expansion stirling dynamo production rate using coal
+    private final int maxReceive = CONVERSION_RATE.get() * 6; // 6 sides
+    private final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(CAPACITY.get(), maxReceive) {
         @Override
         public void onEnergyChanged() {
             setChanged();
@@ -48,39 +49,58 @@ public class TurtleChargingStationBlockEntity extends BlockEntity implements Men
     }
 
     // Energy stuff
-    public static void tick(Level level, BlockPos pos, BlockState state, TurtleChargingStationBlockEntity charger) {
+    private int extractCount = 6; // Track if a turtle was charged this tick
+    private int textureTimer = 10;
+
+    public static void tick(Level level, BlockPos pos, BlockState state, TurtleChargingStationBlockEntity chargingStation) {
         if (level.isClientSide) {
             return;
         }
-        // If turtle is present then recharge it;
+        // Check every direction for turtles
         for (Direction direction : Direction.values()) {
-            BlockEntity be = level.getBlockEntity(charger.worldPosition.relative(direction));
+            BlockEntity be = level.getBlockEntity(chargingStation.worldPosition.relative(direction));
+            // If no block entity is found return
             if (be == null) {
+                chargingStation.extractCount--;
                 continue;
             }
-
+            // Check if block entity is a turtle
             if (be.getBlockState().getBlock() == Registry.ModBlocks.TURTLE_NORMAL.get() ||
                     be.getBlockState().getBlock() == Registry.ModBlocks.TURTLE_ADVANCED.get()) {
-                if (charger.ENERGY_STORAGE.getEnergyStored() >= conversionRate &&
-                        charger.getBlockState().getValue(TurtleChargingStationBlock.ENABLED)) {
+
+                // If enough energy and no redstone signal
+                if (chargingStation.ENERGY_STORAGE.getEnergyStored() >= CONVERSION_RATE.get() &&
+                        chargingStation.getBlockState().getValue(TurtleChargingStationBlock.ENABLED)) {
                     TileTurtle turtle = (TileTurtle) be;
                     level.setBlock(pos, state.setValue(TurtleChargingStationBlock.CHARGING, true), 2);
-                    refuelTurtle(charger, turtle);
+                    refuelTurtle(chargingStation, turtle);
+                    chargingStation.extractCount++;
                     // Sync with client for gui
                     ModMessages.sendToClients(new TurtleFuelSyncS2CPacket(turtle.getAccess().getFuelLevel(), turtle.getBlockPos()));
                 } else {
-                    level.setBlock(pos, state.setValue(TurtleChargingStationBlock.CHARGING, false), 2);
+                    chargingStation.extractCount--;
                 }
+
             } else {
-                level.setBlock(pos, state.setValue(TurtleChargingStationBlock.CHARGING, false), 2);
+                chargingStation.extractCount--;
             }
+            // End of direction for-loop
         }
-        DebugUtil.info(state.getValue(TurtleChargingStationBlock.CHARGING));
+
+        if (chargingStation.extractCount <= 0) {
+            if (--chargingStation.textureTimer <= 0) {
+                level.setBlock(pos, state.setValue(TurtleChargingStationBlock.CHARGING, false), 2);
+                chargingStation.textureTimer = 0;
+            }
+        } else {
+            chargingStation.textureTimer = 10;
+        }
+        chargingStation.extractCount = 6;
     }
 
-    private static void refuelTurtle(TurtleChargingStationBlockEntity charger , TileTurtle turtle) {
+    private static void refuelTurtle(TurtleChargingStationBlockEntity chargingStation , TileTurtle turtle) {
        turtle.getAccess().addFuel(1);
-       charger.ENERGY_STORAGE.extractEnergy(conversionRate, false);
+       chargingStation.ENERGY_STORAGE.extractEnergy(CONVERSION_RATE.get(), false);
     }
 
     public EnergyStorage getEnergyStorage() {

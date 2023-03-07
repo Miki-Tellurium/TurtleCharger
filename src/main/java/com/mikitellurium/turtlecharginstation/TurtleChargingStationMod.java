@@ -2,6 +2,7 @@ package com.mikitellurium.turtlecharginstation;
 
 import com.mikitellurium.turtlecharginstation.block.ModBlocks;
 import com.mikitellurium.turtlecharginstation.block.blockentity.ModBlockEntities;
+import com.mikitellurium.turtlecharginstation.config.Configuration;
 import com.mikitellurium.turtlecharginstation.gui.ModMenuTypes;
 import com.mikitellurium.turtlecharginstation.gui.TurtleChargingStationGui;
 import com.mikitellurium.turtlecharginstation.item.ModItems;
@@ -45,6 +46,7 @@ public class TurtleChargingStationMod {
     }
 
     private void registration(IEventBus modEventBus) {
+        Configuration.registerClientConfig();
         ModMessages.register();
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
