@@ -28,6 +28,10 @@ minecraft {
 
             property 'forge.enabledGameTestNamespaces', 'turtlechargingstation'
 
+            // Mixin fix
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+
             mods {
                 turtlechargingstation {
                     source sourceSets.main
@@ -43,6 +47,10 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             property 'forge.enabledGameTestNamespaces', 'turtlechargingstation'
+
+            // Mixin fix
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             mods {
                 turtlechargingstation {
@@ -74,6 +82,10 @@ minecraft {
 
             property 'forge.logging.console.level', 'debug'
 
+            // Mixin fix
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+
             args '--mod', 'turtlechargingstation', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
@@ -101,6 +113,9 @@ repositories {
     maven {
         // The One Probe
         // Thermal Expansion
+        // Powah
+        // Architectury API
+        // Cloth config
         url = 'https://cursemaven.com'
     }
     repositories {
@@ -134,6 +149,12 @@ dependencies {
     runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}:tools")// Mekanism: Tools
 
     implementation fg.deobf("org.squiddev:cc-tweaked-${mc_version}:${cc_version}")
+
+    implementation fg.deobf("curse.maven:Powah-633483:4183078")
+
+    implementation fg.deobf("curse.maven:architectury-419699:4384406")
+
+    implementation fg.deobf("curse.maven:cloth-config-348521:3972423")
 }
 
 jar {
