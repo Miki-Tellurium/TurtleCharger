@@ -150,9 +150,9 @@ dependencies {
 
     implementation fg.deobf("org.squiddev:cc-tweaked-${mc_version}:${cc_version}")
 
-    implementation fg.deobf("curse.maven:Powah-633483:4183078")
+    implementation fg.deobf("curse.maven:Powah-633483:4489347")
 
-    implementation fg.deobf("curse.maven:architectury-419699:4384406")
+    implementation fg.deobf("curse.maven:architectury-419699:4476084")
 
     implementation fg.deobf("curse.maven:cloth-config-348521:3972423")
 }
