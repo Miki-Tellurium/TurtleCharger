@@ -1,8 +1,8 @@
-package com.mikitellurium.turtlecharginstation.block.blockentity;
+package com.mikitellurium.turtlecharginstation.blockentity;
 
 import com.mikitellurium.turtlecharginstation.TurtleChargingStationMod;
 import com.mikitellurium.turtlecharginstation.block.ModBlocks;
-import com.mikitellurium.turtlecharginstation.block.blockentity.custom.TurtleChargingStationBlockEntity;
+import com.mikitellurium.turtlecharginstation.blockentity.custom.TurtleChargingStationBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;

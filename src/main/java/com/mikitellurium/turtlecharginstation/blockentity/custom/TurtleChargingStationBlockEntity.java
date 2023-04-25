@@ -1,15 +1,14 @@
-package com.mikitellurium.turtlecharginstation.block.blockentity.custom;
+package com.mikitellurium.turtlecharginstation.blockentity.custom;
 
-import com.mikitellurium.turtlecharginstation.block.blockentity.ModBlockEntities;
+import com.mikitellurium.turtlecharginstation.blockentity.ModBlockEntities;
 import com.mikitellurium.turtlecharginstation.block.custom.TurtleChargingStationBlock;
 import com.mikitellurium.turtlecharginstation.energy.ModEnergyStorage;
 import com.mikitellurium.turtlecharginstation.gui.TurtleChargingStationMenu;
 import com.mikitellurium.turtlecharginstation.networking.ModMessages;
 import com.mikitellurium.turtlecharginstation.networking.packets.EnergySyncS2CPacket;
 import com.mikitellurium.turtlecharginstation.networking.packets.TurtleFuelSyncS2CPacket;
-import com.mikitellurium.turtlecharginstation.util.DebugUtil;
-import dan200.computercraft.shared.Registry;
-import dan200.computercraft.shared.turtle.blocks.TileTurtle;
+import dan200.computercraft.shared.ModRegistry;
+import dan200.computercraft.shared.turtle.blocks.TurtleBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -65,13 +64,13 @@ public class TurtleChargingStationBlockEntity extends BlockEntity implements Men
                 continue;
             }
             // Check if block entity is a turtle
-            if (be.getBlockState().getBlock() == Registry.ModBlocks.TURTLE_NORMAL.get() ||
-                    be.getBlockState().getBlock() == Registry.ModBlocks.TURTLE_ADVANCED.get()) {
+            if (be.getBlockState().getBlock() == ModRegistry.Blocks.TURTLE_NORMAL.get() ||
+                    be.getBlockState().getBlock() == ModRegistry.Blocks.TURTLE_ADVANCED.get()) {
 
                 // If enough energy and no redstone signal
                 if (chargingStation.ENERGY_STORAGE.getEnergyStored() >= CONVERSION_RATE.get() &&
                         chargingStation.getBlockState().getValue(TurtleChargingStationBlock.ENABLED)) {
-                    TileTurtle turtle = (TileTurtle) be;
+                    TurtleBlockEntity turtle = (TurtleBlockEntity) be;
                     if (turtle.getAccess().getFuelLevel() == turtle.getAccess().getFuelLimit()) {
                         chargingStation.extractCount--;
                     } else {
@@ -102,7 +101,7 @@ public class TurtleChargingStationBlockEntity extends BlockEntity implements Men
         chargingStation.extractCount = 6;
     }
 
-    private static void refuelTurtle(TurtleChargingStationBlockEntity chargingStation , TileTurtle turtle) {
+    private static void refuelTurtle(TurtleChargingStationBlockEntity chargingStation , TurtleBlockEntity turtle) {
        turtle.getAccess().addFuel(1);
        chargingStation.ENERGY_STORAGE.extractEnergy(CONVERSION_RATE.get(), false);
     }

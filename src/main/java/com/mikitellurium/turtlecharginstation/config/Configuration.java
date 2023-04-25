@@ -1,7 +1,7 @@
 package com.mikitellurium.turtlecharginstation.config;
 
 import com.mikitellurium.turtlecharginstation.TurtleChargingStationMod;
-import com.mikitellurium.turtlecharginstation.block.blockentity.custom.TurtleChargingStationBlockEntity;
+import com.mikitellurium.turtlecharginstation.blockentity.custom.TurtleChargingStationBlockEntity;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;

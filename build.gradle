@@ -5,7 +5,7 @@ plugins {
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
 }
 
-version = project.turtlechargingstation_version
+version = project.mod_version
 group = 'com.mikitellurium.turtlechargingstation'
 archivesBaseName = 'turtlechargingstation'
 
@@ -14,8 +14,8 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
 minecraft {
 
-    //mappings channel: 'official', version: '1.19.2'
-    mappings channel: 'parchment', version: '2022.11.27-1.19.2'
+    mappings channel: 'official', version: "${mc_version}"
+    //mappings channel: 'parchment', version: '2022.11.27-1.19.2'
 
 
     runs {
@@ -130,31 +130,33 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.19.2-43.2.4'
+    minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
 
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}")
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}")
     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")  // at runtime, use the full JEI jar
 
-    implementation fg.deobf("curse.maven:the-one-probe-245211:3965693")
+    implementation fg.deobf(project.dependencies.create("mcjty.theoneprobe:theoneprobe:${top_version}") {
+        transitive = false
+    })
 
-    implementation fg.deobf("curse.maven:cofh_core-69162:4385216")
-    implementation fg.deobf("curse.maven:thermal_expansion-69163:4382371")
-    implementation fg.deobf("curse.maven:thermal_foundation-222880:4382373")
+//    implementation fg.deobf("curse.maven:cofh_core-69162:4385216")
+//    implementation fg.deobf("curse.maven:thermal_expansion-69163:4382371")
+//    implementation fg.deobf("curse.maven:thermal_foundation-222880:4382373")
+//
+//    compileOnly "mekanism:Mekanism:${mekanism_version}:api"
+//    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}")// core
+//    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}:additions")// Mekanism: Additions
+//    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}:generators")// Mekanism: Generators
+//    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}:tools")// Mekanism: Tools
 
-    compileOnly "mekanism:Mekanism:${mekanism_version}:api"
-    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}")// core
-    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}:additions")// Mekanism: Additions
-    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}:generators")// Mekanism: Generators
-    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}:tools")// Mekanism: Tools
+    implementation fg.deobf("cc.tweaked:cc-tweaked-${mc_version}-forge:${cc_version}")
 
-    implementation fg.deobf("org.squiddev:cc-tweaked-${mc_version}:${cc_version}")
-
-    implementation fg.deobf("curse.maven:Powah-633483:4489347")
-
-    implementation fg.deobf("curse.maven:architectury-419699:4476084")
-
-    implementation fg.deobf("curse.maven:cloth-config-348521:3972423")
+//    implementation fg.deobf("curse.maven:Powah-633483:4489347")
+//
+//    implementation fg.deobf("curse.maven:architectury-419699:4476084")
+//
+//    implementation fg.deobf("curse.maven:cloth-config-348521:3972423")
 }
 
 jar {
@@ -162,7 +164,7 @@ jar {
         attributes([
                 "Specification-Title"     : "Turtle Charging Station",
                 "Specification-Vendor"    : "turtlechargingstation",
-                "Specification-Version"   : "1.0.0-1.19.2",
+                "Specification-Version"   : "${mod_version}",
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
                 "Implementation-Vendor"   : "Miki Tellurium",

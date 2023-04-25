@@ -1,7 +1,7 @@
 package com.mikitellurium.turtlecharginstation.gui;
 
 import com.mikitellurium.turtlecharginstation.block.ModBlocks;
-import com.mikitellurium.turtlecharginstation.block.blockentity.custom.TurtleChargingStationBlockEntity;
+import com.mikitellurium.turtlecharginstation.blockentity.custom.TurtleChargingStationBlockEntity;
 import com.mikitellurium.turtlecharginstation.energy.ModEnergyStorage;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;

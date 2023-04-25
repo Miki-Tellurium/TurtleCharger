@@ -20,17 +20,16 @@ public class ModBlocks {
             DeferredRegister.create(ForgeRegistries.BLOCKS, TurtleChargingStationMod.MOD_ID);
 
     public static final RegistryObject<Block> TURTLE_CHARGING_STATION_BLOCK = registerBlock("turtle_charging_station",
-            TurtleChargingStationBlock::new, TurtleChargingStationMod.TAB_TURTLE_CHARGING_STATION);
+            TurtleChargingStationBlock::new);
 
-    public static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab) {
+    public static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
-        registerBlockItem(name, toReturn, tab);
+        registerBlockItem(name, toReturn);
         return toReturn;
     }
 
-    public static <T extends Block> RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block,
-                                                                           CreativeModeTab tab) {
-        return ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(tab)));
+    public static <T extends Block> RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block) {
+        return ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
     public static void register(IEventBus eventBus) {
