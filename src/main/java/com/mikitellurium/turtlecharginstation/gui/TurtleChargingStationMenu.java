@@ -28,41 +28,6 @@ public class TurtleChargingStationMenu extends AbstractContainerMenu {
         super(ModMenuTypes.TURTLE_CHARGING_STATION_GUI.get(), id);
         blockEntity = (TurtleChargingStationBlockEntity) entity;
         this.level = inventory.player.level;
-        trackEnergy();
-    }
-    // Synchronizing server data to client for Gui on world startup
-    // Credit to McJty
-    private void trackEnergy() {
-        // Unfortunately on a dedicated server ints are actually truncated to short so we need
-        // to split our integer here (split our 32 bit integer into two 16 bit integers)
-        addDataSlot(new DataSlot() {
-            @Override
-            public int get() {
-                return getEnergy() & 0xffff;
-            }
-
-            @Override
-            public void set(int value) {
-                blockEntity.getCapability(ForgeCapabilities.ENERGY).ifPresent(h -> {
-                    int energyStored = h.getEnergyStored() & 0xffff0000;
-                    ((ModEnergyStorage)h).setEnergy(energyStored + (value & 0xffff));
-                });
-            }
-        });
-        addDataSlot(new DataSlot() {
-            @Override
-            public int get() {
-                return (getEnergy() >> 16) & 0xffff;
-            }
-
-            @Override
-            public void set(int value) {
-                blockEntity.getCapability(ForgeCapabilities.ENERGY).ifPresent(h -> {
-                    int energyStored = h.getEnergyStored() & 0x0000ffff;
-                    ((ModEnergyStorage)h).setEnergy(energyStored | (value << 16));
-                });
-            }
-        });
     }
 
     public int getEnergy() {

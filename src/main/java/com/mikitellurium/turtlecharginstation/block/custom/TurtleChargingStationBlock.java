@@ -2,6 +2,8 @@ package com.mikitellurium.turtlecharginstation.block.custom;
 
 import com.mikitellurium.turtlecharginstation.blockentity.ModBlockEntities;
 import com.mikitellurium.turtlecharginstation.blockentity.custom.TurtleChargingStationBlockEntity;
+import com.mikitellurium.turtlecharginstation.networking.ModMessages;
+import com.mikitellurium.turtlecharginstation.networking.packets.EnergySyncS2CPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -56,6 +58,8 @@ public class TurtleChargingStationBlock extends BaseEntityBlock {
             BlockEntity entity = pLevel.getBlockEntity(pPos);
             if (entity instanceof TurtleChargingStationBlockEntity) {
                 NetworkHooks.openScreen((ServerPlayer) pPlayer, (TurtleChargingStationBlockEntity)entity, pPos);
+                ModMessages.sendToClients(
+                        new EnergySyncS2CPacket(((TurtleChargingStationBlockEntity) entity).getEnergyStorage().getEnergyStored(), pPos));
             } else {
                 throw new IllegalStateException("Container provider is missing");
             }

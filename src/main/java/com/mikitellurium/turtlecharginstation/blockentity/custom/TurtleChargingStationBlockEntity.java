@@ -1,7 +1,7 @@
 package com.mikitellurium.turtlecharginstation.blockentity.custom;
 
-import com.mikitellurium.turtlecharginstation.blockentity.ModBlockEntities;
 import com.mikitellurium.turtlecharginstation.block.custom.TurtleChargingStationBlock;
+import com.mikitellurium.turtlecharginstation.blockentity.ModBlockEntities;
 import com.mikitellurium.turtlecharginstation.energy.ModEnergyStorage;
 import com.mikitellurium.turtlecharginstation.gui.TurtleChargingStationMenu;
 import com.mikitellurium.turtlecharginstation.networking.ModMessages;
@@ -18,6 +18,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BeaconBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeConfigSpec;
@@ -55,6 +56,7 @@ public class TurtleChargingStationBlockEntity extends BlockEntity implements Men
         if (level.isClientSide) {
             return;
         }
+
         // Check every direction for turtles
         for (Direction direction : Direction.values()) {
             BlockEntity be = level.getBlockEntity(chargingStation.worldPosition.relative(direction));
@@ -99,6 +101,8 @@ public class TurtleChargingStationBlockEntity extends BlockEntity implements Men
             chargingStation.textureTimer = 10;
         }
         chargingStation.extractCount = 6;
+
+        //debugRecharge(level, pos, state, chargingStation);
     }
 
     private static void refuelTurtle(TurtleChargingStationBlockEntity chargingStation , TurtleBlockEntity turtle) {
@@ -113,6 +117,14 @@ public class TurtleChargingStationBlockEntity extends BlockEntity implements Men
     public void setClientEnergy(int energy) {
         this.ENERGY_STORAGE.setEnergy(energy);
     }
+    // Used for debug purposes
+//    private static void debugRecharge(Level level, BlockPos pos, BlockState state, TurtleChargingStationBlockEntity chargingStation) {
+//        BlockEntity blockEntity = level.getBlockEntity(pos.above());
+//        if (blockEntity instanceof BeaconBlockEntity) {
+//            chargingStation.setClientEnergy(Math.min(chargingStation.ENERGY_STORAGE.getMaxEnergyStored(),
+//                    chargingStation.ENERGY_STORAGE.getEnergyStored() + 1200));
+//        }
+//    }
 
     // Gui
     @Nullable
