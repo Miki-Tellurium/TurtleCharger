@@ -4,6 +4,7 @@ import com.mikitellurium.turtlecharginstation.TurtleChargingStationMod;
 import com.mikitellurium.turtlecharginstation.gui.element.EnergyStorageElement;
 import com.mikitellurium.turtlecharginstation.gui.element.TurtleInfoElement;
 import com.mikitellurium.turtlecharginstation.util.MouseUtil;
+import com.mikitellurium.turtlecharginstation.util.SimpleSprite;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -19,6 +20,9 @@ public class TurtleChargingStationGui extends AbstractContainerScreen<TurtleChar
 
     private static final ResourceLocation GUI_TEXTURE =
             new ResourceLocation(TurtleChargingStationMod.MOD_ID, "textures/gui/turtle_charging_station_gui.png");
+    private static final ResourceLocation ENERGY_STORAGE_TEXTURE =
+            new ResourceLocation(TurtleChargingStationMod.MOD_ID, "textures/gui/energy_storage.png");
+    private final SimpleSprite energyStorageTexture = new SimpleSprite(ENERGY_STORAGE_TEXTURE, 34, 84);
     private EnergyStorageElement energyStorage;
     private TurtleInfoElement turtleInfo;
 
@@ -31,7 +35,8 @@ public class TurtleChargingStationGui extends AbstractContainerScreen<TurtleChar
         super.init();
         int xPos = (width - imageWidth) / 2;
         int yPos = (height - imageHeight) / 2;
-        energyStorage = new EnergyStorageElement(menu.getBlockEntity().getEnergyStorage(), xPos + 8, yPos + 15);
+        energyStorage = new EnergyStorageElement(menu.getBlockEntity().getEnergyStorage(), energyStorageTexture,
+                xPos + 8, yPos + 15, 16, 84);
         turtleInfo = new TurtleInfoElement(menu.getBlockEntity(), xPos + 30, yPos + 16);
     }
 
