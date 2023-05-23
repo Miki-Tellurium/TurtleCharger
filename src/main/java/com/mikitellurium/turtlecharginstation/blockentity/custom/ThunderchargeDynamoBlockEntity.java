@@ -26,7 +26,6 @@ public class ThunderchargeDynamoBlockEntity extends BlockEntity {
         if (level.isClientSide) {
             return;
         }
-        System.out.println(dynamo.charge);
 
         if (dynamo.charge > 0) {
             // Check every direction for turtles
