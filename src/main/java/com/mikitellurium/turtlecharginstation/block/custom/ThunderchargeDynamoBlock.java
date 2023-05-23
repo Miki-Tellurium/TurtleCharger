@@ -53,16 +53,6 @@ public class ThunderchargeDynamoBlock extends BaseEntityBlock {
     }
 
     @Override
-    public boolean isSignalSource(BlockState blockState) {
-        return true;
-    }
-
-    @Override
-    public int getSignal(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
-        return blockState.getValue(POWERED) ? 15 : 0;
-    }
-
-    @Override
     public void appendHoverText(ItemStack itemStack, @Nullable BlockGetter blockGetter, List<Component> components, TooltipFlag flag) {
         if(Screen.hasShiftDown()) {
             components.add(Component.translatable("tooltip.turtlechargingstation.thundercharge_dynamo.shift"));
