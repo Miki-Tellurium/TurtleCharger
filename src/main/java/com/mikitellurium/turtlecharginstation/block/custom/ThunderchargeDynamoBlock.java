@@ -5,7 +5,9 @@ import com.mikitellurium.turtlecharginstation.blockentity.custom.ThunderchargeDy
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
@@ -43,6 +45,27 @@ public class ThunderchargeDynamoBlock extends BaseEntityBlock {
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
         return new ThunderchargeDynamoBlockEntity(blockPos, blockState);
+    }
+
+    @Override
+    public void animateTick(BlockState blockState, Level level, BlockPos blockPos, RandomSource random) {
+        if (blockState.getValue(POWERED)) {
+            if (random.nextInt(4) == 0) {
+                Direction direction = Direction.getRandom(random);
+                if (!(direction == Direction.UP || direction == Direction.DOWN)) {
+                    BlockPos relativePos = blockPos.relative(direction);
+                    BlockState adjacentBlock = level.getBlockState(relativePos);
+                    if (!adjacentBlock.canOcclude() || !adjacentBlock.isFaceSturdy(level, relativePos, direction.getOpposite())) {
+                        double d0 = direction.getStepX() == 0 ? random.nextDouble() : 0.5D + (double)direction.getStepX() * 0.54D;
+                        double d1 = direction.getStepY() == 0 ? random.nextDouble() : 0.5D + (double)direction.getStepY() * 0.54D;
+                        double d2 = direction.getStepZ() == 0 ? random.nextDouble() : 0.5D + (double)direction.getStepZ() * 0.54D;
+                        level.addParticle(ParticleTypes.FIREWORK,
+                                blockPos.getX() + d0, blockPos.getY() + d1, blockPos.getZ() + d2,
+                                0.0D, random.nextDouble() * 0.1D, 0.0D);
+                    }
+                }
+            }
+        }
     }
 
     @Override
