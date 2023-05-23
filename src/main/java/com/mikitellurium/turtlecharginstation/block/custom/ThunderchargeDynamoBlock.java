@@ -4,6 +4,7 @@ import com.mikitellurium.turtlecharginstation.blockentity.ModBlockEntities;
 import com.mikitellurium.turtlecharginstation.blockentity.custom.ThunderchargeDynamoBlockEntity;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -49,6 +50,16 @@ public class ThunderchargeDynamoBlock extends BaseEntityBlock {
                                                                BlockEntityType<T> blockEntityType) {
         return createTickerHelper(blockEntityType, ModBlockEntities.THUNDERCHARGE_DYNAMO.get(),
                 ThunderchargeDynamoBlockEntity::tick);
+    }
+
+    @Override
+    public boolean isSignalSource(BlockState blockState) {
+        return true;
+    }
+
+    @Override
+    public int getSignal(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
+        return blockState.getValue(POWERED) ? 15 : 0;
     }
 
     @Override
