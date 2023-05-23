@@ -26,30 +26,31 @@ public class ThunderchargeDynamoBlockEntity extends BlockEntity {
         if (level.isClientSide) {
             return;
         }
-
         System.out.println(dynamo.charge);
-        // Check every direction for turtles
-        for (Direction direction : Direction.values()) {
-            if (direction == Direction.UP) {
-                continue;
-            }
-            BlockEntity be = level.getBlockEntity(dynamo.worldPosition.relative(direction));
-            if (be == null) {
-                continue;
-            }
-            // Check for energy capability
-            if (be.getCapability(ForgeCapabilities.ENERGY).isPresent()) {
-                be.getCapability(ForgeCapabilities.ENERGY).ifPresent((energyStorage ->
-                        energyStorage.receiveEnergy(TRANSFER_RATE.get(), false)));
-            }
-        }
 
         if (dynamo.charge > 0) {
+            // Check every direction for turtles
+            for (Direction direction : Direction.values()) {
+                if (direction == Direction.UP) {
+                    continue;
+                }
+                BlockEntity be = level.getBlockEntity(dynamo.worldPosition.relative(direction));
+                if (be == null) {
+                    continue;
+                }
+                // Check for energy capability
+                if (be.getCapability(ForgeCapabilities.ENERGY).isPresent()) {
+                    be.getCapability(ForgeCapabilities.ENERGY).ifPresent((energyStorage ->
+                            energyStorage.receiveEnergy(TRANSFER_RATE.get(), false)));
+                }
+            }
+
             level.setBlockAndUpdate(blockPos, blockState.setValue(ThunderchargeDynamoBlock.POWERED, true));
             dynamo.charge--;
         } else {
             level.setBlockAndUpdate(blockPos, blockState.setValue(ThunderchargeDynamoBlock.POWERED, false));
         }
+
         setChanged(level, blockPos, blockState);
     }
 
