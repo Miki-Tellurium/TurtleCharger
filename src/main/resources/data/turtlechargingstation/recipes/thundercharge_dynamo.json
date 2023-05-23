@@ -13,7 +13,7 @@
       "item": "minecraft:lightning_rod"
     },
     "#": {
-      "item": "minecraft:copper_block"
+      "item": "minecraft:redstone_block"
     },
     "X": {
       "item": "minecraft:iron_ingot"
