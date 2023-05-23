@@ -32,7 +32,10 @@ public class TurtleChargingStationBlock extends BaseEntityBlock {
     public static final BooleanProperty CHARGING = BooleanProperty.create("charging");
 
     public TurtleChargingStationBlock() {
-        super(Properties.of(Material.METAL).strength(3.0F, 6.0F).sound(SoundType.METAL));
+        super(Properties.of(Material.METAL)
+                .requiresCorrectToolForDrops()
+                .strength(3.0F, 6.0F)
+                .sound(SoundType.METAL));
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(ENABLED, Boolean.TRUE)
                 .setValue(CHARGING, Boolean.FALSE));
