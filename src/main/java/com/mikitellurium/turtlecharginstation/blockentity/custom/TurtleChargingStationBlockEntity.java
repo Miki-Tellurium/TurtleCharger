@@ -135,7 +135,7 @@ public class TurtleChargingStationBlockEntity extends BlockEntity implements Men
 
     @Override
     public Component getDisplayName() {
-        return Component.literal("Turtle Charging Station");
+        return Component.translatable("block.turtlechargingstation.turtle_charging_station");
     }
 
     // Capabilities
