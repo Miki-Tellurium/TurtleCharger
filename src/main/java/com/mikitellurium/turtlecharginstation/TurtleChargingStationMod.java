@@ -43,7 +43,8 @@ public class TurtleChargingStationMod {
 
     private void addCreative(CreativeModeTabEvent.BuildContents event) {
         if (event.getTab() == ModCreativeTab.TAB_TURTLECHARGINGSTATION) {
-           event.accept(ModBlocks.TURTLE_CHARGING_STATION_BLOCK.get());
+           event.accept(ModBlocks.TURTLE_CHARGING_STATION_BLOCK);
+            event.accept(ModBlocks.THUNDERCHARGE_DYNAMO_BLOCK);
         }
     }
 

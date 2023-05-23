@@ -1,6 +1,7 @@
 package com.mikitellurium.turtlecharginstation.block;
 
 import com.mikitellurium.turtlecharginstation.TurtleChargingStationMod;
+import com.mikitellurium.turtlecharginstation.block.custom.ThunderchargeDynamoBlock;
 import com.mikitellurium.turtlecharginstation.block.custom.TurtleChargingStationBlock;
 import com.mikitellurium.turtlecharginstation.item.ModItems;
 import net.minecraft.world.item.BlockItem;
@@ -21,6 +22,9 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> TURTLE_CHARGING_STATION_BLOCK = registerBlock("turtle_charging_station",
             TurtleChargingStationBlock::new);
+
+    public static final RegistryObject<Block> THUNDERCHARGE_DYNAMO_BLOCK = registerBlock("thundercharge_dynamo",
+            ThunderchargeDynamoBlock::new);
 
     public static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
