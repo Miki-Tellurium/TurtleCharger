@@ -3,6 +3,7 @@ package com.mikitellurium.turtlecharginstation.block.custom;
 import com.mikitellurium.turtlecharginstation.blockentity.ModBlockEntities;
 import com.mikitellurium.turtlecharginstation.blockentity.custom.ThunderchargeDynamoBlockEntity;
 import com.mikitellurium.turtlecharginstation.blockentity.custom.TurtleChargingStationBlockEntity;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -57,7 +58,11 @@ public class ThunderchargeDynamoBlock extends BaseEntityBlock {
 
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable BlockGetter blockGetter, List<Component> components, TooltipFlag flag) {
-
+        if(Screen.hasShiftDown()) {
+            components.add(Component.translatable("tooltip.turtlechargingstation.thundercharge_dynamo.shift"));
+        } else {
+            components.add(Component.translatable("tooltip.turtlechargingstation.thundercharge_dynamo"));
+        }
     }
 
     @Override
