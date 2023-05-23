@@ -1,5 +1,6 @@
 package com.mikitellurium.turtlecharginstation.blockentity.custom;
 
+import com.mikitellurium.turtlecharginstation.block.custom.ThunderchargeDynamoBlock;
 import com.mikitellurium.turtlecharginstation.blockentity.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -21,7 +22,7 @@ public class ThunderchargeDynamoBlockEntity extends BlockEntity {
         super(ModBlockEntities.THUNDERCHARGE_DYNAMO.get(), blockPos, blockState);
     }
 
-    public static void tick(Level level, BlockPos pos, BlockState state, ThunderchargeDynamoBlockEntity dynamo) {
+    public static void tick(Level level, BlockPos blockPos, BlockState blockState, ThunderchargeDynamoBlockEntity dynamo) {
         if (level.isClientSide) {
             return;
         }
@@ -44,15 +45,19 @@ public class ThunderchargeDynamoBlockEntity extends BlockEntity {
         }
 
         if (dynamo.charge > 0) {
+            level.setBlockAndUpdate(blockPos, blockState.setValue(ThunderchargeDynamoBlock.POWERED, true));
             dynamo.charge--;
+        } else {
+            level.setBlockAndUpdate(blockPos, blockState.setValue(ThunderchargeDynamoBlock.POWERED, false));
         }
+        setChanged(level, blockPos, blockState);
     }
 
     public int getCharge() {
         return charge;
     }
 
-    public static void addCharge(ThunderchargeDynamoBlockEntity dynamo) {
+    public static void recharge(ThunderchargeDynamoBlockEntity dynamo) {
         dynamo.charge = Math.min(dynamo.getCharge() + RECHARGE_AMOUNT.get(), Integer.MAX_VALUE);
     }
 

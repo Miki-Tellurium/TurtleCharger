@@ -1,8 +1,9 @@
 package com.mikitellurium.turtlecharginstation.event;
 
 import com.mikitellurium.turtlecharginstation.TurtleChargingStationMod;
-import net.minecraft.network.chat.Component;
+import com.mikitellurium.turtlecharginstation.blockentity.custom.ThunderchargeDynamoBlockEntity;
 import net.minecraft.world.entity.LightningBolt;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -16,8 +17,11 @@ public class ModEvents {
             return;
         }
         if (event.getEntity() instanceof LightningBolt lightningBolt) {
-            event.getLevel().getServer().getPlayerList().broadcastSystemMessage(
-                    Component.literal("Lightning strike at: " + lightningBolt.getOnPos()), false);
+            BlockEntity be = event.getLevel().getBlockEntity(lightningBolt.getOnPos().below());
+            if (be == null) return;
+            if (be instanceof ThunderchargeDynamoBlockEntity dynamo) {
+                ThunderchargeDynamoBlockEntity.recharge(dynamo);
+            }
         }
     }
 
