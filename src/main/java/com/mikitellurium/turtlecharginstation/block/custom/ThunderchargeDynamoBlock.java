@@ -78,9 +78,9 @@ public class ThunderchargeDynamoBlock extends BaseEntityBlock {
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable BlockGetter blockGetter, List<Component> components, TooltipFlag flag) {
         if(Screen.hasShiftDown()) {
-            components.add(Component.translatable("tooltip.turtlechargingstation.thundercharge_dynamo.shift"));
-        } else {
             components.add(Component.translatable("tooltip.turtlechargingstation.thundercharge_dynamo"));
+        } else {
+            components.add(Component.translatable("tooltip.turtlechargingstation.thundercharge_dynamo.shift"));
         }
     }
 
