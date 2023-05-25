@@ -35,6 +35,7 @@ public class TurtleChargingStationGui extends AbstractContainerScreen<TurtleChar
         super.init();
         int xPos = (width - imageWidth) / 2;
         int yPos = (height - imageHeight) / 2;
+        this.titleLabelY = this.titleLabelY - 1;
         energyStorage = new EnergyStorageElement(menu.getBlockEntity().getEnergyStorage(), energyStorageTexture,
                 xPos + 8, yPos + 15, 16, 84);
         turtleInfo = new TurtleInfoElement(menu.getBlockEntity(), xPos + 30, yPos + 16);
