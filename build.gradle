@@ -127,6 +127,7 @@ repositories {
         name = "Squiddev maven cct"
         url = 'https://squiddev.cc/maven/'
     }
+
 }
 
 dependencies {
@@ -157,6 +158,8 @@ dependencies {
 //    implementation fg.deobf("curse.maven:architectury-419699:4476084")
 //
 //    implementation fg.deobf("curse.maven:cloth-config-348521:3972423")
+    implementation fg.deobf("curse.maven:pipez-443900:4546489")
+
 }
 
 jar {
