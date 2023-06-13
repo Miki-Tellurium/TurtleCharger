@@ -2,6 +2,7 @@ package com.mikitellurium.turtlecharginstation.block.custom;
 
 import com.mikitellurium.turtlecharginstation.blockentity.ModBlockEntities;
 import com.mikitellurium.turtlecharginstation.blockentity.custom.ThunderchargeDynamoBlockEntity;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -81,7 +82,8 @@ public class ThunderchargeDynamoBlock extends BaseEntityBlock {
         if(Screen.hasShiftDown()) {
             components.add(Component.translatable("tooltip.turtlechargingstation.thundercharge_dynamo"));
         } else {
-            components.add(Component.translatable("tooltip.turtlechargingstation.thundercharge_dynamo.shift"));
+            components.add(Component.translatable("tooltip.turtlechargingstation.thundercharge_dynamo.shift")
+                    .withStyle(ChatFormatting.AQUA));
         }
     }
 
