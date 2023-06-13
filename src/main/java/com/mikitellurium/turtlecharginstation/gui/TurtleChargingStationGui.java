@@ -7,6 +7,7 @@ import com.mikitellurium.turtlecharginstation.util.MouseUtil;
 import com.mikitellurium.turtlecharginstation.util.SimpleSprite;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -50,7 +51,6 @@ public class TurtleChargingStationGui extends AbstractContainerScreen<TurtleChar
         int textureHeight = 110;
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
-        //RenderSystem.setShaderTexture(0, GUI_TEXTURE);
         graphics.blit(GUI_TEXTURE, xPos, yPos, 0, 0, textureWidth, textureHeight, textureWidth, textureHeight);
         energyStorage.draw(graphics);
         turtleInfo.draw(graphics);
@@ -66,7 +66,7 @@ public class TurtleChargingStationGui extends AbstractContainerScreen<TurtleChar
     // This also remove player inventory title from gui
     @Override
     protected void renderLabels(GuiGraphics graphics, int pMouseX, int pMouseY) {
-        graphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 4210752);
+        graphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 4210752, false);
         int xPos = (width - imageWidth) / 2;
         int yPos = (height - imageHeight) / 2;
         renderEnergyAreaTooltips(graphics, pMouseX, pMouseY, xPos, yPos);
