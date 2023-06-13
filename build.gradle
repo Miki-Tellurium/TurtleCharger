@@ -111,7 +111,6 @@ repositories {
         url = "https://modmaven.dev"
     }
     maven {
-        // The One Probe
         // Thermal Expansion
         // Powah
         // Architectury API
@@ -127,6 +126,10 @@ repositories {
         name = "Squiddev maven cct"
         url = 'https://squiddev.cc/maven/'
     }
+    maven { // TOP
+        name 'tterrag maven'
+        url "https://maven.tterrag.com/"
+    }
 
 }
 
@@ -137,9 +140,9 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}")
     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")  // at runtime, use the full JEI jar
 
-    implementation fg.deobf(project.dependencies.create("mcjty.theoneprobe:theoneprobe:${top_version}") {
-        transitive = false
-    })
+    //implementation fg.deobf(project.dependencies.create("mcjty.theoneprobe:theoneprobe:${top_version}"))
+
+    implementation fg.deobf("cc.tweaked:cc-tweaked-${mc_version}-forge:${cc_version}")
 
 //    implementation fg.deobf("curse.maven:cofh_core-69162:4385216")
 //    implementation fg.deobf("curse.maven:thermal_expansion-69163:4382371")
@@ -151,14 +154,11 @@ dependencies {
 //    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}:generators")// Mekanism: Generators
 //    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}:tools")// Mekanism: Tools
 
-    implementation fg.deobf("cc.tweaked:cc-tweaked-${mc_version}-forge:${cc_version}")
-
 //    implementation fg.deobf("curse.maven:Powah-633483:4489347")
 //
 //    implementation fg.deobf("curse.maven:architectury-419699:4476084")
 //
 //    implementation fg.deobf("curse.maven:cloth-config-348521:3972423")
-    implementation fg.deobf("curse.maven:pipez-443900:4546489")
 
 }
 

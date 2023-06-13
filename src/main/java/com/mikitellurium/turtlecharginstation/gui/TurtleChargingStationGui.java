@@ -7,6 +7,7 @@ import com.mikitellurium.turtlecharginstation.util.MouseUtil;
 import com.mikitellurium.turtlecharginstation.util.SimpleSprite;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.Rect2i;
@@ -42,39 +43,39 @@ public class TurtleChargingStationGui extends AbstractContainerScreen<TurtleChar
     }
 
     @Override
-    protected void renderBg(PoseStack pPoseStack, float pPartialTick, int pMouseX, int pMouseY) {
+    protected void renderBg(GuiGraphics graphics, float pPartialTick, int pMouseX, int pMouseY) {
         int xPos = (width - imageWidth) / 2;
         int yPos = (height - imageHeight) / 2;
         int textureWidth = 176;
         int textureHeight = 110;
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
-        RenderSystem.setShaderTexture(0, GUI_TEXTURE);
-        blit(pPoseStack, xPos, yPos, 0, 0, textureWidth, textureHeight, textureWidth, textureHeight);
-        energyStorage.draw(pPoseStack);
-        turtleInfo.draw(pPoseStack);
+        //RenderSystem.setShaderTexture(0, GUI_TEXTURE);
+        graphics.blit(GUI_TEXTURE, xPos, yPos, 0, 0, textureWidth, textureHeight, textureWidth, textureHeight);
+        energyStorage.draw(graphics);
+        turtleInfo.draw(graphics);
     }
 
     @Override
-    public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
-        renderBackground(pPoseStack);
-        super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
-        renderTooltip(pPoseStack, pMouseX, pMouseY);
+    public void render(GuiGraphics graphics, int pMouseX, int pMouseY, float pPartialTick) {
+        renderBackground(graphics);
+        super.render(graphics, pMouseX, pMouseY, pPartialTick);
+        renderTooltip(graphics, pMouseX, pMouseY);
     }
 
     // This also remove player inventory title from gui
     @Override
-    protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
-        this.font.draw(pPoseStack, this.title, (float)this.titleLabelX, (float)this.titleLabelY, 4210752);
+    protected void renderLabels(GuiGraphics graphics, int pMouseX, int pMouseY) {
+        graphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 4210752);
         int xPos = (width - imageWidth) / 2;
         int yPos = (height - imageHeight) / 2;
-        renderEnergyAreaTooltips(pPoseStack, pMouseX, pMouseY, xPos, yPos);
+        renderEnergyAreaTooltips(graphics, pMouseX, pMouseY, xPos, yPos);
     }
 
-    private void renderEnergyAreaTooltips(PoseStack pPoseStack, int pMouseX, int pMouseY, int x, int y) {
+    private void renderEnergyAreaTooltips(GuiGraphics graphics, int pMouseX, int pMouseY, int x, int y) {
         Rect2i area = energyStorage.getArea();
         if(MouseUtil.isAboveArea(pMouseX, pMouseY, area.getX(), area.getY(), area.getWidth(), area.getHeight())) {
-            renderTooltip(pPoseStack, energyStorage.getTooltips(),
+            graphics.renderTooltip(this.font, energyStorage.getTooltips(),
                     Optional.empty(), pMouseX - x, pMouseY - y);
         }
     }

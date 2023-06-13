@@ -21,13 +21,13 @@ public class TurtleChargingStationMenu extends AbstractContainerMenu {
     private final Level level;
 
     protected TurtleChargingStationMenu(int id, Inventory inventory, FriendlyByteBuf data) {
-        this(id, inventory, inventory.player.level.getBlockEntity(data.readBlockPos()));
+        this(id, inventory, inventory.player.level().getBlockEntity(data.readBlockPos()));
     }
 
     public TurtleChargingStationMenu(int id, Inventory inventory, BlockEntity entity) {
         super(ModMenuTypes.TURTLE_CHARGING_STATION_GUI.get(), id);
         blockEntity = (TurtleChargingStationBlockEntity) entity;
-        this.level = inventory.player.level;
+        this.level = inventory.player.level();
     }
 
     public int getEnergy() {

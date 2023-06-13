@@ -1,12 +1,11 @@
 package com.mikitellurium.turtlecharginstation.gui.element;
 
 import com.mikitellurium.turtlecharginstation.blockentity.custom.TurtleChargingStationBlockEntity;
-import com.mojang.blaze3d.vertex.PoseStack;
 import dan200.computercraft.shared.ModRegistry;
 import dan200.computercraft.shared.turtle.blocks.TurtleBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.core.Direction;
 import net.minecraft.util.FastColor;
@@ -14,7 +13,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.Objects;
 
-public class TurtleInfoElement extends GuiComponent {
+public class TurtleInfoElement {
 
     private final TurtleChargingStationBlockEntity charger;
     private final Rect2i area;
@@ -29,18 +28,18 @@ public class TurtleInfoElement extends GuiComponent {
     private final Font font = Minecraft.getInstance().font;
     private final int white = FastColor.ARGB32.color(255, 255, 255, 255);
 
-    public void draw(PoseStack poseStack) {
+    public void draw(GuiGraphics graphics) {
         int x = area.getX();
         int y = area.getY();
-        drawCenteredString(poseStack, font, "Name", x + 55, y + 1, white);
-        drawString(poseStack, font, "Fuel Level", x + area.getWidth() - 14, y + 1, white);
+        graphics.drawCenteredString(font, "Name", x + 55, y + 1, white);
+        graphics.drawString(font, "Fuel Level", x + area.getWidth() - 14, y + 1, white);
         int h = y;
         for (Direction direction : Direction.values()) {
             h = h + 12;
-            drawString(poseStack, font, getDirectionString(direction), alignString(getDirectionString(direction), x), h, white);
-            drawCenteredString(poseStack, font, TurtleData.getAdjacentTurtleName(charger, direction), x + 55, h,
+            graphics.drawString(font, getDirectionString(direction), alignString(getDirectionString(direction), x), h, white);
+            graphics.drawCenteredString(font, TurtleData.getAdjacentTurtleName(charger, direction), x + 55, h,
                     TurtleData.getAdjacentTurtleColor(charger, direction));
-            drawCenteredString(poseStack, font, getFuelString(TurtleData.getAdjacentTurtleFuel(charger, direction)), x + 110, h, white);
+            graphics.drawCenteredString(font, getFuelString(TurtleData.getAdjacentTurtleFuel(charger, direction)), x + 110, h, white);
         }
     }
 

@@ -2,6 +2,7 @@ package com.mikitellurium.turtlecharginstation.blockentity.custom;
 
 import com.mikitellurium.turtlecharginstation.block.custom.ThunderchargeDynamoBlock;
 import com.mikitellurium.turtlecharginstation.blockentity.ModBlockEntities;
+import com.mikitellurium.turtlecharginstation.energy.ModEnergyStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -9,14 +10,26 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class ThunderchargeDynamoBlockEntity extends BlockEntity {
 
     private int charge = 0;
     public static ForgeConfigSpec.IntValue TRANSFER_RATE;
     public static ForgeConfigSpec.IntValue RECHARGE_AMOUNT;
+
+    private final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(0, 0) {
+        @Override
+        public void onEnergyChanged() {
+            setChanged();
+        }
+    };
+    private final LazyOptional<IEnergyStorage> lazyEnergyHandler = LazyOptional.of(() -> ENERGY_STORAGE);
 
     public ThunderchargeDynamoBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.THUNDERCHARGE_DYNAMO.get(), blockPos, blockState);
@@ -59,6 +72,22 @@ public class ThunderchargeDynamoBlockEntity extends BlockEntity {
 
     public static void recharge(ThunderchargeDynamoBlockEntity dynamo) {
         dynamo.charge = Math.min(dynamo.getCharge() + RECHARGE_AMOUNT.get(), Integer.MAX_VALUE);
+    }
+
+    // Capabilities
+    @Override
+    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+        if (cap == ForgeCapabilities.ENERGY) {
+            return lazyEnergyHandler.cast();
+        }
+
+        return super.getCapability(cap, side);
+    }
+
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        lazyEnergyHandler.invalidate();
     }
 
     @Override

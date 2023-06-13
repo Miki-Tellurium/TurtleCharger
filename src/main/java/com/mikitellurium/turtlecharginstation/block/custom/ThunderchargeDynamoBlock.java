@@ -23,7 +23,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -33,7 +33,8 @@ public class ThunderchargeDynamoBlock extends BaseEntityBlock {
     public static BooleanProperty POWERED = BlockStateProperties.POWERED;
 
     public ThunderchargeDynamoBlock() {
-        super(Properties.of(Material.METAL)
+        super(Properties.of()
+                .mapColor(MapColor.METAL)
                 .requiresCorrectToolForDrops()
                 .strength(3.0F, 6.0F)
                 .sound(SoundType.METAL));

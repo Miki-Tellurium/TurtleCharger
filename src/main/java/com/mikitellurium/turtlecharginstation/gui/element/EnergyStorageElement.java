@@ -2,15 +2,14 @@ package com.mikitellurium.turtlecharginstation.gui.element;
 
 import com.mikitellurium.turtlecharginstation.util.SimpleSprite;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.energy.EnergyStorage;
 
 import java.util.List;
 
-public class EnergyStorageElement extends GuiComponent {
+public class EnergyStorageElement {
 
     private final SimpleSprite sprite;
     private final EnergyStorage energyStorage;
@@ -22,15 +21,15 @@ public class EnergyStorageElement extends GuiComponent {
         area = new Rect2i(xPos, yPos, width, height);
     }
 
-    public void draw(PoseStack poseStack) {
+    public void draw(GuiGraphics graphics) {
         RenderSystem.setShaderTexture(0, sprite.getTexture());
-        blit(poseStack, area.getX(), area.getY(), 0, 0, area.getWidth(), area.getHeight(),
+        graphics.blit(sprite.getTexture(), area.getX(), area.getY(), 0, 0, area.getWidth(), area.getHeight(),
                 sprite.getWidth(), sprite.getHeight());
-        drawEnergyLevel(poseStack);
+        drawEnergyLevel(graphics);
     }
 
-    private void drawEnergyLevel(PoseStack poseStack) {
-        blit(poseStack, area.getX(), area.getY() + getEnergyLevel(),18, getEnergyLevel(),
+    private void drawEnergyLevel(GuiGraphics graphics) {
+        graphics.blit(sprite.getTexture(), area.getX(), area.getY() + getEnergyLevel(),18, getEnergyLevel(),
                 area.getWidth(), area.getHeight() - getEnergyLevel(), sprite.getWidth(), sprite.getHeight());
     }
     // Get the pixel in the texture to start drawing at relative to the amount of stored energy
