@@ -12,7 +12,7 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.CreativeModeTabEvent;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -32,7 +32,7 @@ public class TurtleChargingStationMod {
 
         registration(modEventBus);
         modEventBus.addListener(this::commonSetup);
-        modEventBus.addListener(this::addCreative);
+        modEventBus.addListener(this::addCreativeTab);
 
         MinecraftForge.EVENT_BUS.register(this);
     }
@@ -41,9 +41,10 @@ public class TurtleChargingStationMod {
        LOGGER.info("STARTING COMMON INIT");
     }
 
-    private void addCreative(CreativeModeTabEvent.BuildContents event) {
-        if (event.getTab() == ModCreativeTab.TAB_TURTLECHARGINGSTATION) {
-           event.accept(ModBlocks.TURTLE_CHARGING_STATION_BLOCK);
+
+    public void addCreativeTab(BuildCreativeModeTabContentsEvent event) {
+        if (event.getTab() == ModCreativeTab.TAB_TURTLECHARGINGSTATION.get()) {
+            event.accept(ModBlocks.TURTLE_CHARGING_STATION_BLOCK);
             event.accept(ModBlocks.THUNDERCHARGE_DYNAMO_BLOCK);
         }
     }
@@ -54,6 +55,7 @@ public class TurtleChargingStationMod {
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         ModItems.register(modEventBus);
+        ModCreativeTab.register(modEventBus);
         ModMenuTypes.register(modEventBus);
     }
 
