@@ -1,4 +1,4 @@
-package com.mikitellurium.turtlecharginstation.item;
+package com.mikitellurium.turtlecharginstation.registry;
 
 import com.mikitellurium.turtlecharginstation.TurtleChargingStationMod;
 import net.minecraft.world.item.Item;

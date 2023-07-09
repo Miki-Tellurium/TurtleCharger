@@ -1,8 +1,8 @@
-package com.mikitellurium.turtlecharginstation.blockentity.custom;
+package com.mikitellurium.turtlecharginstation.blockentity;
 
-import com.mikitellurium.turtlecharginstation.block.custom.ThunderchargeDynamoBlock;
-import com.mikitellurium.turtlecharginstation.blockentity.ModBlockEntities;
-import com.mikitellurium.turtlecharginstation.energy.ModEnergyStorage;
+import com.mikitellurium.turtlecharginstation.block.ThunderchargeDynamoBlock;
+import com.mikitellurium.turtlecharginstation.registry.ModBlockEntities;
+import com.mikitellurium.turtlecharginstation.util.ModEnergyStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;

@@ -1,7 +1,6 @@
-package com.mikitellurium.turtlecharginstation.item;
+package com.mikitellurium.turtlecharginstation.registry;
 
 import com.mikitellurium.turtlecharginstation.TurtleChargingStationMod;
-import com.mikitellurium.turtlecharginstation.block.ModBlocks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;

@@ -1,8 +1,8 @@
 package com.mikitellurium.turtlecharginstation.datagen;
 
 import com.mikitellurium.turtlecharginstation.TurtleChargingStationMod;
-import com.mikitellurium.turtlecharginstation.block.ModBlocks;
-import com.mikitellurium.turtlecharginstation.util.ModIntegrationUtil;
+import com.mikitellurium.turtlecharginstation.registry.ModBlocks;
+import com.mikitellurium.turtlecharginstation.util.ModIdConstants;
 import dan200.computercraft.shared.ModRegistry;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.data.DataGenerator;
@@ -29,9 +29,9 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
 
         ConditionalRecipe.builder()
-                .addCondition(not(modLoaded(ModIntegrationUtil.ID_THERMAL)))
-                .addCondition(not(modLoaded(ModIntegrationUtil.ID_MEKANISM)))
-                .addCondition(not(modLoaded(ModIntegrationUtil.ID_POWAH)))
+                .addCondition(not(modLoaded(ModIdConstants.ID_THERMAL)))
+                .addCondition(not(modLoaded(ModIdConstants.ID_MEKANISM)))
+                .addCondition(not(modLoaded(ModIdConstants.ID_POWAH)))
                 .addRecipe(
                 ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.TURTLE_CHARGING_STATION_BLOCK.get())
                 .pattern("cgc")
@@ -47,8 +47,8 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         ).build(consumer, new ResourceLocation(TurtleChargingStationMod.MOD_ID, "turtle_charging_station"));
 
         ConditionalRecipe.builder()
-                .addCondition(modLoaded(ModIntegrationUtil.ID_THERMAL))
-                .addCondition(itemExists(ModIntegrationUtil.ID_THERMAL, "energy_cell_frame"))
+                .addCondition(modLoaded(ModIdConstants.ID_THERMAL))
+                .addCondition(itemExists(ModIdConstants.ID_THERMAL, "energy_cell_frame"))
                 .addRecipe(
                         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.TURTLE_CHARGING_STATION_BLOCK.get())
                                 .pattern("cgc")
@@ -56,7 +56,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                                 .pattern("cIc")
                                 .define('c', Blocks.BLACK_CONCRETE)
                                 .define('g', Tags.Items.INGOTS_GOLD)
-                                .define('F', ForgeRegistries.ITEMS.getValue(new ResourceLocation(ModIntegrationUtil.ID_THERMAL, "energy_cell_frame")))
+                                .define('F', ForgeRegistries.ITEMS.getValue(new ResourceLocation(ModIdConstants.ID_THERMAL, "energy_cell_frame")))
                                 .define('I', Tags.Items.STORAGE_BLOCKS_IRON)
                                 .group(TurtleChargingStationMod.MOD_ID)
                                 .unlockedBy("turtlecharging", InventoryChangeTrigger.TriggerInstance.hasItems(
@@ -65,8 +65,8 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
 
         ConditionalRecipe.builder()
-                .addCondition(modLoaded(ModIntegrationUtil.ID_MEKANISM))
-                .addCondition(itemExists(ModIntegrationUtil.ID_MEKANISM, "steel_casing"))
+                .addCondition(modLoaded(ModIdConstants.ID_MEKANISM))
+                .addCondition(itemExists(ModIdConstants.ID_MEKANISM, "steel_casing"))
                 .addRecipe(
                         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.TURTLE_CHARGING_STATION_BLOCK.get())
                                 .pattern("cgc")
@@ -74,7 +74,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                                 .pattern("cIc")
                                 .define('c', Blocks.BLACK_CONCRETE)
                                 .define('g', Tags.Items.INGOTS_GOLD)
-                                .define('S', ForgeRegistries.ITEMS.getValue(new ResourceLocation(ModIntegrationUtil.ID_MEKANISM, "steel_casing")))
+                                .define('S', ForgeRegistries.ITEMS.getValue(new ResourceLocation(ModIdConstants.ID_MEKANISM, "steel_casing")))
                                 .define('I', Tags.Items.STORAGE_BLOCKS_IRON)
                                 .group(TurtleChargingStationMod.MOD_ID)
                                 .unlockedBy("turtlecharging", InventoryChangeTrigger.TriggerInstance.hasItems(
@@ -82,8 +82,8 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 ).build(consumer, new ResourceLocation(TurtleChargingStationMod.MOD_ID, "turtle_charging_station_mekanism"));
 
         ConditionalRecipe.builder()
-                .addCondition(modLoaded(ModIntegrationUtil.ID_POWAH))
-                .addCondition(itemExists(ModIntegrationUtil.ID_POWAH, "dielectric_casing"))
+                .addCondition(modLoaded(ModIdConstants.ID_POWAH))
+                .addCondition(itemExists(ModIdConstants.ID_POWAH, "dielectric_casing"))
                 .addRecipe(
                         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.TURTLE_CHARGING_STATION_BLOCK.get())
                                 .pattern("cgc")
@@ -91,7 +91,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                                 .pattern("cIc")
                                 .define('c', Blocks.BLACK_CONCRETE)
                                 .define('g', Tags.Items.INGOTS_GOLD)
-                                .define('D', ForgeRegistries.ITEMS.getValue(new ResourceLocation(ModIntegrationUtil.ID_POWAH, "dielectric_casing")))
+                                .define('D', ForgeRegistries.ITEMS.getValue(new ResourceLocation(ModIdConstants.ID_POWAH, "dielectric_casing")))
                                 .define('I', Tags.Items.STORAGE_BLOCKS_IRON)
                                 .group(TurtleChargingStationMod.MOD_ID)
                                 .unlockedBy("turtlecharging", InventoryChangeTrigger.TriggerInstance.hasItems(

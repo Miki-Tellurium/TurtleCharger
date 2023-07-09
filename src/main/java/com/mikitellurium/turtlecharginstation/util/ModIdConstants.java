@@ -1,6 +1,6 @@
 package com.mikitellurium.turtlecharginstation.util;
 
-public class ModIntegrationUtil {
+public class ModIdConstants {
 
     public static final String ID_THERMAL = "thermal";
     public static final String ID_MEKANISM = "mekanism";

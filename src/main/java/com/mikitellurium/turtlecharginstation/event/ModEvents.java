@@ -1,7 +1,7 @@
 package com.mikitellurium.turtlecharginstation.event;
 
 import com.mikitellurium.turtlecharginstation.TurtleChargingStationMod;
-import com.mikitellurium.turtlecharginstation.blockentity.custom.ThunderchargeDynamoBlockEntity;
+import com.mikitellurium.turtlecharginstation.blockentity.ThunderchargeDynamoBlockEntity;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;

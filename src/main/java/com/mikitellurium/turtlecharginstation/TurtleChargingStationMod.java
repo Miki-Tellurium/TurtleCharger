@@ -1,12 +1,12 @@
 package com.mikitellurium.turtlecharginstation;
 
-import com.mikitellurium.turtlecharginstation.block.ModBlocks;
-import com.mikitellurium.turtlecharginstation.blockentity.ModBlockEntities;
-import com.mikitellurium.turtlecharginstation.config.Configuration;
+import com.mikitellurium.turtlecharginstation.config.ModConfig;
+import com.mikitellurium.turtlecharginstation.registry.ModBlocks;
+import com.mikitellurium.turtlecharginstation.registry.ModBlockEntities;
 import com.mikitellurium.turtlecharginstation.gui.ModMenuTypes;
 import com.mikitellurium.turtlecharginstation.gui.TurtleChargingStationGui;
-import com.mikitellurium.turtlecharginstation.item.ModCreativeTab;
-import com.mikitellurium.turtlecharginstation.item.ModItems;
+import com.mikitellurium.turtlecharginstation.registry.ModCreativeTab;
+import com.mikitellurium.turtlecharginstation.registry.ModItems;
 import com.mikitellurium.turtlecharginstation.networking.ModMessages;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -50,7 +50,7 @@ public class TurtleChargingStationMod {
     }
 
     private void registration(IEventBus modEventBus) {
-        Configuration.registerConfig();
+        ModConfig.registerConfig();
         ModMessages.register();
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);

@@ -1,11 +1,9 @@
-package com.mikitellurium.turtlecharginstation.block;
+package com.mikitellurium.turtlecharginstation.registry;
 
 import com.mikitellurium.turtlecharginstation.TurtleChargingStationMod;
-import com.mikitellurium.turtlecharginstation.block.custom.ThunderchargeDynamoBlock;
-import com.mikitellurium.turtlecharginstation.block.custom.TurtleChargingStationBlock;
-import com.mikitellurium.turtlecharginstation.item.ModItems;
+import com.mikitellurium.turtlecharginstation.block.ThunderchargeDynamoBlock;
+import com.mikitellurium.turtlecharginstation.block.TurtleChargingStationBlock;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.eventbus.api.IEventBus;

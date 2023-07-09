@@ -1,7 +1,7 @@
-package com.mikitellurium.turtlecharginstation.block.custom;
+package com.mikitellurium.turtlecharginstation.block;
 
-import com.mikitellurium.turtlecharginstation.blockentity.ModBlockEntities;
-import com.mikitellurium.turtlecharginstation.blockentity.custom.TurtleChargingStationBlockEntity;
+import com.mikitellurium.turtlecharginstation.registry.ModBlockEntities;
+import com.mikitellurium.turtlecharginstation.blockentity.TurtleChargingStationBlockEntity;
 import com.mikitellurium.turtlecharginstation.networking.ModMessages;
 import com.mikitellurium.turtlecharginstation.networking.packets.EnergySyncS2CPacket;
 import net.minecraft.core.BlockPos;

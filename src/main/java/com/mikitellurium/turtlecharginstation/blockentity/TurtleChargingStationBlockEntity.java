@@ -1,8 +1,8 @@
-package com.mikitellurium.turtlecharginstation.blockentity.custom;
+package com.mikitellurium.turtlecharginstation.blockentity;
 
-import com.mikitellurium.turtlecharginstation.block.custom.TurtleChargingStationBlock;
-import com.mikitellurium.turtlecharginstation.blockentity.ModBlockEntities;
-import com.mikitellurium.turtlecharginstation.energy.ModEnergyStorage;
+import com.mikitellurium.turtlecharginstation.block.TurtleChargingStationBlock;
+import com.mikitellurium.turtlecharginstation.registry.ModBlockEntities;
+import com.mikitellurium.turtlecharginstation.util.ModEnergyStorage;
 import com.mikitellurium.turtlecharginstation.gui.TurtleChargingStationMenu;
 import com.mikitellurium.turtlecharginstation.networking.ModMessages;
 import com.mikitellurium.turtlecharginstation.networking.packets.EnergySyncS2CPacket;
@@ -18,7 +18,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BeaconBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeConfigSpec;

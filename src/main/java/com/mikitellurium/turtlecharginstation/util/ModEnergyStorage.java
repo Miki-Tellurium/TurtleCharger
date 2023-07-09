@@ -1,4 +1,4 @@
-package com.mikitellurium.turtlecharginstation.energy;
+package com.mikitellurium.turtlecharginstation.util;
 
 import net.minecraftforge.energy.EnergyStorage;
 
