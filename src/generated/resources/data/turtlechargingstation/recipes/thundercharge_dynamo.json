@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "turtlechargingstation",
+  "key": {
+    "#": {
+      "tag": "forge:storage_blocks/redstone"
+    },
+    "G": {
+      "tag": "forge:ingots/gold"
+    },
+    "R": {
+      "item": "minecraft:lightning_rod"
+    },
+    "X": {
+      "tag": "forge:ingots/iron"
+    }
+  },
+  "pattern": [
+    "XRX",
+    "X#X",
+    "XGX"
+  ],
+  "result": {
+    "item": "turtlechargingstation:thundercharge_dynamo"
+  },
+  "show_notification": true
+}

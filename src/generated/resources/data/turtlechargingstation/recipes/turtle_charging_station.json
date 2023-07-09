@@ -27,6 +27,7 @@
       ],
       "recipe": {
         "type": "minecraft:crafting_shaped",
+        "category": "misc",
         "group": "turtlechargingstation",
         "key": {
           "I": {
@@ -49,7 +50,8 @@
         ],
         "result": {
           "item": "turtlechargingstation:turtle_charging_station"
-        }
+        },
+        "show_notification": true
       }
     }
   ]

@@ -43,8 +43,8 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('I', Tags.Items.STORAGE_BLOCKS_IRON)
                 .group(TurtleChargingStationMod.MOD_ID)
                 .unlockedBy("turtlecharging", InventoryChangeTrigger.TriggerInstance.hasItems(
-                        ModRegistry.Blocks.TURTLE_NORMAL.get(), ModRegistry.Blocks.TURTLE_ADVANCED.get()))::save
-        ).build(consumer, new ResourceLocation(TurtleChargingStationMod.MOD_ID, "turtle_charging_station"));
+                        ModRegistry.Blocks.TURTLE_NORMAL.get(), ModRegistry.Blocks.TURTLE_ADVANCED.get()))::save)
+                .build(consumer, new ResourceLocation(TurtleChargingStationMod.MOD_ID, "turtle_charging_station"));
 
         ConditionalRecipe.builder()
                 .addCondition(modLoaded(ModIdConstants.ID_THERMAL))
@@ -60,8 +60,8 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                                 .define('I', Tags.Items.STORAGE_BLOCKS_IRON)
                                 .group(TurtleChargingStationMod.MOD_ID)
                                 .unlockedBy("turtlecharging", InventoryChangeTrigger.TriggerInstance.hasItems(
-                                        ModRegistry.Blocks.TURTLE_NORMAL.get(), ModRegistry.Blocks.TURTLE_ADVANCED.get()))::save
-                ).build(consumer, new ResourceLocation(TurtleChargingStationMod.MOD_ID, "turtle_charging_station_thermal"));
+                                        ModRegistry.Blocks.TURTLE_NORMAL.get(), ModRegistry.Blocks.TURTLE_ADVANCED.get()))::save)
+                .build(consumer, new ResourceLocation(TurtleChargingStationMod.MOD_ID, "turtle_charging_station_thermal"));
 
 
         ConditionalRecipe.builder()
@@ -78,8 +78,8 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                                 .define('I', Tags.Items.STORAGE_BLOCKS_IRON)
                                 .group(TurtleChargingStationMod.MOD_ID)
                                 .unlockedBy("turtlecharging", InventoryChangeTrigger.TriggerInstance.hasItems(
-                                        ModRegistry.Blocks.TURTLE_NORMAL.get(), ModRegistry.Blocks.TURTLE_ADVANCED.get()))::save
-                ).build(consumer, new ResourceLocation(TurtleChargingStationMod.MOD_ID, "turtle_charging_station_mekanism"));
+                                        ModRegistry.Blocks.TURTLE_NORMAL.get(), ModRegistry.Blocks.TURTLE_ADVANCED.get()))::save)
+                .build(consumer, new ResourceLocation(TurtleChargingStationMod.MOD_ID, "turtle_charging_station_mekanism"));
 
         ConditionalRecipe.builder()
                 .addCondition(modLoaded(ModIdConstants.ID_POWAH))
@@ -97,6 +97,19 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                                 .unlockedBy("turtlecharging", InventoryChangeTrigger.TriggerInstance.hasItems(
                                         ModRegistry.Blocks.TURTLE_NORMAL.get(), ModRegistry.Blocks.TURTLE_ADVANCED.get()))::save
                 ).build(consumer, new ResourceLocation(TurtleChargingStationMod.MOD_ID, "turtle_charging_station_powah"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.THUNDERCHARGE_DYNAMO_BLOCK.get())
+                .pattern("XRX")
+                .pattern("X#X")
+                .pattern("XGX")
+                .define('X', Tags.Items.INGOTS_IRON)
+                .define('#', Tags.Items.STORAGE_BLOCKS_REDSTONE)
+                .define('R', Blocks.LIGHTNING_ROD)
+                .define('G', Tags.Items.INGOTS_GOLD)
+                .group(TurtleChargingStationMod.MOD_ID)
+                .unlockedBy("turtlecharging", InventoryChangeTrigger.TriggerInstance.hasItems(
+                        ModRegistry.Blocks.TURTLE_NORMAL.get(), ModRegistry.Blocks.TURTLE_ADVANCED.get()))
+                .save(consumer);
 
     }
 

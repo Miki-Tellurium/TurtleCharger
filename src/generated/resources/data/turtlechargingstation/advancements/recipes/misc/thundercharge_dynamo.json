@@ -1,0 +1,40 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "turtlechargingstation:thundercharge_dynamo"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "turtlecharging": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "computercraft:turtle_normal"
+            ]
+          },
+          {
+            "items": [
+              "computercraft:turtle_advanced"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "turtlecharging",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "turtlechargingstation:thundercharge_dynamo"
+    ]
+  },
+  "sends_telemetry_event": false
+}

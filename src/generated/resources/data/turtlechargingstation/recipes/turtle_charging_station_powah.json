@@ -14,11 +14,10 @@
       ],
       "recipe": {
         "type": "minecraft:crafting_shaped",
+        "category": "misc",
         "group": "turtlechargingstation",
         "key": {
-          "D": {
-            "item": "powah:dielectric_casing"
-          },
+          "D": [],
           "I": {
             "tag": "forge:storage_blocks/iron"
           },
@@ -36,7 +35,8 @@
         ],
         "result": {
           "item": "turtlechargingstation:turtle_charging_station"
-        }
+        },
+        "show_notification": true
       }
     }
   ]
