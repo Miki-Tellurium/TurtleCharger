@@ -1,0 +1,43 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "powah"
+        },
+        {
+          "type": "forge:item_exists",
+          "item": "powah:dielectric_casing"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "group": "turtlechargingstation",
+        "key": {
+          "D": {
+            "item": "powah:dielectric_casing"
+          },
+          "I": {
+            "tag": "forge:storage_blocks/iron"
+          },
+          "c": {
+            "item": "minecraft:black_concrete"
+          },
+          "g": {
+            "tag": "forge:ingots/gold"
+          }
+        },
+        "pattern": [
+          "cgc",
+          "gDg",
+          "cIc"
+        ],
+        "result": {
+          "item": "turtlechargingstation:turtle_charging_station"
+        }
+      }
+    }
+  ]
+}

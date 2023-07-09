@@ -1,0 +1,56 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:not",
+          "value": {
+            "type": "forge:mod_loaded",
+            "modid": "thermal"
+          }
+        },
+        {
+          "type": "forge:not",
+          "value": {
+            "type": "forge:mod_loaded",
+            "modid": "mekanism"
+          }
+        },
+        {
+          "type": "forge:not",
+          "value": {
+            "type": "forge:mod_loaded",
+            "modid": "powah"
+          }
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "group": "turtlechargingstation",
+        "key": {
+          "I": {
+            "tag": "forge:storage_blocks/iron"
+          },
+          "R": {
+            "tag": "forge:storage_blocks/redstone"
+          },
+          "c": {
+            "item": "minecraft:black_concrete"
+          },
+          "g": {
+            "tag": "forge:ingots/gold"
+          }
+        },
+        "pattern": [
+          "cgc",
+          "gRg",
+          "cIc"
+        ],
+        "result": {
+          "item": "turtlechargingstation:turtle_charging_station"
+        }
+      }
+    }
+  ]
+}

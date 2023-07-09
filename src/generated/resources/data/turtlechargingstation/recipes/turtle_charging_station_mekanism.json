@@ -1,0 +1,43 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "mekanism"
+        },
+        {
+          "type": "forge:item_exists",
+          "item": "mekanism:steel_casing"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "group": "turtlechargingstation",
+        "key": {
+          "I": {
+            "tag": "forge:storage_blocks/iron"
+          },
+          "S": {
+            "item": "mekanism:steel_casing"
+          },
+          "c": {
+            "item": "minecraft:black_concrete"
+          },
+          "g": {
+            "tag": "forge:ingots/gold"
+          }
+        },
+        "pattern": [
+          "cgc",
+          "gSg",
+          "cIc"
+        ],
+        "result": {
+          "item": "turtlechargingstation:turtle_charging_station"
+        }
+      }
+    }
+  ]
+}

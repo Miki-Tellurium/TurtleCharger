@@ -1,0 +1,43 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "thermal"
+        },
+        {
+          "type": "forge:item_exists",
+          "item": "thermal:energy_cell_frame"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "group": "turtlechargingstation",
+        "key": {
+          "F": {
+            "item": "thermal:energy_cell_frame"
+          },
+          "I": {
+            "tag": "forge:storage_blocks/iron"
+          },
+          "c": {
+            "item": "minecraft:black_concrete"
+          },
+          "g": {
+            "tag": "forge:ingots/gold"
+          }
+        },
+        "pattern": [
+          "cgc",
+          "gFg",
+          "cIc"
+        ],
+        "result": {
+          "item": "turtlechargingstation:turtle_charging_station"
+        }
+      }
+    }
+  ]
+}
