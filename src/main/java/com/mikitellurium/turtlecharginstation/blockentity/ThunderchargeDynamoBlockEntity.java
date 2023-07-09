@@ -23,14 +23,6 @@ public class ThunderchargeDynamoBlockEntity extends BlockEntity {
     public static ForgeConfigSpec.IntValue TRANSFER_RATE;
     public static ForgeConfigSpec.IntValue RECHARGE_AMOUNT;
 
-    private final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(0, 0) {
-        @Override
-        public void onEnergyChanged() {
-            setChanged();
-        }
-    };
-    private final LazyOptional<IEnergyStorage> lazyEnergyHandler = LazyOptional.of(() -> ENERGY_STORAGE);
-
     public ThunderchargeDynamoBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(ModBlockEntities.THUNDERCHARGE_DYNAMO.get(), blockPos, blockState);
     }
@@ -72,22 +64,6 @@ public class ThunderchargeDynamoBlockEntity extends BlockEntity {
 
     public static void recharge(ThunderchargeDynamoBlockEntity dynamo) {
         dynamo.charge = Math.min(dynamo.getCharge() + RECHARGE_AMOUNT.get(), Integer.MAX_VALUE);
-    }
-
-    // Capabilities
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (cap == ForgeCapabilities.ENERGY) {
-            return lazyEnergyHandler.cast();
-        }
-
-        return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-        lazyEnergyHandler.invalidate();
     }
 
     @Override
