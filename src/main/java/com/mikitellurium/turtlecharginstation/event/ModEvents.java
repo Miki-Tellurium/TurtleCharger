@@ -6,10 +6,8 @@ import com.mikitellurium.turtlecharginstation.util.LevelUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LightningBolt;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.NaturalSpawner;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -30,9 +28,9 @@ public class ModEvents {
             if (maybeDynamo == null) return;
             if (maybeDynamo instanceof ThunderchargeDynamoBlockEntity dynamo) {
                 ThunderchargeDynamoBlockEntity.recharge(dynamo);
-                //if (lightningBolt.getCause() == null) {
+                if (lightningBolt.getCause() == null) {
                     LevelUtils.maybeDoSpawnCreeper((ServerLevel) lightningBolt.level(), dynamo.getBlockPos());
-                //}
+                }
             }
         }
     }
