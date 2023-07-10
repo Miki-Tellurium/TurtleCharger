@@ -5,7 +5,7 @@ import com.mikitellurium.turtlechargingstation.blockentity.ThunderchargeDynamoBl
 import com.mikitellurium.turtlechargingstation.blockentity.TurtleChargingStationBlockEntity;
 import com.mikitellurium.turtlechargingstation.config.api.TelluriumConfig;
 
-public class Configuration {
+public class ModConfig {
 
 private static final TelluriumConfig.Builder COMMON_CONFIG_BUILDER = new TelluriumConfig.Builder(TurtleChargingStationMod.MOD_ID);
 
