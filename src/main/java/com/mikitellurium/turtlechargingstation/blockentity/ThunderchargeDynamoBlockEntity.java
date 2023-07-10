@@ -3,6 +3,7 @@ package com.mikitellurium.turtlechargingstation.blockentity;
 import com.mikitellurium.turtlechargingstation.block.ThunderchargeDynamoBlock;
 import com.mikitellurium.turtlechargingstation.registry.ModBlockEntities;
 import com.mikitellurium.turtlechargingstation.config.api.TelluriumConfig;
+import com.mikitellurium.turtlechargingstation.registry.ModTags;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -33,24 +34,21 @@ public class ThunderchargeDynamoBlockEntity extends BlockEntity {
                 if (direction == Direction.UP) {
                     continue;
                 }
-                BlockEntity blockEntity = world.getBlockEntity(dynamo.pos.offset(direction));
+                BlockEntity blockEntity = maybeFindAdjacentBlockEntity(world, blockPos, direction);
                 if (blockEntity == null) {
                     continue;
                 }
-                // Check for energy capability
-                EnergyStorage energyStorage = EnergyStorage.SIDED.find(world, blockPos.offset(direction), direction.getOpposite());
+                // Check for energy storage
+                EnergyStorage energyStorage = EnergyStorage.SIDED.find(world, blockPos,
+                        blockEntity.getCachedState(), blockEntity, direction);
                 if (energyStorage != null) {
-                    System.out.println("Found energy storage");
+                    // Recharge storage
                     try (Transaction transaction = Transaction.openOuter()) {
                         long amountInserted = energyStorage.insert(TRANSFER_RATE.getValue(), transaction);
                         if (amountInserted == TRANSFER_RATE.getValue()) {
                             transaction.commit();
-                        } else {
-                            // Abort transaction
                         }
                     }
-                } else {
-                    System.out.println("No energy storage connected");
                 }
             }
 
@@ -61,6 +59,19 @@ public class ThunderchargeDynamoBlockEntity extends BlockEntity {
         }
 
         markDirty(world, blockPos, blockState);
+    }
+
+    private static BlockEntity maybeFindAdjacentBlockEntity(World world, BlockPos pos, Direction direction) {
+        BlockPos.Mutable mutable$pos = pos.offset(direction).mutableCopy();
+        while (true) {
+            if (world.getBlockEntity(mutable$pos) != null) {
+                return world.getBlockEntity(mutable$pos);
+            } else if (world.getBlockState(mutable$pos).isIn(ModTags.DYNAMO_CONDUCTIVE_BLOCKS)) {
+                mutable$pos.move(direction);
+            } else {
+                return null;
+            }
+        }
     }
 
     public int getCharge() {
