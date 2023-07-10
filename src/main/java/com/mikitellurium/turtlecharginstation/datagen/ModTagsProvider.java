@@ -25,7 +25,8 @@ public class ModTagsProvider extends BlockTagsProvider {
                 .add(Blocks.COPPER_BLOCK)
                 .add(Blocks.CUT_COPPER)
                 .add(Blocks.WAXED_COPPER_BLOCK)
-                .add(Blocks.WAXED_CUT_COPPER);
+                .add(Blocks.WAXED_CUT_COPPER)
+                .add(Blocks.LIGHTNING_ROD);
     }
 
 }
