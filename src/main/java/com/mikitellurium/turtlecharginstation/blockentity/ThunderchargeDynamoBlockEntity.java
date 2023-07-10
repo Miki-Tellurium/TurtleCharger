@@ -7,6 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeConfigSpec;
@@ -38,7 +39,7 @@ public class ThunderchargeDynamoBlockEntity extends BlockEntity {
                 if (direction == Direction.UP) {
                     continue;
                 }
-                BlockEntity be = level.getBlockEntity(dynamo.worldPosition.relative(direction));
+                BlockEntity be = maybeFindAdjacentBlockEntity(level, blockPos, direction);
                 if (be == null) {
                     continue;
                 }
@@ -56,6 +57,19 @@ public class ThunderchargeDynamoBlockEntity extends BlockEntity {
         }
 
         setChanged(level, blockPos, blockState);
+    }
+
+    private static BlockEntity maybeFindAdjacentBlockEntity(Level level, BlockPos pos, Direction direction) {
+        BlockPos.MutableBlockPos mutable$pos = pos.relative(direction).mutable();
+        while (true) {
+            if (level.getBlockEntity(mutable$pos) != null) {
+                return level.getBlockEntity(mutable$pos);
+            } else if (level.getBlockState(mutable$pos).is(Blocks.CHAIN)) {
+                mutable$pos.move(direction);
+            } else {
+                return null;
+            }
+        }
     }
 
     public int getCharge() {
