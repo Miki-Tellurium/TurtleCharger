@@ -1,6 +1,7 @@
 package com.mikitellurium.turtlechargingstation.event;
 
 import com.mikitellurium.turtlechargingstation.blockentity.ThunderchargeDynamoBlockEntity;
+import com.mikitellurium.turtlechargingstation.util.WorldUtils;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
@@ -21,6 +22,9 @@ public class ModEvents {
             if (blockEntity == null) return;
             if (blockEntity instanceof ThunderchargeDynamoBlockEntity dynamo) {
                 ThunderchargeDynamoBlockEntity.recharge(dynamo);
+                if (lightningBolt.getChanneler() == null) {
+                    WorldUtils.maybeDoSpawnCreeper((ServerWorld) lightningBolt.getWorld(), dynamo.getPos());
+                }
             }
         }
     }
