@@ -1,5 +1,6 @@
 package com.mikitellurium.turtlecharginstation.util;
 
+import com.mikitellurium.turtlecharginstation.TurtleChargingStationMod;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -25,12 +26,7 @@ public class LevelUtils {
             if (blockPos != null) {
                 Creeper creeper = EntityType.CREEPER.spawn(level, blockPos, MobSpawnType.EVENT);
                 if (creeper != null) {
-                    try {
-                        EntityDataAccessor<Boolean> creeperIsPowered = (EntityDataAccessor<Boolean>) dataIsPowered.get(creeper);
-                        creeper.getEntityData().set(creeperIsPowered, true);
-                    } catch (IllegalAccessException e) {
-                        // Handle exceptions
-                    }
+                    chargeCreeper(creeper);
                 }
             }
         }
@@ -48,6 +44,16 @@ public class LevelUtils {
         }
 
         return null;
+    }
+
+    @SuppressWarnings("unchecked")
+    private static void chargeCreeper(Creeper creeper) {
+        try {
+            EntityDataAccessor<Boolean> creeperIsPowered = (EntityDataAccessor<Boolean>) dataIsPowered.get(creeper);
+            creeper.getEntityData().set(creeperIsPowered, true);
+        } catch (IllegalAccessException e) {
+            TurtleChargingStationMod.LOGGER.error("Failed to charge creeper");
+        }
     }
 
 }

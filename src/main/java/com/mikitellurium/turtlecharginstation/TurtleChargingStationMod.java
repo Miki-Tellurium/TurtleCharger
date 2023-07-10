@@ -25,7 +25,7 @@ import org.slf4j.Logger;
 public class TurtleChargingStationMod {
 
     public static final String MOD_ID = "turtlechargingstation";
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public TurtleChargingStationMod() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
