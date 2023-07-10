@@ -101,7 +101,7 @@ public class TurtleChargingStationBlockEntity extends BlockEntity implements Ext
         }
         chargingStation.extractCount = 6;
 
-        debugRecharge(world, pos, chargingStation);
+        //debugRecharge(world, pos, chargingStation);
     }
 
     private static void refuelTurtle(TurtleChargingStationBlockEntity chargingStation , TurtleBlockEntity turtle) {
