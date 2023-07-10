@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "turtlechargingstation",
+	"version": "${version}",
+	"name": "Turtle Charging Station",
+	"description": "Adds a block that can charge CC:Tweaked turtles using Forge Energy",
+	"authors": [
+		"Miki Tellurium"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "MIT License",
+	"icon": "assets/turtlechargingstation/turtlechargingstationlogo.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+          "com.mikitellurium.turtlechargingstation.TurtleChargingStationMod"
+		],
+		"client": [
+			"com.mikitellurium.turtlechargingstation.TurtleChargingStationClient"
+		],
+		"fabric-datagen": [
+			"com.mikitellurium.turtlechargingstation.datagen.DataGeneration"
+		]
+	},
+	"mixins": [
+		"turtlechargingstation.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.14.21",
+		"minecraft": "~1.20",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

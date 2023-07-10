@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "charging=false": {
+      "model": "turtlechargingstation:block/turtle_charging_station_off"
+    },
+    "charging=true": {
+      "model": "turtlechargingstation:block/turtle_charging_station_on"
+    }
+  }
+}
