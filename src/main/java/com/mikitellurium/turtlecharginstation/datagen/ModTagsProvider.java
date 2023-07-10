@@ -22,7 +22,10 @@ public class ModTagsProvider extends BlockTagsProvider {
     protected void addTags(HolderLookup.Provider provider) {
         this.tag(ModTags.DYNAMO_CONDUCTIVE_BLOCKS)
                 .add(Blocks.CHAIN)
-                .add(Blocks.COPPER_BLOCK);
+                .add(Blocks.COPPER_BLOCK)
+                .add(Blocks.CUT_COPPER)
+                .add(Blocks.WAXED_COPPER_BLOCK)
+                .add(Blocks.WAXED_CUT_COPPER);
     }
 
 }
