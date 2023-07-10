@@ -1,7 +1,6 @@
 package com.mikitellurium.turtlecharginstation.datagen;
 
 import com.mikitellurium.turtlecharginstation.TurtleChargingStationMod;
-import com.mikitellurium.turtlecharginstation.registry.ModBlocks;
 import com.mikitellurium.turtlecharginstation.registry.ModTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -23,8 +22,7 @@ public class ModTagsProvider extends BlockTagsProvider {
     protected void addTags(HolderLookup.Provider provider) {
         this.tag(ModTags.DYNAMO_CONDUCTIVE_BLOCKS)
                 .add(Blocks.CHAIN)
-                .add(Blocks.COPPER_BLOCK)
-                .add(ModBlocks.THUNDERCHARGE_DYNAMO_BLOCK.get());
+                .add(Blocks.COPPER_BLOCK);
     }
 
 }

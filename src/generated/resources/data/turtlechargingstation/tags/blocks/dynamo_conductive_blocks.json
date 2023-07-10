@@ -1,7 +1,6 @@
 {
   "values": [
     "minecraft:chain",
-    "minecraft:copper_block",
-    "turtlechargingstation:thundercharge_dynamo"
+    "minecraft:copper_block"
   ]
 }

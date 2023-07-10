@@ -2,6 +2,7 @@ package com.mikitellurium.turtlecharginstation.blockentity;
 
 import com.mikitellurium.turtlecharginstation.block.ThunderchargeDynamoBlock;
 import com.mikitellurium.turtlecharginstation.registry.ModBlockEntities;
+import com.mikitellurium.turtlecharginstation.registry.ModTags;
 import com.mikitellurium.turtlecharginstation.util.ModEnergyStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -64,7 +65,7 @@ public class ThunderchargeDynamoBlockEntity extends BlockEntity {
         while (true) {
             if (level.getBlockEntity(mutable$pos) != null) {
                 return level.getBlockEntity(mutable$pos);
-            } else if (level.getBlockState(mutable$pos).is(Blocks.CHAIN)) {
+            } else if (level.getBlockState(mutable$pos).is(ModTags.DYNAMO_CONDUCTIVE_BLOCKS)) {
                 mutable$pos.move(direction);
             } else {
                 return null;
