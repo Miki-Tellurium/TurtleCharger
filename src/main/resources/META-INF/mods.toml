@@ -31,6 +31,6 @@ description='''Adds a block that can charge CC:Tweaked turtles using Forge Energ
 [[dependencies.turtlechargingstation]]
 modId="computercraft"
 mandatory=true
-versionRange="[1.105.0,1.106)"
+versionRange="[1.105.0,1.107)"
 ordering="NONE"
 side="BOTH"
