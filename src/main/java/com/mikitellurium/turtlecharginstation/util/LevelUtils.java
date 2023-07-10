@@ -36,7 +36,6 @@ public class LevelUtils {
         BlockPos.MutableBlockPos mutable$pos = new BlockPos.MutableBlockPos(pos.getX(), pos.getY() + 2, pos.getZ());
 
         for (int i = 0; i < 10 ; i++) {
-            System.out.println(level.getBlockState(mutable$pos));
             if (NaturalSpawner.canSpawnAtBody(SpawnPlacements.Type.NO_RESTRICTIONS, level, mutable$pos, EntityType.CREEPER) && level.canSeeSky(mutable$pos)) {
                 return mutable$pos;
             }
