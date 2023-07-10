@@ -1,6 +1,6 @@
 package com.mikitellurium.turtlechargingstation.datagen;
 
-import com.mikitellurium.turtlechargingstation.block.ModBlocks;
+import com.mikitellurium.turtlechargingstation.registry.ModBlocks;
 import dan200.computercraft.shared.ModRegistry;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;

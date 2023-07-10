@@ -1,7 +1,7 @@
-package com.mikitellurium.turtlechargingstation.item;
+package com.mikitellurium.turtlechargingstation.registry;
 
 import com.mikitellurium.turtlechargingstation.TurtleChargingStationMod;
-import com.mikitellurium.turtlechargingstation.block.ModBlocks;
+import com.mikitellurium.turtlechargingstation.registry.ModBlocks;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;

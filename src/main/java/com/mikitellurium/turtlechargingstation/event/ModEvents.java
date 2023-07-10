@@ -1,6 +1,6 @@
 package com.mikitellurium.turtlechargingstation.event;
 
-import com.mikitellurium.turtlechargingstation.blockentity.custom.ThunderchargeDynamoBlockEntity;
+import com.mikitellurium.turtlechargingstation.blockentity.ThunderchargeDynamoBlockEntity;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;

@@ -1,7 +1,7 @@
-package com.mikitellurium.turtlechargingstation.blockentity.custom;
+package com.mikitellurium.turtlechargingstation.blockentity;
 
-import com.mikitellurium.turtlechargingstation.block.custom.ThunderchargeDynamoBlock;
-import com.mikitellurium.turtlechargingstation.blockentity.ModBlockEntities;
+import com.mikitellurium.turtlechargingstation.block.ThunderchargeDynamoBlock;
+import com.mikitellurium.turtlechargingstation.registry.ModBlockEntities;
 import com.mikitellurium.turtlechargingstation.config.api.TelluriumConfig;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;

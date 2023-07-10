@@ -1,8 +1,8 @@
 package com.mikitellurium.turtlechargingstation.config;
 
 import com.mikitellurium.turtlechargingstation.TurtleChargingStationMod;
-import com.mikitellurium.turtlechargingstation.blockentity.custom.ThunderchargeDynamoBlockEntity;
-import com.mikitellurium.turtlechargingstation.blockentity.custom.TurtleChargingStationBlockEntity;
+import com.mikitellurium.turtlechargingstation.blockentity.ThunderchargeDynamoBlockEntity;
+import com.mikitellurium.turtlechargingstation.blockentity.TurtleChargingStationBlockEntity;
 import com.mikitellurium.turtlechargingstation.config.api.TelluriumConfig;
 
 public class Configuration {

@@ -1,9 +1,8 @@
-package com.mikitellurium.turtlechargingstation.block.custom;
+package com.mikitellurium.turtlechargingstation.block;
 
-import com.mikitellurium.turtlechargingstation.blockentity.ModBlockEntities;
-import com.mikitellurium.turtlechargingstation.blockentity.custom.TurtleChargingStationBlockEntity;
+import com.mikitellurium.turtlechargingstation.registry.ModBlockEntities;
+import com.mikitellurium.turtlechargingstation.blockentity.TurtleChargingStationBlockEntity;
 import com.mikitellurium.turtlechargingstation.networking.packets.EnergySyncS2CPacket;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;

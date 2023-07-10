@@ -1,8 +1,8 @@
-package com.mikitellurium.turtlechargingstation.block;
+package com.mikitellurium.turtlechargingstation.registry;
 
 import com.mikitellurium.turtlechargingstation.TurtleChargingStationMod;
-import com.mikitellurium.turtlechargingstation.block.custom.ThunderchargeDynamoBlock;
-import com.mikitellurium.turtlechargingstation.block.custom.TurtleChargingStationBlock;
+import com.mikitellurium.turtlechargingstation.block.ThunderchargeDynamoBlock;
+import com.mikitellurium.turtlechargingstation.block.TurtleChargingStationBlock;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;

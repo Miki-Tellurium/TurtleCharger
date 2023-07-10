@@ -1,7 +1,7 @@
-package com.mikitellurium.turtlechargingstation.blockentity.custom;
+package com.mikitellurium.turtlechargingstation.blockentity;
 
-import com.mikitellurium.turtlechargingstation.block.custom.TurtleChargingStationBlock;
-import com.mikitellurium.turtlechargingstation.blockentity.ModBlockEntities;
+import com.mikitellurium.turtlechargingstation.block.TurtleChargingStationBlock;
+import com.mikitellurium.turtlechargingstation.registry.ModBlockEntities;
 import com.mikitellurium.turtlechargingstation.config.api.TelluriumConfig;
 import com.mikitellurium.turtlechargingstation.gui.TurtleChargingStationScreenHandler;
 import com.mikitellurium.turtlechargingstation.networking.ModMessages;

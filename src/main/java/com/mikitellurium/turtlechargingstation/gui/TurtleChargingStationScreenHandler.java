@@ -1,6 +1,6 @@
 package com.mikitellurium.turtlechargingstation.gui;
 
-import com.mikitellurium.turtlechargingstation.blockentity.custom.TurtleChargingStationBlockEntity;
+import com.mikitellurium.turtlechargingstation.blockentity.TurtleChargingStationBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
