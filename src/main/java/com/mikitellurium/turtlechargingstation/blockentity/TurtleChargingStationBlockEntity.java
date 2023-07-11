@@ -33,7 +33,7 @@ public class TurtleChargingStationBlockEntity extends BlockEntity implements Ext
     public static TelluriumConfig.RangedConfigEntry<Long> CAPACITY;
     public static TelluriumConfig.RangedConfigEntry<Long> CONVERSION_RATE; // Based on Thermal Expansion stirling dynamo production rate using coal
     private final long maxReceive = CONVERSION_RATE.getValue() * 6; // 6 sides
-    private final SimpleEnergyStorage ENERGY_STORAGE = new SimpleEnergyStorage(CAPACITY.getValue(), maxReceive, maxReceive) {
+    private final SimpleEnergyStorage ENERGY_STORAGE = new SimpleEnergyStorage(CAPACITY.getValue(), CAPACITY.getValue(), maxReceive) {
         @Override
         protected void onFinalCommit() {
             markDirty();
