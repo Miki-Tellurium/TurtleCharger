@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "turtlechargingstation",
-	"version": "${version}",
+	"version": "1.4.0-1.20",
 	"name": "Turtle Charging Station",
 	"description": "Adds a block that can charge CC:Tweaked turtles using Forge Energy",
 	"authors": [
