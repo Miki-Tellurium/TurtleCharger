@@ -163,7 +163,7 @@ public class TurtleChargingStationBlockEntity extends BlockEntity implements Ext
     @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
-        ENERGY_STORAGE.amount = nbt.getLong("turtle_charger.energy");
+        ENERGY_STORAGE.amount = Math.min(nbt.getLong("turtle_charger.energy"), CAPACITY.getValue());
     }
 
 }
