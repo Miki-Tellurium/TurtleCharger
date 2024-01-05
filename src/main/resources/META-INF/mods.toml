@@ -6,7 +6,7 @@ license="MIT License"
 
 [[mods]] #mandatory
 modId="turtlechargingstation" #mandatory
-version="1.4.0-1.20" #mandatory
+version="1.4.1-1.20" #mandatory
 displayName="Turtle Charging Station" #mandatory
 #updateJSONURL="https://change.me.example.invalid/updates.json" #optional
 #displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
@@ -31,6 +31,6 @@ description='''Adds a block that can charge CC:Tweaked turtles using Forge Energ
 [[dependencies.turtlechargingstation]]
 modId="computercraft"
 mandatory=true
-versionRange="[1.105.0,1.107)"
+versionRange="[1.105.0,)"
 ordering="NONE"
 side="BOTH"
