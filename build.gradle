@@ -38,6 +38,7 @@ sourceSets {
 }
 
 repositories {
+	mavenCentral()
 	maven {
 		//ModMenu
 		name = "terraformersmc maven"
@@ -83,6 +84,8 @@ dependencies {
 	include modApi("teamreborn:energy:${team_reborn_energy_version}") {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
+	include implementation("com.electronwill.night-config:toml:${nightconfig_version}")
+	include implementation("com.electronwill.night-config:core:${nightconfig_version}")
 }
 
 processResources {
