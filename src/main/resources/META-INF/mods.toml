@@ -6,7 +6,7 @@ license="MIT License"
 
 [[mods]] #mandatory
 modId="turtlechargingstation" #mandatory
-version="1.4.1-1.20" #mandatory
+version="1.4.2-1.20" #mandatory
 displayName="Turtle Charging Station" #mandatory
 #updateJSONURL="https://change.me.example.invalid/updates.json" #optional
 #displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
