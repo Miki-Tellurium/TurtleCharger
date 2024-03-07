@@ -21,7 +21,7 @@ public abstract class ModEnergyStorage extends EnergyStorage {
     @Override
     public int extractEnergy(int maxExtract, boolean simulate) {
         int extractedEnergy = super.extractEnergy(maxExtract, simulate);
-        if ( extractedEnergy != 0) {
+        if (extractedEnergy != 0) {
             onEnergyChanged();
         }
 

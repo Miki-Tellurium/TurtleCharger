@@ -11,9 +11,13 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
+import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -25,91 +29,128 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         super(pGenerator.getPackOutput());
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
+        Item redstoneBlock = Items.REDSTONE_BLOCK;
+        Item energyCellFrame = ForgeRegistries.ITEMS.getValue(new ResourceLocation(ModIdConstants.ID_THERMAL, "energy_cell_frame"));
+        Item machineFrame = ForgeRegistries.ITEMS.getValue(new ResourceLocation(ModIdConstants.ID_THERMAL, "machine_frame"));
+        Item rfCoil = ForgeRegistries.ITEMS.getValue(new ResourceLocation(ModIdConstants.ID_THERMAL, "rf_coil"));
+        Item steelCasing = ForgeRegistries.ITEMS.getValue(new ResourceLocation(ModIdConstants.ID_MEKANISM, "steel_casing"));
+        Item osmiumIngot = ForgeRegistries.ITEMS.getValue(new ResourceLocation(ModIdConstants.ID_MEKANISM, "ingot_osmium"));
+        Item dielectricCasing = ForgeRegistries.ITEMS.getValue(new ResourceLocation(ModIdConstants.ID_POWAH, "dielectric_casing"));
+        Item basicCapacitor = ForgeRegistries.ITEMS.getValue(new ResourceLocation(ModIdConstants.ID_POWAH, "capacitor_basic"));
+
+        this.turtleChargingStation(consumer,
+                not(or(
+                        modLoaded(ModIdConstants.ID_THERMAL),
+                        modLoaded(ModIdConstants.ID_MEKANISM),
+                        modLoaded(ModIdConstants.ID_POWAH))),
+                redstoneBlock, "turtle_charging_station");
+        this.turtleChargingStation(consumer,
+                and(
+                        modLoaded(ModIdConstants.ID_THERMAL),
+                        itemExists(ModIdConstants.ID_THERMAL, "energy_cell_frame")),
+                energyCellFrame, "turtle_charging_station_thermal");
+        this.turtleChargingStation(consumer,
+                and(
+                        modLoaded(ModIdConstants.ID_MEKANISM),
+                        itemExists(ModIdConstants.ID_MEKANISM, "steel_casing")),
+                steelCasing, "turtle_charging_station_mekanism");
+        this.turtleChargingStation(consumer,
+                and(
+                        modLoaded(ModIdConstants.ID_POWAH),
+                        itemExists(ModIdConstants.ID_POWAH, "dielectric_casing")),
+                dielectricCasing, "turtle_charging_station_powah");
 
         ConditionalRecipe.builder()
-                .addCondition(not(modLoaded(ModIdConstants.ID_THERMAL)))
-                .addCondition(not(modLoaded(ModIdConstants.ID_MEKANISM)))
-                .addCondition(not(modLoaded(ModIdConstants.ID_POWAH)))
+                .addCondition(not(or(
+                        modLoaded(ModIdConstants.ID_THERMAL),
+                        modLoaded(ModIdConstants.ID_MEKANISM),
+                        modLoaded(ModIdConstants.ID_POWAH))))
                 .addRecipe(
-                ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.TURTLE_CHARGING_STATION_BLOCK.get())
-                .pattern("cgc")
-                .pattern("gRg")
-                .pattern("cIc")
-                .define('c', Blocks.BLACK_CONCRETE)
-                .define('g', Tags.Items.INGOTS_GOLD)
-                .define('R', Tags.Items.STORAGE_BLOCKS_REDSTONE)
-                .define('I', Tags.Items.STORAGE_BLOCKS_IRON)
-                .group(TurtleChargingStationMod.MOD_ID)
-                .unlockedBy("turtlecharging", InventoryChangeTrigger.TriggerInstance.hasItems(
-                        ModRegistry.Blocks.TURTLE_NORMAL.get(), ModRegistry.Blocks.TURTLE_ADVANCED.get()))::save)
-                .build(consumer, new ResourceLocation(TurtleChargingStationMod.MOD_ID, "turtle_charging_station"));
+                        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.THUNDERCHARGE_DYNAMO_BLOCK.get())
+                                .pattern("XRX")
+                                .pattern("X#X")
+                                .pattern("XGX")
+                                .define('X', Tags.Items.INGOTS_IRON)
+                                .define('R', Blocks.LIGHTNING_ROD)
+                                .define('G', Tags.Items.INGOTS_GOLD)
+                                .define('#', redstoneBlock)
+                                .unlockedBy("has_turtle", has(ModRegistry.Blocks.TURTLE_NORMAL.get()))
+                                .unlockedBy("has_advanced_turtle", has(ModRegistry.Blocks.TURTLE_ADVANCED.get()))::save)
+                .build(consumer, new ResourceLocation(TurtleChargingStationMod.MOD_ID, "tundercharge_dynamo"));
 
         ConditionalRecipe.builder()
-                .addCondition(modLoaded(ModIdConstants.ID_THERMAL))
-                .addCondition(itemExists(ModIdConstants.ID_THERMAL, "energy_cell_frame"))
+                .addCondition(and(
+                        modLoaded(ModIdConstants.ID_THERMAL),
+                        itemExists(ModIdConstants.ID_THERMAL, "machine_frame"),
+                        itemExists(ModIdConstants.ID_THERMAL, "rf_coil")))
+                .addRecipe(
+                        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.THUNDERCHARGE_DYNAMO_BLOCK.get())
+                                .pattern("XRX")
+                                .pattern("X#X")
+                                .pattern("XGX")
+                                .define('X', Tags.Items.INGOTS_IRON)
+                                .define('G', Tags.Items.INGOTS_GOLD)
+                                .define('R', rfCoil)
+                                .define('#', machineFrame)
+                                .unlockedBy("has_turtle", has(ModRegistry.Blocks.TURTLE_NORMAL.get()))
+                                .unlockedBy("has_advanced_turtle", has(ModRegistry.Blocks.TURTLE_ADVANCED.get()))::save)
+                .build(consumer, new ResourceLocation(TurtleChargingStationMod.MOD_ID, "tundercharge_dynamo_thermal"));
+
+        ConditionalRecipe.builder()
+                .addCondition(and(
+                        modLoaded(ModIdConstants.ID_MEKANISM),
+                        itemExists(ModIdConstants.ID_MEKANISM, "steel_casing"),
+                        itemExists(ModIdConstants.ID_MEKANISM, "ingot_osmium")))
+                .addRecipe(
+                        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.THUNDERCHARGE_DYNAMO_BLOCK.get())
+                                .pattern("XRX")
+                                .pattern("X#X")
+                                .pattern("XGX")
+                                .define('X', Tags.Items.INGOTS_IRON)
+                                .define('G', Tags.Items.INGOTS_GOLD)
+                                .define('R', osmiumIngot)
+                                .define('#', machineFrame)
+                                .unlockedBy("has_turtle", has(ModRegistry.Blocks.TURTLE_NORMAL.get()))
+                                .unlockedBy("has_advanced_turtle", has(ModRegistry.Blocks.TURTLE_ADVANCED.get()))::save)
+                .build(consumer, new ResourceLocation(TurtleChargingStationMod.MOD_ID, "tundercharge_dynamo_mekanism"));
+
+        ConditionalRecipe.builder()
+                .addCondition(and(
+                        modLoaded(ModIdConstants.ID_POWAH),
+                        itemExists(ModIdConstants.ID_POWAH, "dielectric_casing"),
+                        itemExists(ModIdConstants.ID_POWAH, "capacitor_basic")))
+                .addRecipe(
+                        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.THUNDERCHARGE_DYNAMO_BLOCK.get())
+                                .pattern("XRX")
+                                .pattern("X#X")
+                                .pattern("XGX")
+                                .define('X', Tags.Items.INGOTS_IRON)
+                                .define('G', Tags.Items.INGOTS_GOLD)
+                                .define('R', basicCapacitor)
+                                .define('#', dielectricCasing)
+                                .unlockedBy("has_turtle", has(ModRegistry.Blocks.TURTLE_NORMAL.get()))
+                                .unlockedBy("has_advanced_turtle", has(ModRegistry.Blocks.TURTLE_ADVANCED.get()))::save)
+                .build(consumer, new ResourceLocation(TurtleChargingStationMod.MOD_ID, "tundercharge_dynamo_powah"));
+    }
+
+    private void turtleChargingStation(Consumer<FinishedRecipe> consumer, ICondition condition, ItemLike item, String path) {
+        ConditionalRecipe.builder()
+                .addCondition(condition)
                 .addRecipe(
                         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.TURTLE_CHARGING_STATION_BLOCK.get())
                                 .pattern("cgc")
-                                .pattern("gFg")
+                                .pattern("gRg")
                                 .pattern("cIc")
                                 .define('c', Blocks.BLACK_CONCRETE)
                                 .define('g', Tags.Items.INGOTS_GOLD)
-                                .define('F', ForgeRegistries.ITEMS.getValue(new ResourceLocation(ModIdConstants.ID_THERMAL, "energy_cell_frame")))
                                 .define('I', Tags.Items.STORAGE_BLOCKS_IRON)
-                                .group(TurtleChargingStationMod.MOD_ID)
-                                .unlockedBy("turtlecharging", InventoryChangeTrigger.TriggerInstance.hasItems(
-                                        ModRegistry.Blocks.TURTLE_NORMAL.get(), ModRegistry.Blocks.TURTLE_ADVANCED.get()))::save)
-                .build(consumer, new ResourceLocation(TurtleChargingStationMod.MOD_ID, "turtle_charging_station_thermal"));
-
-
-        ConditionalRecipe.builder()
-                .addCondition(modLoaded(ModIdConstants.ID_MEKANISM))
-                .addCondition(itemExists(ModIdConstants.ID_MEKANISM, "steel_casing"))
-                .addRecipe(
-                        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.TURTLE_CHARGING_STATION_BLOCK.get())
-                                .pattern("cgc")
-                                .pattern("gSg")
-                                .pattern("cIc")
-                                .define('c', Blocks.BLACK_CONCRETE)
-                                .define('g', Tags.Items.INGOTS_GOLD)
-                                .define('S', ForgeRegistries.ITEMS.getValue(new ResourceLocation(ModIdConstants.ID_MEKANISM, "steel_casing")))
-                                .define('I', Tags.Items.STORAGE_BLOCKS_IRON)
-                                .group(TurtleChargingStationMod.MOD_ID)
-                                .unlockedBy("turtlecharging", InventoryChangeTrigger.TriggerInstance.hasItems(
-                                        ModRegistry.Blocks.TURTLE_NORMAL.get(), ModRegistry.Blocks.TURTLE_ADVANCED.get()))::save)
-                .build(consumer, new ResourceLocation(TurtleChargingStationMod.MOD_ID, "turtle_charging_station_mekanism"));
-
-        ConditionalRecipe.builder()
-                .addCondition(modLoaded(ModIdConstants.ID_POWAH))
-                .addCondition(itemExists(ModIdConstants.ID_POWAH, "dielectric_casing"))
-                .addRecipe(
-                        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.TURTLE_CHARGING_STATION_BLOCK.get())
-                                .pattern("cgc")
-                                .pattern("gDg")
-                                .pattern("cIc")
-                                .define('c', Blocks.BLACK_CONCRETE)
-                                .define('g', Tags.Items.INGOTS_GOLD)
-                                .define('D', ForgeRegistries.ITEMS.getValue(new ResourceLocation(ModIdConstants.ID_POWAH, "dielectric_casing")))
-                                .define('I', Tags.Items.STORAGE_BLOCKS_IRON)
-                                .group(TurtleChargingStationMod.MOD_ID)
-                                .unlockedBy("turtlecharging", InventoryChangeTrigger.TriggerInstance.hasItems(
-                                        ModRegistry.Blocks.TURTLE_NORMAL.get(), ModRegistry.Blocks.TURTLE_ADVANCED.get()))::save
-                ).build(consumer, new ResourceLocation(TurtleChargingStationMod.MOD_ID, "turtle_charging_station_powah"));
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.THUNDERCHARGE_DYNAMO_BLOCK.get())
-                .pattern("XRX")
-                .pattern("X#X")
-                .pattern("XGX")
-                .define('X', Tags.Items.INGOTS_IRON)
-                .define('#', Tags.Items.STORAGE_BLOCKS_REDSTONE)
-                .define('R', Blocks.LIGHTNING_ROD)
-                .define('G', Tags.Items.INGOTS_GOLD)
-                .group(TurtleChargingStationMod.MOD_ID)
-                .unlockedBy("turtlecharging", InventoryChangeTrigger.TriggerInstance.hasItems(
-                        ModRegistry.Blocks.TURTLE_NORMAL.get(), ModRegistry.Blocks.TURTLE_ADVANCED.get()))
-                .save(consumer);
+                                .define('R', item)
+                                .unlockedBy("has_turtle", has(ModRegistry.Blocks.TURTLE_NORMAL.get()))
+                                .unlockedBy("has_advanced_turtle", has(ModRegistry.Blocks.TURTLE_ADVANCED.get()))::save)
+                .build(consumer, new ResourceLocation(TurtleChargingStationMod.MOD_ID, path));
     }
 
 }

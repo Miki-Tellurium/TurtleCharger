@@ -8,11 +8,15 @@
           "values": [
             {
               "type": "forge:mod_loaded",
-              "modid": "thermal"
+              "modid": "mekanism"
             },
             {
               "type": "forge:item_exists",
-              "item": "thermal:energy_cell_frame"
+              "item": "mekanism:steel_casing"
+            },
+            {
+              "type": "forge:item_exists",
+              "item": "mekanism:ingot_osmium"
             }
           ]
         }
@@ -21,26 +25,26 @@
         "type": "minecraft:crafting_shaped",
         "category": "misc",
         "key": {
-          "I": {
-            "tag": "forge:storage_blocks/iron"
+          "#": {
+            "item": "thermal:machine_frame"
+          },
+          "G": {
+            "tag": "forge:ingots/gold"
           },
           "R": {
-            "item": "thermal:energy_cell_frame"
+            "item": "mekanism:ingot_osmium"
           },
-          "c": {
-            "item": "minecraft:black_concrete"
-          },
-          "g": {
-            "tag": "forge:ingots/gold"
+          "X": {
+            "tag": "forge:ingots/iron"
           }
         },
         "pattern": [
-          "cgc",
-          "gRg",
-          "cIc"
+          "XRX",
+          "X#X",
+          "XGX"
         ],
         "result": {
-          "item": "turtlechargingstation:turtle_charging_station"
+          "item": "turtlechargingstation:thundercharge_dynamo"
         },
         "show_notification": true
       }

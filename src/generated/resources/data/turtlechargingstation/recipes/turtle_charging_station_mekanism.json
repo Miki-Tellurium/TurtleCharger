@@ -4,23 +4,29 @@
     {
       "conditions": [
         {
-          "type": "forge:mod_loaded",
-          "modid": "mekanism"
-        },
-        {
-          "type": "forge:item_exists",
-          "item": "mekanism:steel_casing"
+          "type": "forge:and",
+          "values": [
+            {
+              "type": "forge:mod_loaded",
+              "modid": "mekanism"
+            },
+            {
+              "type": "forge:item_exists",
+              "item": "mekanism:steel_casing"
+            }
+          ]
         }
       ],
       "recipe": {
         "type": "minecraft:crafting_shaped",
         "category": "misc",
-        "group": "turtlechargingstation",
         "key": {
           "I": {
             "tag": "forge:storage_blocks/iron"
           },
-          "S": [],
+          "R": {
+            "item": "mekanism:steel_casing"
+          },
           "c": {
             "item": "minecraft:black_concrete"
           },
@@ -30,7 +36,7 @@
         },
         "pattern": [
           "cgc",
-          "gSg",
+          "gRg",
           "cIc"
         ],
         "result": {

@@ -12,7 +12,11 @@
             },
             {
               "type": "forge:item_exists",
-              "item": "thermal:energy_cell_frame"
+              "item": "thermal:machine_frame"
+            },
+            {
+              "type": "forge:item_exists",
+              "item": "thermal:rf_coil"
             }
           ]
         }
@@ -21,26 +25,26 @@
         "type": "minecraft:crafting_shaped",
         "category": "misc",
         "key": {
-          "I": {
-            "tag": "forge:storage_blocks/iron"
+          "#": {
+            "item": "thermal:machine_frame"
+          },
+          "G": {
+            "tag": "forge:ingots/gold"
           },
           "R": {
-            "item": "thermal:energy_cell_frame"
+            "item": "thermal:rf_coil"
           },
-          "c": {
-            "item": "minecraft:black_concrete"
-          },
-          "g": {
-            "tag": "forge:ingots/gold"
+          "X": {
+            "tag": "forge:ingots/iron"
           }
         },
         "pattern": [
-          "cgc",
-          "gRg",
-          "cIc"
+          "XRX",
+          "X#X",
+          "XGX"
         ],
         "result": {
-          "item": "turtlechargingstation:turtle_charging_station"
+          "item": "turtlechargingstation:thundercharge_dynamo"
         },
         "show_notification": true
       }
