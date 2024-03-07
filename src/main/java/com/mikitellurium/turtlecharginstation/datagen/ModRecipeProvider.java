@@ -112,7 +112,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                                 .define('X', Tags.Items.INGOTS_IRON)
                                 .define('G', Tags.Items.INGOTS_GOLD)
                                 .define('R', osmiumIngot)
-                                .define('#', machineFrame)
+                                .define('#', steelCasing)
                                 .unlockedBy("has_turtle", has(ModRegistry.Blocks.TURTLE_NORMAL.get()))
                                 .unlockedBy("has_advanced_turtle", has(ModRegistry.Blocks.TURTLE_ADVANCED.get()))::save)
                 .build(consumer, new ResourceLocation(TurtleChargingStationMod.MOD_ID, "tundercharge_dynamo_mekanism"));

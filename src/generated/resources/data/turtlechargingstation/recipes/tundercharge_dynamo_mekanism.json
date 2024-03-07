@@ -26,7 +26,7 @@
         "category": "misc",
         "key": {
           "#": {
-            "item": "thermal:machine_frame"
+            "item": "mekanism:steel_casing"
           },
           "G": {
             "tag": "forge:ingots/gold"
