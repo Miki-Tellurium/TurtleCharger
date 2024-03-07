@@ -136,21 +136,20 @@ dependencies {
 
     implementation fg.deobf("cc.tweaked:cc-tweaked-${mc_version}-forge:${cc_version}")
 
-    implementation fg.deobf("maven.modrinth:cofh-core:${thermal_version}")
-    implementation fg.deobf("maven.modrinth:thermal-expansion:${thermal_version}")
-    implementation fg.deobf("maven.modrinth:thermal-foundation:${thermal_version}")
+    runtimeOnly fg.deobf("maven.modrinth:cofh-core:${thermal_version}")
+    runtimeOnly fg.deobf("maven.modrinth:thermal-expansion:${thermal_version}")
+    runtimeOnly fg.deobf("maven.modrinth:thermal-foundation:${thermal_version}")
 
     runtimeOnly fg.deobf("maven.modrinth:mekanism:${mekanism_version}") // Mekanism: Core
     runtimeOnly fg.deobf("maven.modrinth:mekanism-additions:${mekanism_version}") // Mekanism: Additions
     runtimeOnly fg.deobf("maven.modrinth:mekanism-generators:${mekanism_version}") // Mekanism: Generators
     runtimeOnly fg.deobf("maven.modrinth:mekanism-tools:${mekanism_version}") // Mekanism: Tools
 
-    implementation fg.deobf("maven.modrinth:powah:${powah_version}-forge")
+    runtimeOnly fg.deobf("maven.modrinth:powah:${powah_version}-forge")
 
     implementation fg.deobf("maven.modrinth:architectury-api:${architectury_version}+forge")
 
     implementation fg.deobf("maven.modrinth:cloth-config:${cloth_config_version}+forge")
-
 }
 
 jar {
