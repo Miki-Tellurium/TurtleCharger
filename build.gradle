@@ -101,34 +101,28 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
     maven {
-        // JEI
-        name = "Progwml6 maven"
-        url = "https://dvs1.progwml6.com/files/maven/"
+        name = "Jared's maven"
+        url = "https://maven.blamejared.com/"
     }
     maven {
-        // JEI mirror (for fallback)
-        name = "ModMaven"
-        url = "https://modmaven.dev"
-    }
-    maven {
-        // Thermal Expansion
-        // Powah
-        // Architectury API
-        // Cloth config
-        url = 'https://cursemaven.com'
-    }
-    repositories {
-        // Mekanism
-        maven { url 'https://modmaven.dev/' }
+        url "https://maven.shedaniel.me/"
     }
     maven {
         // CC:Tweaked
         name = "Squiddev maven cct"
         url = 'https://squiddev.cc/maven/'
     }
-    maven {
-        //The One Probe
-        url = 'https://maven.k-4u.nl'
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Modrinth"
+                url = "https://api.modrinth.com/maven"
+            }
+        }
+        forRepositories(fg.repository)
+        filter {
+            includeGroup "maven.modrinth"
+        }
     }
 
 }
@@ -138,25 +132,24 @@ dependencies {
 
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}")
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}")
-    runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")  // at runtime, use the full JEI jar
+    runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")
 
     implementation fg.deobf("cc.tweaked:cc-tweaked-${mc_version}-forge:${cc_version}")
 
-//    implementation fg.deobf("curse.maven:cofh_core-69162:4385216")
-//    implementation fg.deobf("curse.maven:thermal_expansion-69163:4382371")
-//    implementation fg.deobf("curse.maven:thermal_foundation-222880:4382373")
-//
-//    compileOnly "mekanism:Mekanism:${mekanism_version}:api"
-//    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}")// core
-//    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}:additions")// Mekanism: Additions
-//    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}:generators")// Mekanism: Generators
-//    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}:tools")// Mekanism: Tools
+    implementation fg.deobf("maven.modrinth:cofh-core:${thermal_version}")
+    implementation fg.deobf("maven.modrinth:thermal-expansion:${thermal_version}")
+    implementation fg.deobf("maven.modrinth:thermal-foundation:${thermal_version}")
 
-//    implementation fg.deobf("curse.maven:Powah-633483:4489347")
-//
-//    implementation fg.deobf("curse.maven:architectury-419699:4476084")
-//
-//    implementation fg.deobf("curse.maven:cloth-config-348521:3972423")
+    runtimeOnly fg.deobf("maven.modrinth:mekanism:${mekanism_version}") // Mekanism: Core
+    runtimeOnly fg.deobf("maven.modrinth:mekanism-additions:${mekanism_version}") // Mekanism: Additions
+    runtimeOnly fg.deobf("maven.modrinth:mekanism-generators:${mekanism_version}") // Mekanism: Generators
+    runtimeOnly fg.deobf("maven.modrinth:mekanism-tools:${mekanism_version}") // Mekanism: Tools
+
+    implementation fg.deobf("maven.modrinth:powah:${powah_version}-forge")
+
+    implementation fg.deobf("maven.modrinth:architectury-api:${architectury_version}+forge")
+
+    implementation fg.deobf("maven.modrinth:cloth-config:${cloth_config_version}+forge")
 
 }
 

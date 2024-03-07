@@ -110,7 +110,6 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy("turtlecharging", InventoryChangeTrigger.TriggerInstance.hasItems(
                         ModRegistry.Blocks.TURTLE_NORMAL.get(), ModRegistry.Blocks.TURTLE_ADVANCED.get()))
                 .save(consumer);
-
     }
 
 }
