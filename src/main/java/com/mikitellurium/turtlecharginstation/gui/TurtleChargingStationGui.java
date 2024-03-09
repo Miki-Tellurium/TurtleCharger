@@ -26,7 +26,7 @@ public class TurtleChargingStationGui extends AbstractContainerScreen<TurtleChar
     private final SimpleSprite energyStorageTexture = new SimpleSprite(ENERGY_STORAGE_TEXTURE, 34, 84);
     private EnergyStorageElement energyStorage;
     private TurtleInfoElement turtleInfo;
-    private final Supplier<Integer> xPos = () -> (this.width - this.imageWidth) / 2 - 10;
+    private final Supplier<Integer> xPos = () -> (this.width - this.imageWidth) / 2 - 60;
     private final Supplier<Integer> yPos = () -> (this.height - this.imageHeight) / 2;
 
     public TurtleChargingStationGui(TurtleChargingStationMenu menu, Inventory inventory, Component title) {

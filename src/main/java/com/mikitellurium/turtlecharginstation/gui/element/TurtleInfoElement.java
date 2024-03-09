@@ -8,12 +8,11 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.FastColor;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class TurtleInfoElement {
 
@@ -36,24 +35,26 @@ public class TurtleInfoElement {
         this.turtleData.forEach((direction, data) -> data.updateData(this.station, direction));
         int xPos = area.getX();
         int yPos = area.getY();
-        graphics.drawCenteredString(font, "Name", xPos + 74, yPos + 2, white);
-        graphics.drawCenteredString(font, "Fuel Level", xPos + 138, yPos + 2, white);
+        Component name = Component.translatable("gui.turtlechargingstation.turtle_charging_station.turtle_name");
+        Component fuelLevel = Component.translatable("gui.turtlechargingstation.turtle_charging_station.fuel_level");
+        graphics.drawCenteredString(font, name, xPos + 95, yPos + 2, white);
+        graphics.drawCenteredString(font, fuelLevel, xPos + 180, yPos + 2, white);
         int h = yPos + 2;
         for (Direction direction : Direction.values()) {
             TurtleData data = this.turtleData.get(direction);
             h = h + 12;
-            String text = this.getDirectionString(direction);
-            graphics.drawString(font, text, this.alignString(text, xPos), h, white);
-            graphics.drawCenteredString(font, data.getTurtleName(), xPos + 74, h, data.getTurtleColor());
-            graphics.drawCenteredString(font, this.getFuelString(data.getTurtleFuel()), xPos + 138, h, white);
+            String directionName = this.getDirectionName(direction);
+            graphics.drawString(font, directionName, this.alignString(directionName, xPos - 8), h, white);
+            graphics.drawCenteredString(font, data.getTurtleName(), xPos + 95, h, data.getTurtleColor());
+            graphics.drawCenteredString(font, this.getFuelString(data.getTurtleFuel()), xPos + 180, h, white);
         }
     }
 
-    private String getDirectionString(Direction direction) {
-        String name = direction.getName();
-        String uppercase = Character.toUpperCase(name.charAt(0)) + name.substring(1) + ":";
-        int leadingSpace = 6 - uppercase.length();
-        return " ".repeat(leadingSpace) + uppercase;
+    private String getDirectionName(Direction direction) {
+        String name = Component.translatable("gui.turtlechargingstation.turtle_charging_station." + direction.getName()).getString();
+        String withColon = name + ":";
+        int leadingSpace = 7 - withColon.length();
+        return " ".repeat(Math.max(leadingSpace, 0)) + withColon;
     }
 
     private String getFuelString(int fuelLevel) {
@@ -62,8 +63,8 @@ public class TurtleInfoElement {
 
     // Align text to the right
     private int alignString(String string, int xPos) {
-        int length = string.trim().length();
-        return xPos + (6 - length);
+        int width = font.width(string);
+        return Math.max(xPos + (40 - width), xPos);
     }
 
     public Rect2i getArea() {
