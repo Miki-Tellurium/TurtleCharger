@@ -1,0 +1,45 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:and",
+      "values": [
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "mekanism"
+        },
+        {
+          "type": "neoforge:item_exists",
+          "item": "mekanism:steel_casing"
+        },
+        {
+          "type": "neoforge:item_exists",
+          "item": "mekanism:ingot_osmium"
+        }
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "mekanism:steel_casing"
+    },
+    "G": {
+      "tag": "forge:ingots/gold"
+    },
+    "R": {
+      "item": "mekanism:ingot_osmium"
+    },
+    "X": {
+      "tag": "forge:ingots/iron"
+    }
+  },
+  "pattern": [
+    "XRX",
+    "X#X",
+    "XGX"
+  ],
+  "result": {
+    "item": "turtlechargingstation:thundercharge_dynamo"
+  }
+}

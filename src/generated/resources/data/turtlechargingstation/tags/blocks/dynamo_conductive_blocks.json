@@ -1,0 +1,11 @@
+{
+  "values": [
+    "minecraft:chain",
+    "minecraft:gold_block",
+    "minecraft:copper_block",
+    "minecraft:cut_copper",
+    "minecraft:waxed_copper_block",
+    "minecraft:waxed_cut_copper",
+    "minecraft:lightning_rod"
+  ]
+}

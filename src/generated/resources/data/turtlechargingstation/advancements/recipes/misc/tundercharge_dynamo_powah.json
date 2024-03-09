@@ -1,0 +1,66 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:and",
+      "values": [
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "powah"
+        },
+        {
+          "type": "neoforge:item_exists",
+          "item": "powah:dielectric_casing"
+        },
+        {
+          "type": "neoforge:item_exists",
+          "item": "powah:capacitor_basic"
+        }
+      ]
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_advanced_turtle": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "computercraft:turtle_advanced"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "turtlechargingstation:tundercharge_dynamo_powah"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_turtle": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "computercraft:turtle_normal"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_turtle",
+      "has_advanced_turtle"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "turtlechargingstation:tundercharge_dynamo_powah"
+    ]
+  }
+}

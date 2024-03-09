@@ -1,0 +1,53 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:and",
+          "values": [
+            {
+              "type": "forge:mod_loaded",
+              "modid": "thermal"
+            },
+            {
+              "type": "forge:item_exists",
+              "item": "thermal:machine_frame"
+            },
+            {
+              "type": "forge:item_exists",
+              "item": "thermal:rf_coil"
+            }
+          ]
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "category": "misc",
+        "key": {
+          "#": {
+            "item": "thermal:machine_frame"
+          },
+          "G": {
+            "tag": "forge:ingots/gold"
+          },
+          "R": {
+            "item": "thermal:rf_coil"
+          },
+          "X": {
+            "tag": "forge:ingots/iron"
+          }
+        },
+        "pattern": [
+          "XRX",
+          "X#X",
+          "XGX"
+        ],
+        "result": {
+          "item": "turtlechargingstation:thundercharge_dynamo"
+        },
+        "show_notification": true
+      }
+    }
+  ]
+}

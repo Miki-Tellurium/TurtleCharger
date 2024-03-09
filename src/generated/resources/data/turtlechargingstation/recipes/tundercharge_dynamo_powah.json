@@ -1,0 +1,45 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:and",
+      "values": [
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "powah"
+        },
+        {
+          "type": "neoforge:item_exists",
+          "item": "powah:dielectric_casing"
+        },
+        {
+          "type": "neoforge:item_exists",
+          "item": "powah:capacitor_basic"
+        }
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "powah:dielectric_casing"
+    },
+    "G": {
+      "tag": "forge:ingots/gold"
+    },
+    "R": {
+      "item": "powah:capacitor_basic"
+    },
+    "X": {
+      "tag": "forge:ingots/iron"
+    }
+  },
+  "pattern": [
+    "XRX",
+    "X#X",
+    "XGX"
+  ],
+  "result": {
+    "item": "turtlechargingstation:thundercharge_dynamo"
+  }
+}
