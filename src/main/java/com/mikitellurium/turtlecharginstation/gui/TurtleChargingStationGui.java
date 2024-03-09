@@ -62,14 +62,14 @@ public class TurtleChargingStationGui extends AbstractContainerScreen<TurtleChar
     @Override
     protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
         graphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 4210752, false);
-        renderEnergyAreaTooltips(graphics, mouseX, mouseY, xPos.get(), yPos.get());
+        renderEnergyAreaTooltips(graphics, mouseX, mouseY);
     }
 
-    private void renderEnergyAreaTooltips(GuiGraphics graphics, int mouseX, int mouseY, int xPos, int yPos) {
+    private void renderEnergyAreaTooltips(GuiGraphics graphics, int mouseX, int mouseY) {
         Rect2i area = energyStorage.getArea();
-        if(MouseUtil.isAboveArea(mouseX, mouseY, area.getX(), area.getY(), area.getWidth() - 2, area.getHeight())) {
-            graphics.renderTooltip(this.font, energyStorage.getTooltips(),
-                    Optional.empty(), mouseX - xPos, mouseY - yPos);
+        if(MouseUtil.isAboveArea(mouseX, mouseY, area.getX(), area.getY(), area.getWidth() - 2, area.getHeight() - 2)) {
+            graphics.renderTooltip(this.font, energyStorage.getTooltips(), Optional.empty(),
+                    mouseX - area.getX() - 55, mouseY - area.getY() + 15);
         }
     }
 
