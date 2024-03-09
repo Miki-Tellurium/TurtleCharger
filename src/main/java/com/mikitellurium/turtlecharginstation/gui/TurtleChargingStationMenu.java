@@ -27,10 +27,6 @@ public class TurtleChargingStationMenu extends AbstractContainerMenu {
         this.level = inventory.player.level();
     }
 
-    public int getEnergy() {
-        return this.blockEntity.getEnergyStorage().getEnergyStored();
-    }
-
     @Override
     public ItemStack quickMoveStack(Player pPlayer, int pIndex) {
         return null;

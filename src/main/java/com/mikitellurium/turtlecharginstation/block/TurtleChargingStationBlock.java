@@ -68,7 +68,7 @@ public class TurtleChargingStationBlock extends BaseEntityBlock {
             BlockEntity entity = level.getBlockEntity(pos);
             if (entity instanceof TurtleChargingStationBlockEntity station) {
                 player.openMenu(station, pos);
-                ModMessages.sendToAll(new EnergySyncS2CPacket(station.getEnergyStorage().getEnergyStored(), pos));
+                ModMessages.sendToAll(new EnergySyncS2CPacket(station.getEnergy(), pos));
             } else {
                 throw new IllegalStateException("Container provider is missing");
             }

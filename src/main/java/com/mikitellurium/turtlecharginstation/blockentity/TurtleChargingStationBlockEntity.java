@@ -91,8 +91,12 @@ public class TurtleChargingStationBlockEntity extends BlockEntity implements Men
         turtle.getAccess().addFuel(1);
     }
 
-    public EnergyStorage getEnergyStorage() {
-        return this.energyStorage;
+    public int getEnergy() {
+        return this.energyStorage.getEnergyStored();
+    }
+
+    public int getMaxEnergy() {
+        return this.energyStorage.getMaxEnergyStored();
     }
 
     // Used for synchronization, do not call directly

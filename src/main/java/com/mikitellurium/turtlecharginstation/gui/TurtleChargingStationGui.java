@@ -37,7 +37,7 @@ public class TurtleChargingStationGui extends AbstractContainerScreen<TurtleChar
     protected void init() {
         super.init();
         this.titleLabelY = 5;
-        energyStorage = new EnergyStorageElement(menu.getBlockEntity().getEnergyStorage(), energyStorageTexture,
+        energyStorage = new EnergyStorageElement(menu.getBlockEntity(), energyStorageTexture,
                 xPos.get() + 8, yPos.get() + 18, 16, 84);
         turtleInfo = new TurtleInfoElement(menu.getBlockEntity(), xPos.get() + 30, yPos.get() + 16);
     }
