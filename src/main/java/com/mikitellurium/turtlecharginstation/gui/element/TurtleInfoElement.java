@@ -19,8 +19,6 @@ public class TurtleInfoElement {
 
     private final TurtleChargingStationBlockEntity station;
     private final Rect2i area;
-    private final int width = 100;
-    private final int height = 80;
     private final Map<Direction, TurtleData> turtleData = Util.make(new HashMap<>(), (map) -> {
         for(Direction direction : Direction.values()) {
             map.put(direction, new TurtleData());
@@ -30,24 +28,24 @@ public class TurtleInfoElement {
     private static final int white = FastColor.ARGB32.color(255, 255, 255, 255);
 
     public TurtleInfoElement(TurtleChargingStationBlockEntity station, int xPos, int yPos) {
-        area = new Rect2i(xPos, yPos, width, height);
+        this.area = new Rect2i(xPos, yPos, 166, 87);
         this.station = station;
     }
 
     public void draw(GuiGraphics graphics) {
         this.turtleData.forEach((direction, data) -> data.updateData(this.station, direction));
-        int x = area.getX();
-        int y = area.getY();
-        graphics.drawCenteredString(font, "Name", x + 55, y + 1, white);
-        graphics.drawString(font, "Fuel Level", x + area.getWidth() - 14, y + 1, white);
-        int h = y;
+        int xPos = area.getX();
+        int yPos = area.getY();
+        graphics.drawCenteredString(font, "Name", xPos + 74, yPos + 2, white);
+        graphics.drawCenteredString(font, "Fuel Level", xPos + 138, yPos + 2, white);
+        int h = yPos + 2;
         for (Direction direction : Direction.values()) {
             TurtleData data = this.turtleData.get(direction);
             h = h + 12;
             String text = this.getDirectionString(direction);
-            graphics.drawString(font, text, this.alignString(text, x), h, white);
-            graphics.drawCenteredString(font, data.getTurtleName(), x + 55, h, data.getTurtleColor());
-            graphics.drawCenteredString(font, this.getFuelString(data.getTurtleFuel()), x + 110, h, white);
+            graphics.drawString(font, text, this.alignString(text, xPos), h, white);
+            graphics.drawCenteredString(font, data.getTurtleName(), xPos + 74, h, data.getTurtleColor());
+            graphics.drawCenteredString(font, this.getFuelString(data.getTurtleFuel()), xPos + 138, h, white);
         }
     }
 
