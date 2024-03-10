@@ -35,6 +35,8 @@ public class ThunderchargeDynamoBlockEntity extends BlockEntity {
         }
 
         if (this.charge > 0) {
+
+            Set<BlockEntity> chargedBlockEntities = new HashSet<>(); // Avoid block entities being charged multiple times per tick
             for (Direction direction : Direction.values()) {
                 if (direction == Direction.UP) {
                     continue;
@@ -43,13 +45,14 @@ public class ThunderchargeDynamoBlockEntity extends BlockEntity {
                 if (blockEntities.isEmpty()) {
                     continue;
                 }
-                blockEntities.forEach((blockEntity -> {
+                blockEntities.stream().filter((blockEntity -> !chargedBlockEntities.contains(blockEntity))).forEach((blockEntity) -> {
                     IEnergyStorage energy = level.getCapability(Capabilities.EnergyStorage.BLOCK, blockEntity.getBlockPos(),
                             blockEntity.getBlockState(), blockEntity, direction);
                     if (energy != null) {
                         energy.receiveEnergy(TRANSFER_RATE.get(), false);
+                        chargedBlockEntities.add(blockEntity);
                     }
-                }));
+                });
             }
 
             this.charge--;
