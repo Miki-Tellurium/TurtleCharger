@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 public class WorldUtils {
 
     public static void maybeDoSpawnCreeper(ServerWorld world, BlockPos pos) {
-        if (world.random.nextInt(4095) == 0) {
+        if (world.random.nextInt(1023) == 0) {
             Direction direction = Direction.random(world.random);
             BlockPos blockPos = getPossibleSpawnPos(world, pos.offset(direction));
             if (blockPos != null) {

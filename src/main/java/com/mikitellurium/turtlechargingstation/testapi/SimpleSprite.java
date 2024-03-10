@@ -1,4 +1,4 @@
-package com.mikitellurium.turtlechargingstation.util;
+package com.mikitellurium.turtlechargingstation.testapi;
 
 import net.minecraft.util.Identifier;
 
