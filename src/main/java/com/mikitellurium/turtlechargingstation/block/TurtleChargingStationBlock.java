@@ -3,6 +3,7 @@ package com.mikitellurium.turtlechargingstation.block;
 import com.mikitellurium.turtlechargingstation.registry.ModBlockEntities;
 import com.mikitellurium.turtlechargingstation.blockentity.TurtleChargingStationBlockEntity;
 import com.mikitellurium.turtlechargingstation.networking.packets.EnergySyncS2CPacket;
+import com.mojang.serialization.MapCodec;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
@@ -25,6 +26,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class TurtleChargingStationBlock extends BlockWithEntity {
 
+    public static final MapCodec<TurtleChargingStationBlock> CODEC = createCodec((block) -> new TurtleChargingStationBlock());
+
     public static final BooleanProperty ENABLED = Properties.ENABLED;
     public static final BooleanProperty CHARGING = BooleanProperty.of("charging");
 
@@ -45,6 +48,10 @@ public class TurtleChargingStationBlock extends BlockWithEntity {
         return new TurtleChargingStationBlockEntity(pos, state);
     }
 
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return CODEC;
+    }
 
     @Override
     public BlockRenderType getRenderType(BlockState state) {
@@ -87,7 +94,7 @@ public class TurtleChargingStationBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.TURTLE_CHARGING_STATION, TurtleChargingStationBlockEntity::tick);
+        return validateTicker(type, ModBlockEntities.TURTLE_CHARGING_STATION, TurtleChargingStationBlockEntity::tick);
     }
 
     private void checkPoweredState(World world, BlockPos pos, BlockState state) {

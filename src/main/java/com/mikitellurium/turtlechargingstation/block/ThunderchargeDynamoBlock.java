@@ -2,6 +2,7 @@ package com.mikitellurium.turtlechargingstation.block;
 
 import com.mikitellurium.turtlechargingstation.registry.ModBlockEntities;
 import com.mikitellurium.turtlechargingstation.blockentity.ThunderchargeDynamoBlockEntity;
+import com.mojang.serialization.MapCodec;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -28,6 +29,8 @@ import java.util.List;
 
 public class ThunderchargeDynamoBlock extends BlockWithEntity {
 
+    public static final MapCodec<ThunderchargeDynamoBlock> CODEC = createCodec((block) -> new ThunderchargeDynamoBlock());
+
     public static BooleanProperty POWERED = Properties.POWERED;
 
     public ThunderchargeDynamoBlock() {
@@ -44,6 +47,11 @@ public class ThunderchargeDynamoBlock extends BlockWithEntity {
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new ThunderchargeDynamoBlockEntity(pos, state);
+    }
+
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return CODEC;
     }
 
     @Override
@@ -70,7 +78,7 @@ public class ThunderchargeDynamoBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.THUNDERCHARGE_DYNAMO, ThunderchargeDynamoBlockEntity::tick);
+        return validateTicker(type, ModBlockEntities.THUNDERCHARGE_DYNAMO, ThunderchargeDynamoBlockEntity::tick);
     }
 
     @Override
