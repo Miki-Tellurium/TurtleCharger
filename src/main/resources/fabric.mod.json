@@ -30,10 +30,10 @@
 	],
 	"depends": {
 		"fabricloader": ">=0.14.21",
-		"minecraft": "~1.20",
+		"minecraft": "~1.20.4",
 		"java": ">=17",
 		"fabric-api": "*",
-		"computercraft": ">=1.105"
+		"computercraft": ">=1.109"
 	},
 	"suggests": {
 		"another-mod": "*"
