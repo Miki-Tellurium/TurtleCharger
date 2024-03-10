@@ -8,8 +8,8 @@
 		"Miki Tellurium"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://modrinth.com/mod/turtle-charging-station",
+		"sources": "https://github.com/Miki-Tellurium/TurtleChargingStation"
 	},
 	"license": "MIT License",
 	"icon": "assets/turtlechargingstation/turtlechargingstationlogo.png",
