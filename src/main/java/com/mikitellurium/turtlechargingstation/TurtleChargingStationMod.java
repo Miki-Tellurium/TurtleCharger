@@ -1,5 +1,6 @@
 package com.mikitellurium.turtlechargingstation;
 
+import com.mikitellurium.turtlechargingstation.networking.ModMessages;
 import com.mikitellurium.turtlechargingstation.registry.ModBlocks;
 import com.mikitellurium.turtlechargingstation.registry.ModBlockEntities;
 import com.mikitellurium.turtlechargingstation.config.ModConfig;
@@ -26,7 +27,7 @@ public class TurtleChargingStationMod implements ModInitializer {
 		ModCreativeTab.register();
 		ModScreens.registerHandlers();
 		ModEvents.register();
-		//ModMessages.registerC2SPackets();
+		ModMessages.registerC2SPackets();
 		ModConfig.register();
 	}
 
