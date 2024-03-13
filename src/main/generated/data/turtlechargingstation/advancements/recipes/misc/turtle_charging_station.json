@@ -34,15 +34,14 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_turtle_normal",
-      "has_turtle_advanced",
-      "has_the_recipe"
+      "has_turtle_advanced"
     ]
   ],
   "rewards": {
     "recipes": [
       "turtlechargingstation:turtle_charging_station"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

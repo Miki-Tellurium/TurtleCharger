@@ -1,5 +1,6 @@
 package com.mikitellurium.turtlechargingstation.block;
 
+import com.mikitellurium.telluriumforge.networking.NetworkingHelper;
 import com.mikitellurium.turtlechargingstation.registry.ModBlockEntities;
 import com.mikitellurium.turtlechargingstation.blockentity.TurtleChargingStationBlockEntity;
 import com.mikitellurium.turtlechargingstation.networking.packets.EnergySyncS2CPacket;
@@ -26,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class TurtleChargingStationBlock extends BlockWithEntity {
 
-    public static final MapCodec<TurtleChargingStationBlock> CODEC = createCodec((block) -> new TurtleChargingStationBlock());
+    private static final MapCodec<TurtleChargingStationBlock> CODEC = createCodec((block) -> new TurtleChargingStationBlock());
 
     public static final BooleanProperty ENABLED = Properties.ENABLED;
     public static final BooleanProperty CHARGING = BooleanProperty.of("charging");
@@ -68,8 +69,8 @@ public class TurtleChargingStationBlock extends BlockWithEntity {
                 if (screenHandlerFactory != null) {
                     player.openHandledScreen(screenHandlerFactory);
                 }
-                ServerPlayNetworking.send((ServerPlayerEntity) player,
-                        new EnergySyncS2CPacket(stationBlockEntity.getPos(), stationBlockEntity.getEnergyStorage().getAmount()));
+                NetworkingHelper.sendToClient((ServerPlayerEntity) player,
+                        new EnergySyncS2CPacket(stationBlockEntity.getPos(), stationBlockEntity.getEnergy()));
             } else {
                 throw new IllegalStateException("Container provider is missing");
             }
@@ -93,8 +94,9 @@ public class TurtleChargingStationBlock extends BlockWithEntity {
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, ModBlockEntities.TURTLE_CHARGING_STATION, TurtleChargingStationBlockEntity::tick);
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState blockState, BlockEntityType<T> type) {
+        return validateTicker(type, ModBlockEntities.TURTLE_CHARGING_STATION, (tickWorld, pos, state, station) ->
+                station.tick(world, pos, state));
     }
 
     private void checkPoweredState(World world, BlockPos pos, BlockState state) {

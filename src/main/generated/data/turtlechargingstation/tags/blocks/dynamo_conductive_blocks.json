@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "minecraft:chain",
+    "minecraft:gold_block",
     "minecraft:copper_block",
     "minecraft:cut_copper",
     "minecraft:waxed_copper_block",

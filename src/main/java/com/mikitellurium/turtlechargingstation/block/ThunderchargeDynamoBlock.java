@@ -29,7 +29,7 @@ import java.util.List;
 
 public class ThunderchargeDynamoBlock extends BlockWithEntity {
 
-    public static final MapCodec<ThunderchargeDynamoBlock> CODEC = createCodec((block) -> new ThunderchargeDynamoBlock());
+    private static final MapCodec<ThunderchargeDynamoBlock> CODEC = createCodec((block) -> new ThunderchargeDynamoBlock());
 
     public static BooleanProperty POWERED = Properties.POWERED;
 
@@ -77,8 +77,9 @@ public class ThunderchargeDynamoBlock extends BlockWithEntity {
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, ModBlockEntities.THUNDERCHARGE_DYNAMO, ThunderchargeDynamoBlockEntity::tick);
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState blockState, BlockEntityType<T> type) {
+        return validateTicker(type, ModBlockEntities.THUNDERCHARGE_DYNAMO, (tickWorld, pos, state, dynamo) ->
+                dynamo.tick(world, pos, state));
     }
 
     @Override

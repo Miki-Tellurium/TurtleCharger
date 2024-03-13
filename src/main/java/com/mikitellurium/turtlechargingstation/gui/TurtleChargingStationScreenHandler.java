@@ -21,10 +21,6 @@ public class TurtleChargingStationScreenHandler extends ScreenHandler {
         this.blockEntity = (TurtleChargingStationBlockEntity) blockEntity;
     }
 
-    public long getEnergy() {
-        return blockEntity.getEnergyStorage().amount;
-    }
-
     public TurtleChargingStationBlockEntity getBlockEntity() {
         return blockEntity;
     }

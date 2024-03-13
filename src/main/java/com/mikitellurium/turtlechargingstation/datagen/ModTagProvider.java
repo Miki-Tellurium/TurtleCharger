@@ -18,6 +18,7 @@ public class ModTagProvider extends FabricTagProvider.BlockTagProvider {
     protected void configure(RegistryWrapper.WrapperLookup arg) {
         this.getOrCreateTagBuilder(ModTags.DYNAMO_CONDUCTIVE_BLOCKS)
                 .add(Blocks.CHAIN)
+                .add(Blocks.GOLD_BLOCK)
                 .add(Blocks.COPPER_BLOCK)
                 .add(Blocks.CUT_COPPER)
                 .add(Blocks.WAXED_COPPER_BLOCK)
