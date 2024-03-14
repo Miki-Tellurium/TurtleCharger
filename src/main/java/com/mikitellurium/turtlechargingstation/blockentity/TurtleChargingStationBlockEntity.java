@@ -7,7 +7,7 @@ import com.mikitellurium.turtlechargingstation.gui.TurtleChargingStationScreenHa
 import com.mikitellurium.turtlechargingstation.networking.packets.EnergySyncS2CPacket;
 import com.mikitellurium.turtlechargingstation.networking.packets.TurtleFuelSyncS2CPacket;
 import com.mikitellurium.turtlechargingstation.registry.ModBlockEntities;
-import com.mikitellurium.turtlechargingstation.testapi.WrappedEnergyStorage;
+import com.mikitellurium.turtlechargingstation.util.WrappedEnergyStorage;
 import dan200.computercraft.shared.turtle.blocks.TurtleBlockEntity;
 import dan200.computercraft.shared.turtle.core.TurtleBrain;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
