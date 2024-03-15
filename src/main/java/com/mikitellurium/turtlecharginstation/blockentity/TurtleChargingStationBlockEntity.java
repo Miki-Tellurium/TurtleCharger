@@ -119,12 +119,12 @@ public class TurtleChargingStationBlockEntity extends BlockEntity implements Men
     @Override
     public void load(@NotNull CompoundTag nbt) {
         super.load(nbt);
-        this.energyStorage.deserializeNBT(nbt.get("stored_energy"));
+        this.energyStorage.deserializeNBT(nbt.get("storedEnergy"));
     }
 
     @Override
     protected void saveAdditional(CompoundTag nbt) {
-        nbt.put("stored_energy", this.energyStorage.serializeNBT());
+        nbt.put("storedEnergy", this.energyStorage.serializeNBT());
         super.saveAdditional(nbt);
     }
 

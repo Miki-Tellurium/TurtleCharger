@@ -116,7 +116,8 @@ tasks.withType(ProcessResources).configureEach {
             loader_version_range: loader_version_range,
             mod_id              : mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
             mod_authors         : mod_authors, mod_description: mod_description,
-            cc_version          : cc_version, cc_version_range: cc_version_range
+            cc_version          : cc_version, cc_version_range: cc_version_range,
+            MIXIN_CONFIG        : mixin_config
     ]
     inputs.properties replaceProperties
 

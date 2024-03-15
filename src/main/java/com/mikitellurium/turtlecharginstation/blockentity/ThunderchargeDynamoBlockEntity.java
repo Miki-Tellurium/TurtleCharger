@@ -3,6 +3,7 @@ package com.mikitellurium.turtlecharginstation.blockentity;
 import com.mikitellurium.turtlecharginstation.block.ThunderchargeDynamoBlock;
 import com.mikitellurium.turtlecharginstation.registry.ModBlockEntities;
 import com.mikitellurium.turtlecharginstation.registry.ModTags;
+import com.mikitellurium.turtlecharginstation.util.ConductiveBlockContext;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -16,7 +17,9 @@ import net.neoforged.neoforge.energy.EnergyStorage;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class ThunderchargeDynamoBlockEntity extends BlockEntity {
@@ -41,18 +44,21 @@ public class ThunderchargeDynamoBlockEntity extends BlockEntity {
                 if (direction == Direction.UP) {
                     continue;
                 }
-                Set<BlockEntity> blockEntities = this.findConnectedBlockEntities(level, blockPos, direction);
+                Map<BlockEntity, Direction> blockEntities = this.findConnectedBlockEntities(level, blockPos, direction, new HashSet<>());
                 if (blockEntities.isEmpty()) {
                     continue;
                 }
-                blockEntities.stream().filter((blockEntity -> !chargedBlockEntities.contains(blockEntity))).forEach((blockEntity) -> {
-                    IEnergyStorage energy = level.getCapability(Capabilities.EnergyStorage.BLOCK, blockEntity.getBlockPos(),
-                            blockEntity.getBlockState(), blockEntity, direction);
-                    if (energy != null) {
-                        energy.receiveEnergy(TRANSFER_RATE.get(), false);
-                        chargedBlockEntities.add(blockEntity);
-                    }
-                });
+                blockEntities.entrySet().stream()
+                        .filter((entry) -> !chargedBlockEntities.contains(entry.getKey()))
+                        .forEach((entry) -> {
+                            BlockEntity blockEntity = entry.getKey();
+                            IEnergyStorage energy = level.getCapability(Capabilities.EnergyStorage.BLOCK, blockEntity.getBlockPos(),
+                                    blockEntity.getBlockState(), blockEntity, direction);
+                            if (energy != null) {
+                                energy.receiveEnergy(TRANSFER_RATE.get(), false);
+                                chargedBlockEntities.add(blockEntity);
+                            }
+                        });
             }
 
             this.charge--;
@@ -62,17 +68,31 @@ public class ThunderchargeDynamoBlockEntity extends BlockEntity {
         setChanged(level, blockPos, blockState);
     }
 
-    private Set<BlockEntity> findConnectedBlockEntities(Level level, BlockPos pos, Direction direction) {
-        BlockPos relative = pos.relative(direction);
-        Set<BlockEntity> blockEntities = new HashSet<>();
-        for (Direction dir : Direction.values()) {
-            if (dir == direction.getOpposite()) continue; // Don't check the direction we're coming from
+    /*
+     * checkedPosSet: tracks which BlockPos are already checked to avoid loops.
+     * If a BlockEntity is found add it to blockEntities, else if a conductive block is found
+     * check adjacent blocks using recursion.
+     */
+    private Map<BlockEntity, Direction> findConnectedBlockEntities(Level level, BlockPos startPos, Direction startDirection,
+                                                                   Set<BlockPos> checkedPosSet) {
+        Map<BlockEntity, Direction> blockEntities = new HashMap<>();
+        BlockPos relative = startPos.relative(startDirection);
+        if (checkedPosSet.contains(relative)) return blockEntities; // Don't check the same BlockPos more than once
 
-            BlockEntity blockEntity = level.getBlockEntity(relative);
-            if (blockEntity != null) {
-                blockEntities.add(blockEntity);
-            } else if (level.getBlockState(relative).is(ModTags.DYNAMO_CONDUCTIVE_BLOCKS)) {
-                blockEntities.addAll(findConnectedBlockEntities(level, relative, dir));
+        BlockState blockState = level.getBlockState(relative);
+        ConductiveBlockContext context = new ConductiveBlockContext(blockState);
+
+        BlockEntity blockEntity = level.getBlockEntity(relative);
+        if (blockEntity != null) {
+            blockEntities.put(blockEntity, startDirection);
+        } else if (blockState.is(ModTags.DYNAMO_CONDUCTIVE_BLOCKS)) {
+            // Check if the previous block is oriented towards the current position
+            if (!context.canConductTo(level.getBlockState(startPos), startDirection)) return blockEntities;
+
+            checkedPosSet.add(relative);
+            for (Direction direction : context.getDirections()) {
+                if (direction == startDirection.getOpposite()) continue; // Don't check the direction we're coming from
+                blockEntities.putAll(findConnectedBlockEntities(level, relative, direction, checkedPosSet));
             }
         }
         return blockEntities;
@@ -89,12 +109,12 @@ public class ThunderchargeDynamoBlockEntity extends BlockEntity {
     @Override
     public void load(@NotNull CompoundTag nbt) {
         super.load(nbt);
-        charge = nbt.getInt("charge");
+        charge = nbt.getInt("dynamoCharge");
     }
 
     @Override
     protected void saveAdditional(CompoundTag nbt) {
-        nbt.putInt("charge", charge);
+        nbt.putInt("dynamoCharge", charge);
         super.saveAdditional(nbt);
     }
 

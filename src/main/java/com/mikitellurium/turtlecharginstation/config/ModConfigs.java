@@ -20,7 +20,7 @@ public class ModConfigs {
 
         TurtleChargingStationBlockEntity.CAPACITY = CONFIG_BUILDER
                 .comment("The maximum amount of FE the charging station can hold")
-                .defineInRange("chargingStationMaxCapacity", 128000, 0, Integer.MAX_VALUE);
+                .defineInRange("chargingStationMaxCapacity", 64000, 0, Integer.MAX_VALUE);
         TurtleChargingStationBlockEntity.CONVERSION_RATE = CONFIG_BUILDER
                 .comment("The amount of FE required to increase the turtle fuel level by 1")
                 .defineInRange("chargingStationConversionRate", 256, 0, Integer.MAX_VALUE);

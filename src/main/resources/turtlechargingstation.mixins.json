@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.mikitellurium.turtlecharginstation.mixin",
+  "refmap": "",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "CreeperAccessor"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

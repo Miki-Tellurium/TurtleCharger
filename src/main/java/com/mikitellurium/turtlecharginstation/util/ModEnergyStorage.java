@@ -2,10 +2,19 @@ package com.mikitellurium.turtlecharginstation.util;
 
 import net.neoforged.neoforge.energy.EnergyStorage;
 
+import java.util.function.Consumer;
+
 public abstract class ModEnergyStorage extends EnergyStorage {
 
+    private final Consumer<EnergyStorage> onEnergyChanged;
+
     public ModEnergyStorage(int capacity, int maxReceive) {
+        this(capacity, maxReceive, (energyStorage) -> {});
+    }
+
+    public ModEnergyStorage(int capacity, int maxReceive, Consumer<EnergyStorage> onEnergyChanged) {
         super(capacity, maxReceive);
+        this.onEnergyChanged = onEnergyChanged;
     }
 
     @Override
@@ -32,6 +41,8 @@ public abstract class ModEnergyStorage extends EnergyStorage {
         this.energy = energy;
     }
 
-    public abstract void onEnergyChanged();
+    public void onEnergyChanged() {
+        this.onEnergyChanged.accept(this);
+    }
 
 }

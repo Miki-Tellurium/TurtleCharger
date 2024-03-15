@@ -44,8 +44,9 @@ public class TurtleInfoElement {
             TurtleData data = this.turtleData.get(direction);
             h = h + 12;
             String directionName = this.getDirectionName(direction);
+            Component turtleName = data.getFormattedTurtleName();
             graphics.drawString(font, directionName, this.alignString(directionName, xPos - 8), h, white);
-            graphics.drawCenteredString(font, data.getTurtleName(), xPos + 95, h, data.getTurtleColor());
+            graphics.drawCenteredString(font, turtleName, xPos + 95, h, white);
             graphics.drawCenteredString(font, this.getFuelString(data.getTurtleFuel()), xPos + 180, h, white);
         }
     }
@@ -118,6 +119,10 @@ public class TurtleInfoElement {
 
         public int getTurtleFuel() {
             return turtleFuel;
+        }
+
+        public Component getFormattedTurtleName() {
+            return Component.literal(this.turtleName).withColor(this.turtleColor);
         }
     }
 

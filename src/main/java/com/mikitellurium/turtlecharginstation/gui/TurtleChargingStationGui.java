@@ -21,9 +21,6 @@ public class TurtleChargingStationGui extends AbstractContainerScreen<TurtleChar
 
     private static final ResourceLocation GUI_TEXTURE =
             new ResourceLocation(TurtleChargingStationMod.MOD_ID, "textures/gui/turtle_charging_station_gui.png");
-    private static final ResourceLocation ENERGY_STORAGE_TEXTURE =
-            new ResourceLocation(TurtleChargingStationMod.MOD_ID, "textures/gui/energy_storage.png");
-    private final SimpleSprite energyStorageTexture = new SimpleSprite(ENERGY_STORAGE_TEXTURE, 34, 84);
     private EnergyStorageElement energyStorage;
     private TurtleInfoElement turtleInfo;
     private final Supplier<Integer> xPos = () -> (this.width - this.imageWidth) / 2 - 60;
@@ -37,8 +34,8 @@ public class TurtleChargingStationGui extends AbstractContainerScreen<TurtleChar
     protected void init() {
         super.init();
         this.titleLabelY = 5;
-        energyStorage = new EnergyStorageElement(menu.getBlockEntity(), energyStorageTexture,
-                xPos.get() + 8, yPos.get() + 18, 16, 84);
+        energyStorage = new EnergyStorageElement(menu.getBlockEntity(), xPos.get() + 8, yPos.get() + 18,
+                16, 84);
         turtleInfo = new TurtleInfoElement(menu.getBlockEntity(), xPos.get() + 30, yPos.get() + 16);
     }
 

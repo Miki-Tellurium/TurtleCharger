@@ -1,41 +1,43 @@
 package com.mikitellurium.turtlecharginstation.gui.element;
 
+import com.mikitellurium.turtlecharginstation.TurtleChargingStationMod;
 import com.mikitellurium.turtlecharginstation.blockentity.TurtleChargingStationBlockEntity;
 import com.mikitellurium.turtlecharginstation.util.SimpleSprite;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.Component;
-import net.neoforged.neoforge.energy.EnergyStorage;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.List;
 
 public class EnergyStorageElement {
 
-    private final SimpleSprite sprite;
+    private static final ResourceLocation ENERGY_STORAGE_TEXTURE =
+            new ResourceLocation(TurtleChargingStationMod.MOD_ID, "textures/gui/energy_storage.png");
+    private final SimpleSprite sprite = new SimpleSprite(ENERGY_STORAGE_TEXTURE, 34, 84);
     private final TurtleChargingStationBlockEntity station;
     private final Rect2i area;
 
-    public EnergyStorageElement(TurtleChargingStationBlockEntity station, SimpleSprite texture, int xPos, int yPos, int width, int height) {
-        this.sprite = texture;
+    public EnergyStorageElement(TurtleChargingStationBlockEntity station, int xPos, int yPos, int width, int height) {
         this.station = station;
         area = new Rect2i(xPos, yPos, width, height);
     }
 
     public void draw(GuiGraphics graphics) {
-        RenderSystem.setShaderTexture(0, sprite.getTexture());
-        graphics.blit(sprite.getTexture(), area.getX(), area.getY(), 0, 0, area.getWidth(), area.getHeight(),
-                sprite.getWidth(), sprite.getHeight());
+        RenderSystem.setShaderTexture(0, sprite.texture());
+        graphics.blit(sprite.texture(), area.getX(), area.getY(), 0, 0, area.getWidth(), area.getHeight(),
+                sprite.texWidth(), sprite.texHeight());
         drawEnergyLevel(graphics);
     }
 
     private void drawEnergyLevel(GuiGraphics graphics) {
-        graphics.blit(sprite.getTexture(), area.getX(), area.getY() + getEnergyLevel(),18, getEnergyLevel(),
-                area.getWidth(), area.getHeight() - getEnergyLevel(), sprite.getWidth(), sprite.getHeight());
+        graphics.blit(sprite.texture(), area.getX(), area.getY() + getEnergyLevel(),18, getEnergyLevel(),
+                area.getWidth(), area.getHeight() - getEnergyLevel(), sprite.texWidth(), sprite.texHeight());
     }
     // Get the pixel in the texture to start drawing at relative to the amount of stored energy
     private int getEnergyLevel() {
-        return sprite.getHeight() - (int)Math.floor((area.getHeight() * (station.getEnergy() / (float)station.getMaxEnergy())));
+        return sprite.texHeight() - (int)Math.floor((area.getHeight() * (station.getEnergy() / (float)station.getMaxEnergy())));
     }
     // Energy tooltip
     public List<Component> getTooltips() {
