@@ -2,6 +2,7 @@ package com.mikitellurium.turtlechargingstation.block;
 
 import com.mikitellurium.turtlechargingstation.registry.ModBlockEntities;
 import com.mikitellurium.turtlechargingstation.blockentity.ThunderchargeDynamoBlockEntity;
+import com.mojang.serialization.MapCodec;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -69,8 +70,9 @@ public class ThunderchargeDynamoBlock extends BlockWithEntity {
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.THUNDERCHARGE_DYNAMO, ThunderchargeDynamoBlockEntity::tick);
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState blockState, BlockEntityType<T> type) {
+        return checkType(type, ModBlockEntities.THUNDERCHARGE_DYNAMO, (tickWorld, pos, state, dynamo) ->
+                dynamo.tick(world, pos, state));
     }
 
     @Override

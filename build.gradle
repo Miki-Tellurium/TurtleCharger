@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.3-SNAPSHOT'
+	id 'fabric-loom' version '1.5-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -64,6 +64,10 @@ repositories {
 		name = "Squiddev maven cct"
 		url = 'https://squiddev.cc/maven/'
 	}
+	maven {
+		name = "Modrinth"
+		url = "https://api.modrinth.com/maven"
+	}
 }
 
 dependencies {
@@ -86,6 +90,8 @@ dependencies {
 	}
 	include implementation("com.electronwill.night-config:toml:${nightconfig_version}")
 	include implementation("com.electronwill.night-config:core:${nightconfig_version}")
+
+	modImplementation  "maven.modrinth:telluriumforge:${telluriumforge_version}-fabric"
 }
 
 processResources {

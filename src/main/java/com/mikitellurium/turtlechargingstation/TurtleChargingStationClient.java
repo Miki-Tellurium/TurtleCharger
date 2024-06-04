@@ -13,7 +13,6 @@ public class TurtleChargingStationClient implements ClientModInitializer {
 
     private void init() {
         ModMessages.registerS2CPackets();
-        ModScreens.registerScreens();
     }
 
 }

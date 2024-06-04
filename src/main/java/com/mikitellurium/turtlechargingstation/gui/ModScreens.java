@@ -1,5 +1,6 @@
 package com.mikitellurium.turtlechargingstation.gui;
 
+import com.mikitellurium.telluriumforge.registry.RegistryHelper;
 import com.mikitellurium.turtlechargingstation.TurtleChargingStationMod;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
@@ -10,16 +11,12 @@ import net.minecraft.util.Identifier;
 
 public class ModScreens {
 
-    public static ScreenHandlerType<TurtleChargingStationScreenHandler> TURTLE_CHARGING_STATION_SCREEN_HANDLER =
-            new ExtendedScreenHandlerType<>(TurtleChargingStationScreenHandler::new);
+    private static final RegistryHelper registry = TurtleChargingStationMod.registryHelper();
 
-    public static void registerHandlers() {
-        Registry.register(Registries.SCREEN_HANDLER, new Identifier(TurtleChargingStationMod.MOD_ID,
-                        "turtle_charging_station"), TURTLE_CHARGING_STATION_SCREEN_HANDLER);
-    }
+    public static ScreenHandlerType<TurtleChargingStationScreenHandler> TURTLE_CHARGING_STATION_SCREEN_HANDLER = registry.registerScreen(
+            "turtle_charging_station", new ExtendedScreenHandlerType<>(TurtleChargingStationScreenHandler::new),
+            TurtleChargingStationScreen::new);
 
-    public static void registerScreens() {
-        HandledScreens.register(TURTLE_CHARGING_STATION_SCREEN_HANDLER, TurtleChargingStationScreen::new);
-    }
+    public static void init() {}
 
 }
