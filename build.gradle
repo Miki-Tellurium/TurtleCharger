@@ -68,6 +68,9 @@ repositories {
 		name = "Modrinth"
 		url = "https://api.modrinth.com/maven"
 	}
+	flatDir {
+		dirs 'dependencies'
+	}
 }
 
 dependencies {
@@ -92,6 +95,7 @@ dependencies {
 	include implementation("com.electronwill.night-config:core:${nightconfig_version}")
 
 	modImplementation  "maven.modrinth:telluriumforge:${telluriumforge_version}-fabric"
+	//modImplementation  "dependencies:telluriumforge-1.2.2-1.20.1-fabric"
 }
 
 processResources {
