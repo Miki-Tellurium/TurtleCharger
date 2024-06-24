@@ -1,7 +1,7 @@
 package com.mikitellurium.turtlecharginstation.gui.element;
 
-import com.mikitellurium.turtlecharginstation.TurtleChargingStationMod;
 import com.mikitellurium.turtlecharginstation.blockentity.TurtleChargingStationBlockEntity;
+import com.mikitellurium.turtlecharginstation.util.FastLoc;
 import com.mikitellurium.turtlecharginstation.util.SimpleSprite;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
@@ -13,8 +13,7 @@ import java.util.List;
 
 public class EnergyStorageElement {
 
-    private static final ResourceLocation ENERGY_STORAGE_TEXTURE =
-            new ResourceLocation(TurtleChargingStationMod.MOD_ID, "textures/gui/energy_storage.png");
+    private static final ResourceLocation ENERGY_STORAGE_TEXTURE = FastLoc.modLoc("textures/gui/energy_storage.png");
     private final SimpleSprite sprite = new SimpleSprite(ENERGY_STORAGE_TEXTURE, 34, 84);
     private final TurtleChargingStationBlockEntity station;
     private final Rect2i area;

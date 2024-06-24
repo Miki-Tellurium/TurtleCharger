@@ -6,6 +6,7 @@ import com.mikitellurium.turtlecharginstation.registry.ModTags;
 import com.mikitellurium.turtlecharginstation.util.ConductiveBlockContext;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -15,7 +16,6 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.energy.EnergyStorage;
 import net.neoforged.neoforge.energy.IEnergyStorage;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -107,15 +107,15 @@ public class ThunderchargeDynamoBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void load(@NotNull CompoundTag nbt) {
-        super.load(nbt);
-        charge = nbt.getInt("dynamoCharge");
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+        super.loadAdditional(tag, provider);
+        charge = tag.getInt("dynamoCharge");
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        nbt.putInt("dynamoCharge", charge);
-        super.saveAdditional(nbt);
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+        tag.putInt("dynamoCharge", charge);
+        super.saveAdditional(tag, provider);
     }
 
     public static void registerCapability(RegisterCapabilitiesEvent event) {

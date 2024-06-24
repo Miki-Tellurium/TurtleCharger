@@ -1,14 +1,11 @@
 package com.mikitellurium.turtlecharginstation.gui;
 
-import com.mikitellurium.turtlecharginstation.TurtleChargingStationMod;
 import com.mikitellurium.turtlecharginstation.gui.element.EnergyStorageElement;
 import com.mikitellurium.turtlecharginstation.gui.element.TurtleInfoElement;
+import com.mikitellurium.turtlecharginstation.util.FastLoc;
 import com.mikitellurium.turtlecharginstation.util.MouseUtil;
-import com.mikitellurium.turtlecharginstation.util.SimpleSprite;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -19,8 +16,7 @@ import java.util.function.Supplier;
 
 public class TurtleChargingStationGui extends AbstractContainerScreen<TurtleChargingStationMenu> {
 
-    private static final ResourceLocation GUI_TEXTURE =
-            new ResourceLocation(TurtleChargingStationMod.MOD_ID, "textures/gui/turtle_charging_station_gui.png");
+    private static final ResourceLocation GUI_TEXTURE = FastLoc.modLoc("textures/gui/turtle_charging_station_gui.png");
     private EnergyStorageElement energyStorage;
     private TurtleInfoElement turtleInfo;
     private final Supplier<Integer> xPos = () -> (this.width - this.imageWidth) / 2 - 60;

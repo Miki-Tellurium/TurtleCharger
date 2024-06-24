@@ -1,17 +1,18 @@
 package com.mikitellurium.turtlecharginstation.blockentity;
 
 import com.mikitellurium.turtlecharginstation.block.TurtleChargingStationBlock;
+import com.mikitellurium.turtlecharginstation.gui.TurtleChargingStationMenu;
+import com.mikitellurium.turtlecharginstation.networking.payloads.EnergySyncPayload;
+import com.mikitellurium.turtlecharginstation.networking.payloads.TurtleFuelSyncPayload;
 import com.mikitellurium.turtlecharginstation.registry.ModBlockEntities;
 import com.mikitellurium.turtlecharginstation.util.ModEnergyStorage;
-import com.mikitellurium.turtlecharginstation.gui.TurtleChargingStationMenu;
-import com.mikitellurium.turtlecharginstation.networking.ModMessages;
-import com.mikitellurium.turtlecharginstation.networking.packets.EnergySyncS2CPacket;
-import com.mikitellurium.turtlecharginstation.networking.packets.TurtleFuelSyncS2CPacket;
 import dan200.computercraft.shared.turtle.blocks.TurtleBlockEntity;
 import dan200.computercraft.shared.turtle.core.TurtleBrain;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.IntTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -23,9 +24,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
-import net.neoforged.neoforge.energy.EnergyStorage;
-import org.jetbrains.annotations.NotNull;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Objects;
 
 public class TurtleChargingStationBlockEntity extends BlockEntity implements MenuProvider {
 
@@ -36,7 +38,7 @@ public class TurtleChargingStationBlockEntity extends BlockEntity implements Men
         @Override
         public void onEnergyChanged() {
             setChanged();
-            ModMessages.sendToAll(new EnergySyncS2CPacket(this.energy, getBlockPos()));
+            PacketDistributor.sendToAllPlayers(new EnergySyncPayload(getBlockPos(), this.energy));
         }
     };
     private boolean hasChargedTurtle = false; // Track if a turtle was charged this tick
@@ -64,7 +66,7 @@ public class TurtleChargingStationBlockEntity extends BlockEntity implements Men
                     this.refuelTurtle(turtle);
                     this.hasChargedTurtle = true;
                     level.setBlockAndUpdate(pos, state.setValue(TurtleChargingStationBlock.CHARGING, true));
-                    ModMessages.sendToAll(new TurtleFuelSyncS2CPacket(turtleBrain.getFuelLevel(), turtle.getBlockPos()));
+                    PacketDistributor.sendToAllPlayers(new TurtleFuelSyncPayload(turtle.getBlockPos(), turtleBrain.getFuelLevel()));
                 }
             }
 
@@ -115,17 +117,16 @@ public class TurtleChargingStationBlockEntity extends BlockEntity implements Men
         return Component.translatable("block.turtlechargingstation.turtle_charging_station");
     }
 
-    @SuppressWarnings("ConstantConditions")
     @Override
-    public void load(@NotNull CompoundTag nbt) {
-        super.load(nbt);
-        this.energyStorage.deserializeNBT(nbt.get("storedEnergy"));
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+        super.loadAdditional(tag, provider);
+        this.energyStorage.deserializeNBT(provider, Objects.requireNonNullElse(tag.get("storedEnergy"), IntTag.valueOf(0)));
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        nbt.put("storedEnergy", this.energyStorage.serializeNBT());
-        super.saveAdditional(nbt);
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+        tag.put("storedEnergy", this.energyStorage.serializeNBT(provider));
+        super.saveAdditional(tag, provider);
     }
 
     public static void registerCapability(RegisterCapabilitiesEvent event) {

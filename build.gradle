@@ -3,7 +3,7 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id 'net.neoforged.gradle.userdev' version '7.0.80'
+    id 'net.neoforged.gradle.userdev' version '7.0.142'
 }
 
 version = mod_version
@@ -13,16 +13,10 @@ base {
     archivesName = mod_id
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
 //minecraft.accessTransformers.file rootProject.file('src/main/resources/META-INF/accesstransformer.cfg')
 //minecraft.accessTransformers.entry public net.minecraft.client.Minecraft textureManager # textureManager
-subsystems {
-    parchment {
-        minecraftVersion = "1.20.2"
-        mappingsVersion = "2023.12.10"
-    }
-}
 
 runs {
     configureEach {
@@ -86,21 +80,21 @@ repositories {
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
 
-    compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"
-    compileOnly "mezz.jei:jei-${mc_version}-neoforge-api:${jei_version}"
-    runtimeOnly "mezz.jei:jei-${mc_version}-neoforge:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
+    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
-    implementation "cc.tweaked:cc-tweaked-${mc_version}-forge-api:${cc_version}"
-    implementation "cc.tweaked:cc-tweaked-${mc_version}-forge:${cc_version}"
+    implementation "cc.tweaked:cc-tweaked-${minecraft_version}-forge-api:${cc_version}"
+    implementation "cc.tweaked:cc-tweaked-${minecraft_version}-forge:${cc_version}"
 
 //    runtimeOnly "maven.modrinth:cofh-core:${thermal_version}"
 //    runtimeOnly "maven.modrinth:thermal-expansion:${thermal_version}"
 //    runtimeOnly "maven.modrinth:thermal-foundation:${thermal_version}"
 
-    runtimeOnly "maven.modrinth:mekanism:${mekanism_version}"            // Mekanism: Core
-    runtimeOnly "maven.modrinth:mekanism-additions:${mekanism_version}"  // Mekanism: Additions
-    runtimeOnly "maven.modrinth:mekanism-generators:${mekanism_version}" // Mekanism: Generators
-    runtimeOnly "maven.modrinth:mekanism-tools:${mekanism_version}"      // Mekanism: Tools
+    //runtimeOnly "maven.modrinth:mekanism:${mekanism_version}"            // Mekanism: Core
+    //runtimeOnly "maven.modrinth:mekanism-additions:${mekanism_version}"  // Mekanism: Additions
+    //runtimeOnly "maven.modrinth:mekanism-generators:${mekanism_version}" // Mekanism: Generators
+    //runtimeOnly "maven.modrinth:mekanism-tools:${mekanism_version}"      // Mekanism: Tools
 
     runtimeOnly "maven.modrinth:powah:${powah_version}-neoforge"
 
@@ -111,17 +105,22 @@ dependencies {
 
 tasks.withType(ProcessResources).configureEach {
     var replaceProperties = [
-            mc_version          : mc_version, minecraft_version_range: minecraft_version_range,
-            neo_version         : neo_version, neo_version_range: neo_version_range,
-            loader_version_range: loader_version_range,
-            mod_id              : mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
-            mod_authors         : mod_authors, mod_description: mod_description,
-            cc_version          : cc_version, cc_version_range: cc_version_range,
-            MIXIN_CONFIG        : mixin_config
+            minecraft_version      : minecraft_version,
+            minecraft_version_range: minecraft_version_range,
+            neo_version            : neo_version,
+            neo_version_range      : neo_version_range,
+            loader_version_range   : loader_version_range,
+            mod_id                 : mod_id,
+            mod_name               : mod_name,
+            mod_license            : mod_license,
+            mod_version            : mod_version,
+            mod_authors            : mod_authors,
+            mod_description        : mod_description,
+            cc_version_range       : cc_version_range
     ]
     inputs.properties replaceProperties
 
-    filesMatching(['META-INF/mods.toml']) {
+    filesMatching(['META-INF/neoforge.mods.toml']) {
         expand replaceProperties + [project: project]
     }
 }
@@ -141,4 +140,11 @@ publishing {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
+idea {
+    module {
+        downloadSources = true
+        downloadJavadoc = true
+    }
 }

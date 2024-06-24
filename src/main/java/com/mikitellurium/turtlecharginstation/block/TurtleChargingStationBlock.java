@@ -1,12 +1,10 @@
 package com.mikitellurium.turtlecharginstation.block;
 
 import com.mikitellurium.turtlecharginstation.blockentity.TurtleChargingStationBlockEntity;
-import com.mikitellurium.turtlecharginstation.networking.ModMessages;
-import com.mikitellurium.turtlecharginstation.networking.packets.EnergySyncS2CPacket;
+import com.mikitellurium.turtlecharginstation.networking.payloads.EnergySyncPayload;
 import com.mikitellurium.turtlecharginstation.registry.ModBlockEntities;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -23,6 +21,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 
 public class TurtleChargingStationBlock extends BaseEntityBlock {
@@ -60,15 +59,13 @@ public class TurtleChargingStationBlock extends BaseEntityBlock {
         return RenderShape.MODEL;
     }
 
-    // Functionality
     @Override
-    public InteractionResult use(BlockState blockState, Level level, BlockPos pos, Player player, InteractionHand hand,
-                                 BlockHitResult hitResult) {
+    protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if (!level.isClientSide) {
             BlockEntity entity = level.getBlockEntity(pos);
             if (entity instanceof TurtleChargingStationBlockEntity station) {
                 player.openMenu(station, pos);
-                ModMessages.sendToAll(new EnergySyncS2CPacket(station.getEnergy(), pos));
+                PacketDistributor.sendToAllPlayers(new EnergySyncPayload(pos, station.getEnergy()));
             } else {
                 throw new IllegalStateException("Container provider is missing");
             }
@@ -99,7 +96,7 @@ public class TurtleChargingStationBlock extends BaseEntityBlock {
     private void checkPoweredState(Level level, BlockPos pos, BlockState state) {
         boolean flag = !level.hasNeighborSignal(pos);
         if (flag != state.getValue(ENABLED)) {
-            level.setBlock(pos, state.setValue(ENABLED, Boolean.valueOf(flag)), 2);
+            level.setBlock(pos, state.setValue(ENABLED, flag), 2);
         }
     }
 

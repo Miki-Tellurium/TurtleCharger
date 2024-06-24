@@ -1,6 +1,7 @@
 modLoader="javafml" #mandatory
 loaderVersion="${loader_version_range}" #mandatory
 license="${mod_license}"
+issueTrackerURL="https://github.com/Miki-Tellurium/TurtleChargingStation/issues" #optional
 [[mods]] #mandatory
 modId="${mod_id}" #mandatory
 version="${mod_version}" #mandatory
@@ -21,10 +22,8 @@ authors="${mod_authors}" #optional
 #displayTest="MATCH_VERSION" # MATCH_VERSION is the default if nothing is specified (#optional)
 description='''${mod_description}'''
 
-#if (${MIXIN_CONFIG})
 [[mixins]]
-config="${MIXIN_CONFIG}"
-#end
+config="mixins.${mod_id}.json"
 
 [[dependencies.${mod_id}]] #optional
 modId="neoforge" #mandatory
