@@ -10,10 +10,6 @@
         {
           "type": "neoforge:item_exists",
           "item": "mekanism:steel_casing"
-        },
-        {
-          "type": "neoforge:item_exists",
-          "item": "mekanism:ingot_osmium"
         }
       ]
     }
@@ -21,25 +17,26 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "item": "mekanism:steel_casing"
-    },
-    "G": {
-      "tag": "forge:ingots/gold"
+    "I": {
+      "tag": "c:storage_blocks/iron"
     },
     "R": {
-      "item": "mekanism:ingot_osmium"
+      "item": "mekanism:steel_casing"
     },
-    "X": {
-      "tag": "forge:ingots/iron"
+    "c": {
+      "item": "minecraft:black_concrete"
+    },
+    "g": {
+      "tag": "c:ingots/gold"
     }
   },
   "pattern": [
-    "XRX",
-    "X#X",
-    "XGX"
+    "cgc",
+    "gRg",
+    "cIc"
   ],
   "result": {
-    "item": "turtlechargingstation:thundercharge_dynamo"
+    "count": 1,
+    "id": "turtlechargingstation:turtle_charging_station"
   }
 }

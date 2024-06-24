@@ -1,21 +1,24 @@
 {
   "neoforge:conditions": [
     {
-      "type": "neoforge:and",
-      "values": [
-        {
-          "type": "neoforge:mod_loaded",
-          "modid": "mekanism"
-        },
-        {
-          "type": "neoforge:item_exists",
-          "item": "mekanism:steel_casing"
-        },
-        {
-          "type": "neoforge:item_exists",
-          "item": "mekanism:ingot_osmium"
-        }
-      ]
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:or",
+        "values": [
+          {
+            "type": "neoforge:mod_loaded",
+            "modid": "thermal"
+          },
+          {
+            "type": "neoforge:mod_loaded",
+            "modid": "mekanism"
+          },
+          {
+            "type": "neoforge:mod_loaded",
+            "modid": "powah"
+          }
+        ]
+      }
     }
   ],
   "parent": "minecraft:recipes/root",
@@ -24,9 +27,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "computercraft:turtle_advanced"
-            ]
+            "items": "computercraft:turtle_advanced"
           }
         ]
       },
@@ -34,7 +35,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "turtlechargingstation:tundercharge_dynamo_mekanism"
+        "recipe": "turtlechargingstation:tundercharge_dynamo"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -42,9 +43,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "computercraft:turtle_normal"
-            ]
+            "items": "computercraft:turtle_normal"
           }
         ]
       },
@@ -60,7 +59,7 @@
   ],
   "rewards": {
     "recipes": [
-      "turtlechargingstation:tundercharge_dynamo_mekanism"
+      "turtlechargingstation:tundercharge_dynamo"
     ]
   }
 }

@@ -24,25 +24,26 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "I": {
-      "tag": "forge:storage_blocks/iron"
-    },
-    "R": {
+    "#": {
       "item": "minecraft:redstone_block"
     },
-    "c": {
-      "item": "minecraft:black_concrete"
+    "G": {
+      "tag": "c:ingots/gold"
     },
-    "g": {
-      "tag": "forge:ingots/gold"
+    "R": {
+      "item": "minecraft:lightning_rod"
+    },
+    "X": {
+      "tag": "c:ingots/iron"
     }
   },
   "pattern": [
-    "cgc",
-    "gRg",
-    "cIc"
+    "XRX",
+    "X#X",
+    "XGX"
   ],
   "result": {
-    "item": "turtlechargingstation:turtle_charging_station"
+    "count": 1,
+    "id": "turtlechargingstation:thundercharge_dynamo"
   }
 }
