@@ -4,8 +4,8 @@ import com.mikitellurium.telluriumforge.config.RangedConfigEntry;
 import com.mikitellurium.telluriumforge.networking.NetworkingHelper;
 import com.mikitellurium.turtlechargingstation.block.TurtleChargingStationBlock;
 import com.mikitellurium.turtlechargingstation.gui.TurtleChargingStationScreenHandler;
-import com.mikitellurium.turtlechargingstation.networking.packets.EnergySyncS2CPacket;
-import com.mikitellurium.turtlechargingstation.networking.packets.TurtleFuelSyncS2CPacket;
+import com.mikitellurium.turtlechargingstation.networking.packets.EnergySyncPayload;
+import com.mikitellurium.turtlechargingstation.networking.packets.TurtleFuelSyncPayload;
 import com.mikitellurium.turtlechargingstation.registry.ModBlockEntities;
 import com.mikitellurium.turtlechargingstation.util.WrappedEnergyStorage;
 import dan200.computercraft.shared.turtle.blocks.TurtleBlockEntity;
@@ -17,6 +17,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -27,7 +30,8 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 
-public class TurtleChargingStationBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory {
+public class TurtleChargingStationBlockEntity extends BlockEntity
+        implements ExtendedScreenHandlerFactory<TurtleChargingStationBlockEntity.Data> {
 
     public static RangedConfigEntry<Long> CAPACITY;
     public static RangedConfigEntry<Long> CONVERSION_RATE;
@@ -36,7 +40,7 @@ public class TurtleChargingStationBlockEntity extends BlockEntity implements Ext
             (storage) -> {
                 markDirty();
                 if (!world.isClient) {
-                    NetworkingHelper.sendToAllClients((ServerWorld) world, new EnergySyncS2CPacket(pos, storage.getAmount()));
+                    NetworkingHelper.sendToAllClients((ServerWorld) world, new EnergySyncPayload(pos, storage.getAmount()));
                 }
             });
 
@@ -66,7 +70,7 @@ public class TurtleChargingStationBlockEntity extends BlockEntity implements Ext
                     this.hasChargedTurtle = true;
                     world.setBlockState(pos, state.with(TurtleChargingStationBlock.CHARGING, true));
                     NetworkingHelper.sendToAllClients((ServerWorld) world,
-                            new TurtleFuelSyncS2CPacket(turtle.getPos(), turtleBrain.getFuelLevel()));
+                            new TurtleFuelSyncPayload(turtle.getPos(), turtleBrain.getFuelLevel()));
                 }
             }
 
@@ -114,9 +118,8 @@ public class TurtleChargingStationBlockEntity extends BlockEntity implements Ext
     }
 
     @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeBlockPos(pos);
-        buf.writeLong(energyStorage.getEnergy());
+    public Data getScreenOpeningData(ServerPlayerEntity player) {
+        return new Data(this.pos, this.energyStorage.getEnergy());
     }
 
     @Override
@@ -125,19 +128,29 @@ public class TurtleChargingStationBlockEntity extends BlockEntity implements Ext
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
-        nbt.put("storedEnergy", this.energyStorage.writeNbt());
-        super.writeNbt(nbt);
+    protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+        super.readNbt(nbt, registryLookup);
+        this.energyStorage.readNBT(nbt.get("storedEnergy"));
     }
 
     @Override
-    public void readNbt(NbtCompound nbt) {
-        super.readNbt(nbt);
-        this.energyStorage.readNBT(nbt.get("storedEnergy"));
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+        nbt.put("storedEnergy", this.energyStorage.writeNbt());
+        super.writeNbt(nbt, registryLookup);
     }
 
     public static EnergyStorage registerEnergyStorage(TurtleChargingStationBlockEntity station, Direction direction) {
         return station.energyStorage.exposeEnergyStorageApi(direction, (storage, dir) -> storage);
+    }
+
+    public record Data(BlockPos blockPos, long energy) {
+        public static final PacketCodec<PacketByteBuf, Data> PACKET_CODEC = PacketCodec.tuple(
+                BlockPos.PACKET_CODEC,
+                Data::blockPos,
+                PacketCodecs.VAR_LONG,
+                Data::energy,
+                Data::new
+        );
     }
 
 }

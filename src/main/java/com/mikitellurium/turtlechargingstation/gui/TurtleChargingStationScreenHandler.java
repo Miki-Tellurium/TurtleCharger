@@ -1,19 +1,19 @@
 package com.mikitellurium.turtlechargingstation.gui;
 
 import com.mikitellurium.turtlechargingstation.blockentity.TurtleChargingStationBlockEntity;
+import com.mikitellurium.turtlechargingstation.registry.ModScreens;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 
 public class TurtleChargingStationScreenHandler extends ScreenHandler {
 
     private final TurtleChargingStationBlockEntity blockEntity;
 
-    public TurtleChargingStationScreenHandler(int syncId, PlayerInventory playerInventory, PacketByteBuf buf) {
-        this(syncId, playerInventory.player.getWorld().getBlockEntity(buf.readBlockPos()));
+    public TurtleChargingStationScreenHandler(int syncId, PlayerInventory playerInventory, TurtleChargingStationBlockEntity.Data data) {
+        this(syncId, playerInventory.player.getWorld().getBlockEntity(data.blockPos()));
     }
 
     public TurtleChargingStationScreenHandler(int syncId, BlockEntity blockEntity) {

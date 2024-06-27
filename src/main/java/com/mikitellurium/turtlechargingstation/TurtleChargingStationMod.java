@@ -1,16 +1,11 @@
 package com.mikitellurium.turtlechargingstation;
 
 import com.mikitellurium.telluriumforge.registry.RegistryHelper;
-import com.mikitellurium.turtlechargingstation.networking.ModMessages;
-import com.mikitellurium.turtlechargingstation.registry.ModBlocks;
-import com.mikitellurium.turtlechargingstation.registry.ModBlockEntities;
 import com.mikitellurium.turtlechargingstation.config.ModConfig;
 import com.mikitellurium.turtlechargingstation.event.ModEvents;
-import com.mikitellurium.turtlechargingstation.gui.ModScreens;
-import com.mikitellurium.turtlechargingstation.registry.ModCreativeTab;
-import com.mikitellurium.turtlechargingstation.registry.ModItems;
+import com.mikitellurium.turtlechargingstation.networking.ModMessages;
+import com.mikitellurium.turtlechargingstation.registry.*;
 import net.fabricmc.api.ModInitializer;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,7 +26,7 @@ public class TurtleChargingStationMod implements ModInitializer {
 		ModCreativeTab.init();
 		ModScreens.init();
 		ModEvents.register();
-		ModMessages.registerC2SPackets();
+		ModMessages.register();
 		ModConfig.register();
 	}
 

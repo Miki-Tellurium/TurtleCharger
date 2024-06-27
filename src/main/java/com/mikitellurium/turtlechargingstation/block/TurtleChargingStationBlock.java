@@ -1,11 +1,10 @@
 package com.mikitellurium.turtlechargingstation.block;
 
 import com.mikitellurium.telluriumforge.networking.NetworkingHelper;
-import com.mikitellurium.turtlechargingstation.registry.ModBlockEntities;
 import com.mikitellurium.turtlechargingstation.blockentity.TurtleChargingStationBlockEntity;
-import com.mikitellurium.turtlechargingstation.networking.packets.EnergySyncS2CPacket;
+import com.mikitellurium.turtlechargingstation.networking.packets.EnergySyncPayload;
+import com.mikitellurium.turtlechargingstation.registry.ModBlockEntities;
 import com.mojang.serialization.MapCodec;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -19,7 +18,6 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -60,8 +58,7 @@ public class TurtleChargingStationBlock extends BlockWithEntity {
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player,
-                              Hand hand, BlockHitResult hit) {
+    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if (!world.isClient) {
             BlockEntity entity = world.getBlockEntity(pos);
             if (entity instanceof TurtleChargingStationBlockEntity stationBlockEntity) {
@@ -70,7 +67,7 @@ public class TurtleChargingStationBlock extends BlockWithEntity {
                     player.openHandledScreen(screenHandlerFactory);
                 }
                 NetworkingHelper.sendToClient((ServerPlayerEntity) player,
-                        new EnergySyncS2CPacket(stationBlockEntity.getPos(), stationBlockEntity.getEnergy()));
+                        new EnergySyncPayload(stationBlockEntity.getPos(), stationBlockEntity.getEnergy()));
             } else {
                 throw new IllegalStateException("Container provider is missing");
             }

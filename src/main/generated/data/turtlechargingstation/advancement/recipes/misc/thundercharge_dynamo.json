@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "computercraft:turtle_advanced"
-            ]
+            "items": "computercraft:turtle_advanced"
           }
         ]
       },
@@ -23,9 +21,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "computercraft:turtle_normal"
-            ]
+            "items": "computercraft:turtle_normal"
           }
         ]
       },

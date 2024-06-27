@@ -11,7 +11,6 @@ import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.SpawnHelper;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -60,8 +59,10 @@ public class ModEvents {
     private static Optional<BlockPos> getPossibleSpawnPos(World world, BlockPos blockPos) {
         BlockPos startPos = blockPos.add(1, 2, 1);
         BlockPos downPos = blockPos.add(-1, -10, -1);
+        SpawnLocation spawnLocation = SpawnRestriction.getLocation(EntityType.CREEPER);
+
         List<BlockPos> list = BlockPos.stream(startPos, downPos)
-                .filter((pos) -> world.isSkyVisible(pos) && SpawnHelper.canSpawn(SpawnRestriction.Location.ON_GROUND, world, pos, EntityType.CREEPER))
+                .filter((pos) -> world.isSkyVisible(pos) && spawnLocation.isSpawnPositionOk(world, pos, EntityType.CREEPER))
                 .map(BlockPos::toImmutable)
                 .toList();
         return Util.getRandomOrEmpty(list, world.random);

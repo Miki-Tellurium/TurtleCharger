@@ -40,3 +40,4 @@ replay_*.log
 *.jfr
 /src/main/java/com/mikitellurium/turtlechargingstation/testapi/
 /dependencies/
+/remappedSrc/

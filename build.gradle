@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.5-SNAPSHOT'
+	id 'fabric-loom' version '1.7-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -94,8 +94,8 @@ dependencies {
 	include implementation("com.electronwill.night-config:toml:${nightconfig_version}")
 	include implementation("com.electronwill.night-config:core:${nightconfig_version}")
 
-	modImplementation  "maven.modrinth:telluriumforge:${telluriumforge_version}-fabric"
-	//modImplementation  "dependencies:telluriumforge-fabric-1.2.0"
+	//modImplementation  "maven.modrinth:telluriumforge:${project.telluriumforge_version}-${project.minecraft_version}-fabric"
+	modImplementation  "dependencies:telluriumforge-1.3.1-1.21-fabric"
 }
 
 processResources {
@@ -107,17 +107,19 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 17
+	it.options.release = 21
 }
 
 java {
 	withSourcesJar()
 
-	sourceCompatibility = JavaVersion.VERSION_17
-	targetCompatibility = JavaVersion.VERSION_17
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
 }
 
 jar {
+	version = "${project.version}-${minecraft_version}-fabric"
+
 	from("LICENSE") {
 		rename { "${it}_${project.base.archivesName.get()}"}
 	}

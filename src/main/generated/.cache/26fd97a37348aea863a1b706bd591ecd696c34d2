@@ -1,5 +1,5 @@
-// 1.20.4	2024-03-10T21:50:07.8729523	Turtle Charging Station/Recipes
-0f6aa47824630cc83205bf26e16d5141db81ea95 data\turtlechargingstation\recipes\turtle_charging_station.json
-808981cd062e681ed23ffd5310350f25c21e2628 data\turtlechargingstation\recipes\thundercharge_dynamo.json
-7d1e6284d2cf3db88e8f24a0ae2c95016bdf76cc data\turtlechargingstation\advancements\recipes\misc\turtle_charging_station.json
-6ad0c80d3a901541fae365c0ea20ded802ba3f73 data\turtlechargingstation\advancements\recipes\misc\thundercharge_dynamo.json
+// 1.21	2024-06-27T18:43:17.1700893	Turtle Charging Station/Recipes
+b1d06a720a32a832c13434d0eb394f8bf48c8293 data\turtlechargingstation\recipe\thundercharge_dynamo.json
+fb12cddb1515a3d50de42e118223d5360e457aa9 data\turtlechargingstation\advancement\recipes\misc\turtle_charging_station.json
+cdd4f5b0eb5638f16703d742faa12f4e100a1f24 data\turtlechargingstation\recipe\turtle_charging_station.json
+1a9c3537752e741e36c97c5c0acd0914df3a2798 data\turtlechargingstation\advancement\recipes\misc\thundercharge_dynamo.json
