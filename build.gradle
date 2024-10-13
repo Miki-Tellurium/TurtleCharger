@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.5-SNAPSHOT'
+	id 'fabric-loom' version '1.6-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -99,10 +99,10 @@ dependencies {
 }
 
 processResources {
-	inputs.property "version", project.version
+	inputs.property "mod_version", mod_version
 
 	filesMatching("fabric.mod.json") {
-		expand "version": project.version
+		expand "mod_version": mod_version
 	}
 }
 
@@ -118,6 +118,8 @@ java {
 }
 
 jar {
+	version = "${project.version}-${minecraft_version}-fabric"
+
 	from("LICENSE") {
 		rename { "${it}_${project.base.archivesName.get()}"}
 	}

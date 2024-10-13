@@ -1,6 +1,8 @@
 package com.mikitellurium.turtlechargingstation.gui;
 
 import com.mikitellurium.turtlechargingstation.blockentity.TurtleChargingStationBlockEntity;
+import com.mikitellurium.turtlechargingstation.registry.ModHandledScreens;
+import com.mikitellurium.turtlechargingstation.registry.ModScreenHandlers;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -17,7 +19,7 @@ public class TurtleChargingStationScreenHandler extends ScreenHandler {
     }
 
     public TurtleChargingStationScreenHandler(int syncId, BlockEntity blockEntity) {
-        super(ModScreens.TURTLE_CHARGING_STATION_SCREEN_HANDLER, syncId);
+        super(ModScreenHandlers.TURTLE_CHARGING_STATION, syncId);
         this.blockEntity = (TurtleChargingStationBlockEntity) blockEntity;
     }
 

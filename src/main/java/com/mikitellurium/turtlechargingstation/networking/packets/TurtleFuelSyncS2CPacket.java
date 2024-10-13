@@ -16,21 +16,6 @@ public class TurtleFuelSyncS2CPacket extends IntSyncPacket {
     public static final PacketType<TurtleFuelSyncS2CPacket> TYPE = PacketType.create(
             new Identifier(TurtleChargingStationMod.MOD_ID, "turtle_fuel_sync"), TurtleFuelSyncS2CPacket::new);
 
-    public static final ClientPlayNetworking.PlayPacketHandler<TurtleFuelSyncS2CPacket> HANDLER = (packet, player, sender) -> {
-        // This is run on the Client
-        World world = player.getWorld();
-        BlockPos pos = packet.getBlockPos();
-        int fuel = packet.getValue();
-        if(world.getBlockEntity(pos) instanceof TurtleBlockEntity turtle) {
-            turtle.getAccess().setFuelLevel(fuel);
-
-            if(player.currentScreenHandler instanceof TurtleChargingStationScreenHandler screenHandler &&
-                    screenHandler.getBlockEntity().getPos().equals(pos)) {
-                turtle.getAccess().setFuelLevel(fuel);
-            }
-        }
-    };
-
     public TurtleFuelSyncS2CPacket(BlockPos blockPos, Integer fuel) {
         super(blockPos, fuel);
     }

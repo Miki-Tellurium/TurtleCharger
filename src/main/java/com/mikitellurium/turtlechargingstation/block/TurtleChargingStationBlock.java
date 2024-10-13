@@ -62,7 +62,7 @@ public class TurtleChargingStationBlock extends BlockWithEntity {
                 if (screenHandlerFactory != null) {
                     player.openHandledScreen(screenHandlerFactory);
                 }
-                NetworkingHelper.sendToClient((ServerPlayerEntity) player,
+                ServerPlayNetworking.send((ServerPlayerEntity) player,
                         new EnergySyncS2CPacket(stationBlockEntity.getPos(), stationBlockEntity.getEnergy()));
             } else {
                 throw new IllegalStateException("Container provider is missing");

@@ -15,19 +15,6 @@ public class EnergySyncS2CPacket extends LongSyncPacket {
     public static final PacketType<EnergySyncS2CPacket> TYPE = PacketType.create(
             new Identifier(TurtleChargingStationMod.MOD_ID, "energy_sync"), EnergySyncS2CPacket::new);
 
-    public static final ClientPlayNetworking.PlayPacketHandler<EnergySyncS2CPacket> HANDLER = (packet, player, responseSender) -> {
-        // This is run on the Client
-        if(player.getWorld().getBlockEntity(packet.getBlockPos())
-                instanceof TurtleChargingStationBlockEntity blockEntity) {
-            blockEntity.setClientEnergy(packet.getValue());
-
-            if(player.currentScreenHandler instanceof TurtleChargingStationScreenHandler menu &&
-                    menu.getBlockEntity().getPos().equals(packet.getBlockPos())) {
-                blockEntity.setClientEnergy(packet.getValue());
-            }
-        }
-    };
-
     public EnergySyncS2CPacket(BlockPos blockPos, long energy) {
         super(blockPos, energy);
     }
