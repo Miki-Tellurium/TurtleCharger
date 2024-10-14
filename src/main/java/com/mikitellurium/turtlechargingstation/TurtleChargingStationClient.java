@@ -8,10 +8,6 @@ public class TurtleChargingStationClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        init();
-    }
-
-    private void init() {
         ModHandledScreens.init();
         ModMessages.registerS2CPackets();
     }
