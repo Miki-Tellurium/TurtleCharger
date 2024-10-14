@@ -16,7 +16,7 @@ public class ModBlockEntities implements InitializedRegistry {
 
     @Override
     public void init(RegistryHelper helper) {
-        TURTLE_CHARGING_STATION = helper.registerBlockEntity("turtle_charging_station", TurtleChargingStationBlockEntity::new, ModBlocks.THUNDERCHARGE_DYNAMO_BLOCK);
+        TURTLE_CHARGING_STATION = helper.registerBlockEntity("turtle_charging_station", TurtleChargingStationBlockEntity::new, ModBlocks.TURTLE_CHARGING_STATION_BLOCK);
         THUNDERCHARGE_DYNAMO = helper.registerBlockEntity("thundercharge_dynamo", ThunderchargeDynamoBlockEntity::new, ModBlocks.THUNDERCHARGE_DYNAMO_BLOCK);
         EnergyStorage.SIDED.registerForBlockEntity(TurtleChargingStationBlockEntity::registerEnergyStorage, TURTLE_CHARGING_STATION);
     }
