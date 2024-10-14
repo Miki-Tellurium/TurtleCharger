@@ -1,12 +1,15 @@
 package com.mikitellurium.turtlechargingstation.registry;
 
+import com.mikitellurium.telluriumforge.registry.InitializedRegistry;
+import com.mikitellurium.telluriumforge.registry.RegistryHelper;
 import com.mikitellurium.turtlechargingstation.gui.TurtleChargingStationScreen;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 
-public class ModHandledScreens {
+public class ModHandledScreens implements InitializedRegistry {
 
-    public static void init() {
-        HandledScreens.register(ModScreenHandlers.TURTLE_CHARGING_STATION, TurtleChargingStationScreen::new);
+    @Override
+    public void init(RegistryHelper helper) {
+        helper.registerHandledScreen(ModScreenHandlers.TURTLE_CHARGING_STATION, TurtleChargingStationScreen::new);
     }
 
 }

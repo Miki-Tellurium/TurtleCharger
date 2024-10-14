@@ -19,10 +19,10 @@ public class TurtleChargingStationMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		ModBlocks.init();
-		ModBlockEntities.init();
-		ModCreativeTab.init();
-		ModScreenHandlers.init();
+		RegistryHelper.initRegistry(REGISTRY_HELPER, new ModBlocks());
+		RegistryHelper.initRegistry(REGISTRY_HELPER, new ModBlockEntities());
+		RegistryHelper.initRegistry(REGISTRY_HELPER, new ModCreativeTab());
+		RegistryHelper.initRegistry(REGISTRY_HELPER, new ModScreenHandlers());
 		ModEvents.register();
 		ModMessages.registerC2SPackets();
 		ModConfig.register();
