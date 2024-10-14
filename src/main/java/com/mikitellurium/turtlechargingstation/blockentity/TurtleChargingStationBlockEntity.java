@@ -36,7 +36,7 @@ public class TurtleChargingStationBlockEntity extends BlockEntity implements Ext
             (storage) -> {
                 markDirty();
                 if (!world.isClient) {
-                    NetworkingHelper.sendToAllClients((ServerWorld) world, new EnergySyncS2CPacket(pos, storage.getAmount()));
+                    NetworkingHelper.sendToTrackingClients((ServerWorld) world, pos, new EnergySyncS2CPacket(pos, storage.getAmount()));
                 }
             });
 
@@ -65,8 +65,7 @@ public class TurtleChargingStationBlockEntity extends BlockEntity implements Ext
                     this.refuelTurtle(turtle);
                     this.hasChargedTurtle = true;
                     world.setBlockState(pos, state.with(TurtleChargingStationBlock.CHARGING, true));
-                    NetworkingHelper.sendToAllClients((ServerWorld) world,
-                            new TurtleFuelSyncS2CPacket(turtle.getPos(), turtleBrain.getFuelLevel()));
+                    NetworkingHelper.sendToTrackingClients((ServerWorld) world, turtle.getPos(), new TurtleFuelSyncS2CPacket(turtle.getPos(), turtleBrain.getFuelLevel()));
                 }
             }
 
