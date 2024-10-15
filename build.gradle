@@ -94,8 +94,9 @@ dependencies {
 	include implementation("com.electronwill.night-config:toml:${nightconfig_version}")
 	include implementation("com.electronwill.night-config:core:${nightconfig_version}")
 
-	modImplementation  "maven.modrinth:telluriumforge:${telluriumforge_version}-fabric"
-	//modImplementation  "dependencies:telluriumforge-1.2.2-1.20.1-fabric"
+	modImplementation  "maven.modrinth:telluriumforge:${telluriumforge_version}-${minecraft_version}-fabric"
+	compileOnly "maven.modrinth:telluriumforge:${telluriumforge_version}-${minecraft_version}-fabric:sources"
+	//modImplementation  "dependencies:telluriumforge-1.3.2-${minecraft_version}-fabric"
 }
 
 processResources {
