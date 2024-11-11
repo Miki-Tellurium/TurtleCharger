@@ -11,10 +11,9 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import javax.annotation.Nullable;
 import java.util.concurrent.CompletableFuture;
 
-public class ModTagsProvider extends BlockTagsProvider {
+public class ModBlockTagsProvider extends BlockTagsProvider {
 
-    public ModTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider,
-                           @Nullable ExistingFileHelper existingFileHelper) {
+    public ModBlockTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
         super(output, lookupProvider, TurtleChargingStationMod.MOD_ID, existingFileHelper);
     }
 
