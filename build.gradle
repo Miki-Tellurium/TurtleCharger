@@ -124,17 +124,20 @@ repositories {
             includeGroup "maven.modrinth"
         }
     }
-
+    maven {
+        name = "Curse Maven"
+        url = "https://cursemaven.com"
+    }
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
-    compileOnly fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}")
-    compileOnly fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}")
-    runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
+    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
 
-    implementation fg.deobf("cc.tweaked:cc-tweaked-${mc_version}-forge:${cc_version}")
+    implementation fg.deobf("cc.tweaked:cc-tweaked-${minecraft_version}-forge:${cc_version}")
 
     runtimeOnly fg.deobf("maven.modrinth:cofh-core:${thermal_version}")
     runtimeOnly fg.deobf("maven.modrinth:thermal-expansion:${thermal_version}")
@@ -150,9 +153,14 @@ dependencies {
     implementation fg.deobf("maven.modrinth:architectury-api:${architectury_version}+forge")
 
     implementation fg.deobf("maven.modrinth:cloth-config:${cloth_config_version}+forge")
+
+    implementation fg.deobf("curse.maven:weather2-237746:5244118")
+    implementation fg.deobf("curse.maven:coroutil-237749:5096038")
 }
 
 jar {
+    version = "${project.version}-${minecraft_version}-neoforge"
+
     manifest {
         attributes([
                 "Specification-Title"     : "Turtle Charging Station",
