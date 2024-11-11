@@ -74,7 +74,7 @@ public class ThunderchargeDynamoBlock extends BaseEntityBlock {
     public <T extends BlockEntity> BlockEntityTicker getTicker(Level level, BlockState blockState,
                                                                BlockEntityType<T> blockEntityType) {
         return createTickerHelper(blockEntityType, ModBlockEntities.THUNDERCHARGE_DYNAMO.get(),
-                ThunderchargeDynamoBlockEntity::tick);
+                (tickLevel, pos, state, blockEntity) -> blockEntity.tick(tickLevel, pos, state));
     }
 
     @Override
