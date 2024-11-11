@@ -158,6 +158,18 @@ dependencies {
     implementation fg.deobf("curse.maven:coroutil-237749:5096038")
 }
 
+tasks.withType(ProcessResources).configureEach {
+    var replaceProperties = [
+            minecraft_version      : minecraft_version,
+            mod_version            : mod_version,
+    ]
+    inputs.properties replaceProperties
+
+    filesMatching(['META-INF/mods.toml']) {
+        expand replaceProperties + [project: project]
+    }
+}
+
 jar {
     version = "${project.version}-${minecraft_version}-neoforge"
 

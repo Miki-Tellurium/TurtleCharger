@@ -77,8 +77,8 @@ public class ThunderchargeDynamoBlockEntity extends BlockEntity {
         return charge;
     }
 
-    public static void recharge(ThunderchargeDynamoBlockEntity dynamo) {
-        dynamo.charge = Math.min(dynamo.getCharge() + RECHARGE_AMOUNT.get(), Integer.MAX_VALUE);
+    public void recharge() {
+        this.charge = Math.min(this.getCharge() + RECHARGE_AMOUNT.get(), Integer.MAX_VALUE);
     }
 
     @Override

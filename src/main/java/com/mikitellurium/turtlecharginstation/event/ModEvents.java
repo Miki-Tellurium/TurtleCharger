@@ -2,6 +2,7 @@ package com.mikitellurium.turtlecharginstation.event;
 
 import com.mikitellurium.turtlecharginstation.TurtleChargingStationMod;
 import com.mikitellurium.turtlecharginstation.blockentity.ThunderchargeDynamoBlockEntity;
+import com.mikitellurium.turtlecharginstation.registry.ModTags;
 import com.mikitellurium.turtlecharginstation.util.LevelUtils;
 import com.mikitellurium.turtlecharginstation.util.ModIdConstants;
 import net.minecraft.core.BlockPos;
@@ -26,13 +27,14 @@ public class ModEvents {
         if (event.getLevel().isClientSide) {
             return;
         }
-        if (event.getEntity() instanceof LightningBolt lightningBolt) {
-            BlockEntity maybeDynamo = getBlockEntityBelowStrike(lightningBolt.level(), lightningBolt.getOnPos());
+        Entity entity = event.getEntity();
+        if (entity.getType().is(ModTags.DYNAMO_ACTIVATORS)) {
+            BlockEntity maybeDynamo = getBlockEntityBelowStrike(entity.level(), entity.getOnPos());
             if (maybeDynamo == null) return;
             if (maybeDynamo instanceof ThunderchargeDynamoBlockEntity dynamo) {
-                ThunderchargeDynamoBlockEntity.recharge(dynamo);
-                if (lightningBolt.getCause() == null) {
-                    LevelUtils.maybeDoSpawnCreeper((ServerLevel) lightningBolt.level(), dynamo.getBlockPos());
+                dynamo.recharge();
+                if (entity instanceof LightningBolt lightningBolt && lightningBolt.getCause() == null) {
+                    LevelUtils.maybeDoSpawnCreeper((ServerLevel) entity.level(), dynamo.getBlockPos());
                 }
             }
         }
