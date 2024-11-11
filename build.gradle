@@ -139,9 +139,9 @@ dependencies {
 
     implementation fg.deobf("cc.tweaked:cc-tweaked-${minecraft_version}-forge:${cc_version}")
 
-    runtimeOnly fg.deobf("maven.modrinth:cofh-core:${thermal_version}")
-    runtimeOnly fg.deobf("maven.modrinth:thermal-expansion:${thermal_version}")
-    runtimeOnly fg.deobf("maven.modrinth:thermal-foundation:${thermal_version}")
+    runtimeOnly fg.deobf("maven.modrinth:cofh-core:11.0.2")
+    runtimeOnly fg.deobf("maven.modrinth:thermal-expansion:11.0.1")
+    runtimeOnly fg.deobf("maven.modrinth:thermal-foundation:11.0.6")
 
     runtimeOnly fg.deobf("maven.modrinth:mekanism:${mekanism_version}") // Mekanism: Core
     runtimeOnly fg.deobf("maven.modrinth:mekanism-additions:${mekanism_version}") // Mekanism: Additions
